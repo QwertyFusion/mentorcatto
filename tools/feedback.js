@@ -1,6 +1,6 @@
 const axios = require("axios");
 
-const GEMINI_API_KEY = "YOUR_API_KEY";
+const GEMINI_API_KEY = "AIzaSyANJU-AshJLusYABFkTmMeDZUaGsWL_ol4";
 
 // Mock Data
 const userPerformance = {
