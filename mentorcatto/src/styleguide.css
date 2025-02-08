@@ -1,0 +1,32 @@
+:root {
+    --accent-1: rgba(66, 66, 78, 1);
+    --accent-2: rgba(60, 61, 72, 1);
+    --accent-3: rgba(51, 51, 62, 1);
+    --accent-4: rgba(40, 41, 52, 1);
+    --black: rgba(0, 0, 0, 1);
+    --body-medium-body-2-font-family: "Inter", Helvetica;
+    --body-medium-body-2-font-size: 16px;
+    --body-medium-body-2-font-style: normal;
+    --body-medium-body-2-font-weight: 500;
+    --body-medium-body-2-letter-spacing: 0px;
+    --body-medium-body-2-line-height: 24px;
+    --body-regular-body-2-font-family: "Inter", Helvetica;
+    --body-regular-body-2-font-size: 16px;
+    --body-regular-body-2-font-style: normal;
+    --body-regular-body-2-font-weight: 400;
+    --body-regular-body-2-letter-spacing: 0px;
+    --body-regular-body-2-line-height: 24px;
+    --drop-shadow: 4px 4px 10px 0px rgba(0, 0, 0, 0.25);
+    --drop-shadow-color: rgba(0, 0, 0, 0.25);
+    --label-medium-label-font-family: "Inter", Helvetica;
+    --label-medium-label-font-size: 14px;
+    --label-medium-label-font-style: normal;
+    --label-medium-label-font-weight: 500;
+    --label-medium-label-letter-spacing: 0px;
+    --label-medium-label-line-height: 20px;
+    --primary: rgba(171, 240, 124, 1);
+    --secondary: rgba(213, 238, 225, 1);
+    --tertiary: rgba(106, 117, 146, 1);
+    --white: rgba(255, 255, 255, 1);
+  }
+  
