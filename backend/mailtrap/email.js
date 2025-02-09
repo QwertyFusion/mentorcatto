@@ -21,3 +21,24 @@ export const sendVerificationEmail = async(email, verificationToken) => {
         throw new Error(`Error sending verification email: ${error}`);
     }
 }
+
+export const sendWelcomeEmail = async (email, name) => {
+
+    const recipient = [{ email }];
+    try {
+        const response = await client.send({
+            from: sender,
+            to: recipient,
+            template_uuid: "9fa8e4e2-8986-4c25-a092-b4061d4a714a",
+            template_variables: {
+                "name": name,
+            }
+        });
+
+        console.log("Welcome Email sent", response);
+    } catch (error) {
+        console.error(`Error sending welcome email`, error);
+
+		throw new Error(`Error sending welcome email: ${error}`);
+    }
+}
