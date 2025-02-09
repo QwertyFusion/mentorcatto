@@ -62,7 +62,7 @@ const SignUpPage = () => {
                 </motion.button>
             </form>
         </div>
-        <div className="px-8 py-4 bg-accent-2 flex justify-center rounded-b-ten">
+        <div className="px-8 py-4 bg-gray-900 flex justify-center rounded-b-ten">
             <p className="text-sm text-secondary">
                 Already have an account?{" "}
                 <Link to={"/login"} className="text-primary hover:underline">Login</Link>
