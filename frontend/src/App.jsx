@@ -12,6 +12,7 @@ function App() {
         <Route path="/signup" element={<SignUpPage />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/verify-email" element={<EmailVerificationPage />} />
+        <Route path="/dashboard" element={"Dashboard"} />
       </Routes>
       <Toaster />
     </div>

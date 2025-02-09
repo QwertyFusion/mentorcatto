@@ -19,6 +19,31 @@ export const signup = async (req, res) => {
         .json({ success: false, message: "User Already Exists" });
     }
 
+    // Check if the password is at least 6 characters long
+    if (password.length < 6) {
+      throw new Error("Password must be at least 6 characters long.");
+    }
+
+    // Check for at least one uppercase letter
+    if (!/[A-Z]/.test(password)) {
+      throw new Error("Password must contain at least one uppercase letter.");
+    }
+
+    // Check for at least one lowercase letter
+    if (!/[a-z]/.test(password)) {
+      throw new Error("Password must contain at least one lowercase letter.");
+    }
+
+    // Check for at least one number
+    if (!/[0-9]/.test(password)) {
+      throw new Error("Password must contain at least one number.");
+    }
+
+    // Check for at least one special character
+    if (!/[!@#$%^&*(),.?":{}|<>]/.test(password)) {
+      throw new Error("Password must contain at least one special character.");
+    }
+
     const hashedPassword = await bcryptjs.hash(password, 10);
     const verificationToken = generateVerificationCode();
     const user = new User({
@@ -56,12 +81,10 @@ export const verifyEmail = async (req, res) => {
       verificationTokenExpiresAt: { $gt: Date.now() },
     });
     if (!user) {
-      return res
-        .status(400)
-        .json({
-          success: false,
-          message: "Invalid or expired Verification Code",
-        });
+      return res.status(400).json({
+        success: false,
+        message: "Invalid or expired Verification Code",
+      });
     }
 
     user.isVerified = true;
