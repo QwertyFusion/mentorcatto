@@ -1,4 +1,4 @@
-import { Route, Routes } from "react-router-dom"
+import { Navigate, Route, Routes } from "react-router-dom"
 import LoginPage from "./pages/LoginPage"
 import SignUpPage from "./pages/SignUpPage"
 import EmailVerificationPage from "./pages/EmailVerificationPage"
@@ -10,6 +10,7 @@ import DashboardPage from "./pages/DashboardPage";
 import LoadingSpinner from "./components/LoadingSpinner";
 
 // protect routes that require authentication
+// eslint-disable-next-line react/prop-types
 const ProtectedRoute = ({ children }) => {
 	const { isAuthenticated, user } = useAuthStore();
 
@@ -25,6 +26,7 @@ const ProtectedRoute = ({ children }) => {
 };
 
 // redirect authenticated users to the dashboard page
+// eslint-disable-next-line react/prop-types
 const RedirectAuthenticatedUser = ({ children }) => {
 	const { isAuthenticated, user } = useAuthStore();
 
