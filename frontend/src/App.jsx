@@ -7,6 +7,7 @@ import { useAuthStore } from "./store/authStore";
 import { useEffect } from "react";
 import HomePage from "./pages/HomePage";
 import DashboardPage from "./pages/DashboardPage";
+import LoadingSpinner from "./components/LoadingSpinner";
 
 // protect routes that require authentication
 const ProtectedRoute = ({ children }) => {
@@ -41,7 +42,7 @@ function App() {
 		checkAuth();
 	}, [checkAuth]);
 
-  // if (isCheckingAuth) return <LoadingSpinner />;
+  if (isCheckingAuth) return <LoadingSpinner />;
 
   return (
     <div className="min-h-screen bg-accent-3 flex items-center justify-center relative overflow-hidden">
