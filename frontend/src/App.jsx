@@ -11,6 +11,11 @@ import LoadingSpinner from "./components/LoadingSpinner";
 import ForgotPasswordPage from "./pages/ForgotPasswordPage";
 import ResetPasswordPage from "./pages/ResetPasswordPage";
 import ChatPage from "./pages/ChatPage";
+import CoursePage from "./pages/CoursePage";
+import AchievementsPage from "./pages/AchievementsPage";
+import AssessmentsPage from "./pages/AssessmentsPage";
+import SettingsPage from "./pages/SettingsPage";
+import ProfilePage from "./pages/ProfilePage";
 
 // protect routes that require authentication
 // eslint-disable-next-line react/prop-types
@@ -102,10 +107,50 @@ function App() {
           }
         />
         <Route
+          path="/courses"
+          element={
+            <ProtectedRoute>
+              <CoursePage />
+            </ProtectedRoute>
+          }
+        />
+        <Route
           path="/chat"
           element={
             <ProtectedRoute>
               <ChatPage />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/achievements"
+          element={
+            <ProtectedRoute>
+              <AchievementsPage />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/assessments"
+          element={
+            <ProtectedRoute>
+              <AssessmentsPage />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/settings"
+          element={
+            <ProtectedRoute>
+              <SettingsPage />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/profile"
+          element={
+            <ProtectedRoute>
+              <ProfilePage />
             </ProtectedRoute>
           }
         />
