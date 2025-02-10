@@ -20,7 +20,7 @@ const LoginPage = () => {
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
-        className="max-w-md w-full bg-accent-4 rounded-ten drop-shadow-custom overflow-hi"
+        className="max-w-md w-full bg-accent-4 rounded-ten drop-shadow-custom overflow-hidden"
     >
 			<div className="p-8">
             <h2 className="text-3xl font-semibold mb-6 text-center text-primary">
