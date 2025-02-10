@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
 import { useAuthStore } from "../store/authStore";
 import { formatDate } from "../utils/date";
+import LeftNavbar from "../components/LeftNavbar";
 
 const DashboardPage = () => {
 	const { user, logout } = useAuthStore();
@@ -9,7 +10,13 @@ const DashboardPage = () => {
 		logout();
 	};
 	return (
-		<motion.div
+		<div className='h-screen w-full grid grid-cols-12'>
+      <div className='col-span-2'>
+        <LeftNavbar />
+      </div>
+
+      <div className='col-span-10 bg-accent-2'>
+	  <motion.div
 			initial={{ opacity: 0, scale: 0.9 }}
 			animate={{ opacity: 1, scale: 1 }}
 			exit={{ opacity: 0, scale: 0.9 }}
@@ -72,6 +79,9 @@ const DashboardPage = () => {
 				</motion.button>
 			</motion.div>
 		</motion.div>
+      </div>
+    </div>
+		
 	);
 };
 export default DashboardPage;
