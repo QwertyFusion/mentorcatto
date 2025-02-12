@@ -12,7 +12,13 @@ const LoginPage = () => {
 
   const handleLogin = async (e) => {
     e.preventDefault();
-    await login(email, password);
+    try {
+      await login(email, password);
+      navigate("/dashboard");
+      toast.success("Logged in successfully");
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (

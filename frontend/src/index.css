@@ -18,10 +18,39 @@
   /* DROP SHADOW */
   --drop-shadow-custom: 4px 4px 6px rgba(0, 0, 0, 0.25);
 
+  /* INNER SHADOW */
+  --inner-shadow-custom: inset 4px 4px 6px rgba(0, 0, 0, 0.25);
+
   /* FONT */
   --font-inter: "Inter", sans-serif;
 
   /* BORDER RADIUS */
   --radius-ten: 10px;
   --radius-seven: 7px;
+}
+
+/* Custom class for inner shadow */
+.inner-shadow {
+  box-shadow: var(--inner-shadow-custom);
+}
+
+/* Custom Scrollbar theme */
+@layer utilities {
+  ::-webkit-scrollbar {
+    width: 5px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background-color: theme("colors.accent-1");
+    border-radius: 10px;
+    border: none;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background-color: theme("colors.primary");
+  }
 }

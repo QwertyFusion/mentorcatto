@@ -57,6 +57,18 @@ const LeftNavbar = () => {
                     </Link>
 
                     <Link 
+                        to="/chat" 
+                        className={`flex items-center p-4 ${location.pathname === '/chat' ? 'bg-accent-4 text-primary' : 'hover:bg-accent-4 text-white'} drop-shadow-custom rounded-seven focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 focus:ring-offset-gray-900 transition duration-200`}
+                    >
+                        <img
+                            className={`top-0 left-0 !relative w-6 h-6`}
+                            alt="Doubt Chat"
+                            src="Chat.svg"
+                        />
+                        <span className="ml-3 font-medium">Mentor Chat</span>
+                    </Link>
+
+                    <Link 
                         to="/courses" 
                         className={`flex items-center p-4 ${location.pathname === '/courses' ? 'bg-accent-4 text-primary' : 'hover:bg-accent-4 text-white'} drop-shadow-custom rounded-seven focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 focus:ring-offset-gray-900 transition duration-200`}
                     >
@@ -67,18 +79,6 @@ const LeftNavbar = () => {
                         />
                         
                         <span className="ml-3 font-medium">Courses</span>
-                    </Link>
-
-                    <Link 
-                        to="/chat" 
-                        className={`flex items-center p-4 ${location.pathname === '/chat' ? 'bg-accent-4 text-primary' : 'hover:bg-accent-4 text-white'} drop-shadow-custom rounded-seven focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 focus:ring-offset-gray-900 transition duration-200`}
-                    >
-                        <img
-                            className={`top-0 left-0 !relative w-6 h-6`}
-                            alt="Doubt Chat"
-                            src="Chat.svg"
-                        />
-                        <span className="ml-3 font-medium">Doubt Chat</span>
                     </Link>
 
                     <Link 

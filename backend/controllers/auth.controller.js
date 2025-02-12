@@ -169,7 +169,7 @@ export const forgotPassword = async (req, res) => {
 
     // Generate reset token
     const resetToken = crypto.randomBytes(20).toString("hex");
-    const resetTokenExpiresAt = Date.now() + 1 * 60 * 60 * 1000; // 1 hour
+    const resetTokenExpiresAt = Date.now() + 1 * 15 * 60 * 1000; // 15 minutes
 
     user.resetPasswordToken = resetToken;
     user.resetPasswordExpiresAt = resetTokenExpiresAt;
@@ -209,7 +209,7 @@ export const resetPassword = async (req, res) => {
     }
 
     // update password
-    const hashedPassword = await bcryptjs.hash(password, 10);
+    const hashedPassword = await bcryptjs.hash(password, 10); // Using 10 as salt length
 
     user.password = hashedPassword;
     user.resetPasswordToken = undefined;

@@ -39,6 +39,9 @@ const RedirectAuthenticatedUser = ({ children }) => {
   const { isAuthenticated, user } = useAuthStore();
 
   if (isAuthenticated && user.isVerified) {
+    if(user.preferredLanguage === "") {
+      return <Navigate to="/chat" replace />;
+    }
     return <Navigate to="/dashboard" replace />;
   }
 

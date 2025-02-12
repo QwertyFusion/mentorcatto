@@ -15,6 +15,10 @@ const userSchema = new mongoos.Schema(
       type: String,
       require: true,
     },
+    preferredLanguage: {
+      type: String,
+      default: "", // Set default to an empty string (null or not set)
+    },
     lastLogin: {
       type: Date,
       default: Date.now,
