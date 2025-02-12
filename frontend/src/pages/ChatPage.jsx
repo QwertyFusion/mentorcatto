@@ -2,6 +2,7 @@ import LeftNavbar from "../components/LeftNavbar";
 import { useState, useEffect, useRef } from "react";
 import { motion } from "framer-motion";
 import { useAuthStore } from "../store/authStore";
+import IconStore from "../components/IconStore";
 
 const ChatPage = () => {
   const { user } = useAuthStore();
@@ -85,7 +86,7 @@ const ChatPage = () => {
               onClick={sendMessage}
               className="ml-2 p-3 bg-primary text-white drop-shadow-custom rounded-seven focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 focus:ring-offset-gray-900 transition duration-200"
             >
-              <img className="w-5 h-5" alt="Send button" src="sent.svg" />
+              <IconStore name="send" className="w-5 h-5" color='accent-3' />
             </motion.button>
           </div>
         </motion.div>
