@@ -3,7 +3,7 @@ import { motion } from "framer-motion";
 
 const Navbar = () => {
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 bg-accent-4 h-fit py-5">
+    <nav className="fixed top-0 left-0 right-0 z-50 px-10 md:px-0 bg-accent-4 h-fit py-5">
       <div className="max-w-7xl mx-auto h-full flex justify-between items-center">
         {/* Left side - Logo and Brand */}
         <div className="flex items-center gap-2">

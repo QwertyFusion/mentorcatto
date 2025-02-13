@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 
 const HomePage = () => {
   return (
-    <div className="min-h-screen w-full bg-accent-3">
+    <div className="min-h-screen w-full bg-accent-3 overflow-y-auto">
       <Navbar />
       
       {/* Main Content */}
@@ -16,9 +16,9 @@ const HomePage = () => {
             <h1 className="text-6xl md:text-7xl leading-tight font-bold text-white">
               Lessons and
               <br />
-              insights <span className="text-[#A7F288]">on DSA</span>
+              insights <span className="text-primary">on DSA</span>
             </h1>
-            <p className="text-gray-300 text-lg mt-6">
+            <p className="text-white text-lg mt-6">
               Where to grow your DSA skills? MentorCatto!
             </p>
             <Link to="/signup">
@@ -49,7 +49,7 @@ const HomePage = () => {
             <h3 className="text-white text-[32px] md:text-[40px] font-bold mt-[-10px]">
               in a single system
             </h3>
-            <p className="text-gray-300 mt-2 text-lg">
+            <p className="text-white mt-2 text-lg">
               Who is MentorCatto suitable for?
             </p>
           </div>
@@ -115,28 +115,28 @@ const HomePage = () => {
               <img src="Members.svg" alt="" className="w-8 h-8" />
               <div>
                 <p className="text-2xl font-bold text-white">2</p>
-                <p className="text-gray-300">Members</p>
+                <p className="text-accent-5">Members</p>
               </div>
             </div>
             <div className="flex items-center gap-4">
               <img src="CoursesGreen.svg" alt="" className="w-8 h-8" />
               <div>
                 <p className="text-2xl font-bold text-white">46</p>
-                <p className="text-gray-300">Modules</p>
+                <p className="text-accent-5">Modules</p>
               </div>
             </div>
             <div className="flex items-center gap-4">
               <img src="ExamGreen.svg" alt="" className="w-8 h-8" />
               <div>
                 <p className="text-2xl font-bold text-white">5</p>
-                <p className="text-gray-300">Question Types</p>
+                <p className="text-accent-5">Question Types</p>
               </div>
             </div>
             <div className="flex items-center gap-4">
               <img src="AwardGreen.svg" alt="" className="w-8 h-8" />
               <div>
                 <p className="text-2xl font-bold text-white">46</p>
-                <p className="text-gray-300">Achievements</p>
+                <p className="text-accent-5">Achievements</p>
               </div>
             </div>
           </div>
@@ -144,14 +144,14 @@ const HomePage = () => {
       </div>
 
       {/* Footer */}
-      <footer className="h-fit bg-accent-4 py-5">
-          <div className="max-w-7xl mx-auto h-full grid grid-cols-3 justify-between items-center">
+      <footer className="h-fit bg-accent-4 py-5 px-10 md:px-0">
+          <div className="max-w-7xl mx-auto h-full grid grid-cols-2 md:grid-cols-3 justify-between items-center">
             <div className="flex items-center gap-2">
               <img className="w-10 h-10" alt="MentorCatto Logo" src="Cat.png" />
               <span className="text-3xl font-semibold text-white">MentorCatto</span>
             </div>
           
-          <p className="text-accent-5 mt-2 md:mt-0 text-center">Copyright © 2025 MentorCatto</p>
+          <p className="text-accent-5 mt-2 md:mt-0 text-center hidden md:block">Copyright © 2025 MentorCatto</p>
           <div className="flex flex-row justify-end items-end">
             <a href="https://github.com/QwertyFusion/mentorcatto" target="_blank">
               <motion.button 
@@ -164,6 +164,7 @@ const HomePage = () => {
             </a>
           </div>
           </div>
+          <p className="text-accent-5 mt-5 text-center block md:hidden">Copyright © 2025 MentorCatto</p>
         </footer>
     </div>
   );
