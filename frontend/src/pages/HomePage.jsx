@@ -1,8 +1,6 @@
+import { Link } from "react-router-dom";
 import Navbar from "../components/NavBar";
-import { useState, useEffect, useRef } from "react";
 import { motion } from "framer-motion";
-import { useAuthStore } from "../store/authStore";
-import IconStore from "../components/IconStore";
 
 const HomePage = () => {
   return (
@@ -10,11 +8,11 @@ const HomePage = () => {
       <Navbar />
 
       {/* Hero Section */}
-      <div className="w-full left-0 right-0 mx-auto px-[120px] pt-32">
-        <div className="flex justify-between items-start">
+      <div className="bg-blue-900 max-w-5xl w-full mx-auto pt-32 px-4">
+        <div className="bg-pink-300 flex flex-col gap-5 md:flex-row justify-between items-center md:h-fit">
           {/* Left Content */}
-          <div className="max-w-[600px]">
-            <h1 className="text-[64px] leading-tight font-bold text-white">
+          <div className="bg-yellow-300 md:mb-0">
+            <h1 className="text-6xl md:text-7xl leading-tight font-bold text-white">
               Lessons and
               <br />
               insights <span className="text-[#A7F288]">on DSA</span>
@@ -22,13 +20,17 @@ const HomePage = () => {
             <p className="text-gray-300 text-lg mt-6">
               Where to grow your DSA skills? MentorCatto!
             </p>
-            <button className="mt-8 px-8 py-3 bg-[#A7F288] hover:bg-[#95D979] rounded-lg text-black font-medium">
-              Register
-            </button>
+            <Link to="/signup">
+              <motion.button 
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              className="mt-8 px-8 py-3 bg-primary text-black font-medium drop-shadow-custom rounded-seven focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 focus:ring-offset-gray-900 transition duration-200 cursor-pointer">Register</motion.button>
+            </Link>
+            
           </div>
 
           {/* Right Image */}
-          <div className="w-[450px]">
+          <div className="bg-yellow-300 md:w-[450px]">
             <img
               src="Illustration.svg"
               alt="DSA Learning"
@@ -38,56 +40,58 @@ const HomePage = () => {
         </div>
 
         {/* Features Section */}
-        <div className="mt-40 text-center">
-          <h2 className="text-[#A7F288] text-[40px] font-bold leading-tight">
-            Learn entire DSA till placements
-          </h2>
-          <h3 className="text-white text-[40px] font-bold mt-2">
-            in a single system
-          </h3>
-          <p className="text-gray-300 mt-6 text-lg">
-            Who is MentorCatto suitable for?
-          </p>
+        <div className="bg-pink-300 mt-40 text-center">
+          <div className="bg-yellow-300 ">
+            <h2 className="text-[#A7F288] text-[32px] md:text-[40px] font-bold leading-tight">
+              Learn entire DSA till placements
+            </h2>
+            <h3 className="text-white text-[32px] md:text-[40px] font-bold mt-2">
+              in a single system
+            </h3>
+            <p className="text-gray-300 mt-6 text-lg">
+              Who is MentorCatto suitable for?
+            </p>
+          </div>
 
           {/* Cards */}
-          <div className="grid grid-cols-3 gap-6 mt-16">
-            {/* Beginners Card */}
-            <div className="bg-[#42424E] rounded-2xl p-8">
-              <div className="w-14 h-14 bg-[#D5EEE1] rounded-xl mb-6 mx-auto flex items-center justify-center">
+          <div className="bg-yellow-300 flex justify-evenly flex-col md:flex-row mx-7 md:mx-0 gap-6 mt-16">
+            {/* Beginner Card */}
+            <div className="bg-accent-1 rounded-ten p-8">
+              <div className="w-14 h-14 bg-secondary rounded-seven mb-6 mx-auto flex items-center justify-center">
                 <img src="Lollipop.svg" alt="Beginners" className="w-8 h-8" />
               </div>
-              <h4 className="text-[#A7F288] text-2xl font-bold mb-4">
-                Beginners
+              <h4 className="bg-red-600 text-primary text-2xl font-bold mb-4">
+                Beginner
               </h4>
-              <p className="text-gray-300 text-base leading-relaxed">
+              <p className="bg-red-600 text-accent-5 text-base leading-relaxed">
                 Lorem ipsum dolor sit amet consectetur. Tellus nulla diam
                 adipiscing donec. Sed at et consectetur venenatis.
               </p>
             </div>
 
-            {/* Intermediates Card */}
-            <div className="bg-[#42424E] rounded-2xl p-8">
-              <div className="w-14 h-14 bg-[#D5EEE1] rounded-xl mb-6 mx-auto flex items-center justify-center">
+            {/* Intermediate Card */}
+            <div className="bg-accent-1 rounded-ten p-8">
+              <div className="w-14 h-14 bg-secondary rounded-seven mb-6 mx-auto flex items-center justify-center">
                 <img src="Star.svg" alt="Intermediates" className="w-8 h-8" />
               </div>
-              <h4 className="text-[#A7F288] text-2xl font-bold mb-4">
-                Intermediates
+              <h4 className="bg-red-600 text-primary text-2xl font-bold mb-4">
+                Intermediate
               </h4>
-              <p className="text-gray-300 text-base leading-relaxed">
+              <p className="bg-red-600 text-accent-5 text-base leading-relaxed">
                 Lorem ipsum dolor sit amet consectetur. Tellus nulla diam
                 adipiscing donec. Sed at et consectetur venenatis.
               </p>
             </div>
 
             {/* Advanced Card */}
-            <div className="bg-[#42424E] rounded-2xl p-8">
-              <div className="w-14 h-14 bg-[#D5EEE1] rounded-xl mb-6 mx-auto flex items-center justify-center">
+            <div className="bg-accent-1 rounded-ten p-8">
+              <div className="w-14 h-14 bg-secondary rounded-seven mb-6 mx-auto flex items-center justify-center">
                 <img src="Crown.svg" alt="Advanced" className="w-8 h-8" />
               </div>
-              <h4 className="text-[#A7F288] text-2xl font-bold mb-4">
+              <h4 className="bg-red-600 text-primary text-2xl font-bold mb-4">
                 Advanced
               </h4>
-              <p className="text-gray-300 text-base leading-relaxed">
+              <p className="bg-red-600 text-accent-5 text-base leading-relaxed">
                 Lorem ipsum dolor sit amet consectetur. Tellus nulla diam
                 adipiscing donec. Sed at et consectetur venenatis.
               </p>
@@ -96,59 +100,57 @@ const HomePage = () => {
         </div>
 
         {/* Stats Section */}
-        <div className="mt-40">
-          <div className="flex justify-between items-start">
-            <div>
-              <h2 className="text-[40px] font-bold text-white leading-tight">
-                Our platform offers
-                <br />
-                <span className="text-[#A7F288]">a lot of nice stuff</span>
-              </h2>
-            </div>
+        <div className="bg-pink-300 mt-40 flex flex-col md:flex-row justify-between items-start">
+          <div className="bg-yellow-300">
+            <h2 className="text-[32px] md:text-[40px] font-bold text-white leading-tight">
+              Our platform offers
+              <br />
+              <span className="text-[#A7F288]">a lot of nice stuff</span>
+            </h2>
+          </div>
 
-            <div className="grid grid-cols-2 gap-8">
-              <div className="flex items-center gap-4">
-                <img src="Members.svg" alt="" className="w-8 h-8" />
-                <div>
-                  <p className="text-2xl font-bold text-white">2</p>
-                  <p className="text-gray-300">Members</p>
-                </div>
+          <div className="bg-yellow-300 grid grid-cols-2 gap-8 mt-4 md:mt-0">
+            <div className="flex items-center gap-4">
+              <img src="Members.svg" alt="" className="w-8 h-8" />
+              <div>
+                <p className="text-2xl font-bold text-white">2</p>
+                <p className="text-gray-300">Members</p>
               </div>
-              <div className="flex items-center gap-4">
-                <img src="CoursesGreen.svg" alt="" className="w-8 h-8" />
-                <div>
-                  <p className="text-2xl font-bold text-white">46</p>
-                  <p className="text-gray-300">Modules</p>
-                </div>
+            </div>
+            <div className="flex items-center gap-4">
+              <img src="CoursesGreen.svg" alt="" className="w-8 h-8" />
+              <div>
+                <p className="text-2xl font-bold text-white">46</p>
+                <p className="text-gray-300">Modules</p>
               </div>
-              <div className="flex items-center gap-4">
-                <img src="ExamGreen.svg" alt="" className="w-8 h-8" />
-                <div>
-                  <p className="text-2xl font-bold text-white">5</p>
-                  <p className="text-gray-300">Question Types</p>
-                </div>
+            </div>
+            <div className="flex items-center gap-4">
+              <img src="ExamGreen.svg" alt="" className="w-8 h-8" />
+              <div>
+                <p className="text-2xl font-bold text-white">5</p>
+                <p className="text-gray-300">Question Types</p>
               </div>
-              <div className="flex items-center gap-4">
-                <img src="AwardGreen.svg" alt="" className="w-8 h-8" />
-                <div>
-                  <p className="text-2xl font-bold text-white">46</p>
-                  <p className="text-gray-300">Achievements</p>
-                </div>
+            </div>
+            <div className="flex items-center gap-4">
+              <img src="AwardGreen.svg" alt="" className="w-8 h-8" />
+              <div>
+                <p className="text-2xl font-bold text-white">46</p>
+                <p className="text-gray-300">Achievements</p>
               </div>
             </div>
           </div>
         </div>
 
         {/* Footer */}
-        <footer className="border-t border-gray-800 py-8 flex justify-between items-center">
+        <footer className="bg-yellow-300 border-t border-gray-800 py-8 flex flex-col md:flex-row justify-between items-center">
           <div className="flex items-center gap-2">
             <img className="w-[40px] h-[40px]" alt="Cat" src="Cat.png" />
             <span className="text-xl font-semibold text-white">
               MENTORCATTO
             </span>
           </div>
-          <p className="text-gray-400">Copyright © 2025 MentorCatto</p>
-          <button className="px-4 py-2 bg-accent-2 rounded-lg text-white text-sm flex items-center gap-2">
+          <p className="text-gray-400 mt-2 md:mt-0">Copyright © 2025 MentorCatto</p>
+          <button className="px-4 py-2 bg-accent-2 rounded-lg text-white text-sm flex items-center gap-2 mt-2 md:mt-0">
             <img src="/github-icon.png" alt="" className="w-4 h-4" />
             GitHub
           </button>
