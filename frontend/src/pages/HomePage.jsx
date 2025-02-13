@@ -53,7 +53,7 @@ const HomePage = () => {
           <div className="grid grid-cols-3 gap-6 mt-16">
             {/* Beginners Card */}
             <div className="bg-[#42424E] rounded-2xl p-8">
-              <div className="w-14 h-14 bg-[#40414F] rounded-xl mb-6 mx-auto flex items-center justify-center">
+              <div className="w-14 h-14 bg-[#D5EEE1] rounded-xl mb-6 mx-auto flex items-center justify-center">
                 <img src="Lollipop.svg" alt="Beginners" className="w-8 h-8" />
               </div>
               <h4 className="text-[#A7F288] text-2xl font-bold mb-4">
@@ -67,7 +67,7 @@ const HomePage = () => {
 
             {/* Intermediates Card */}
             <div className="bg-[#42424E] rounded-2xl p-8">
-              <div className="w-14 h-14 bg-[#40414F] rounded-xl mb-6 mx-auto flex items-center justify-center">
+              <div className="w-14 h-14 bg-[#D5EEE1] rounded-xl mb-6 mx-auto flex items-center justify-center">
                 <img src="Star.svg" alt="Intermediates" className="w-8 h-8" />
               </div>
               <h4 className="text-[#A7F288] text-2xl font-bold mb-4">
@@ -81,7 +81,7 @@ const HomePage = () => {
 
             {/* Advanced Card */}
             <div className="bg-[#42424E] rounded-2xl p-8">
-              <div className="w-14 h-14 bg-[#40414F] rounded-xl mb-6 mx-auto flex items-center justify-center">
+              <div className="w-14 h-14 bg-[#D5EEE1] rounded-xl mb-6 mx-auto flex items-center justify-center">
                 <img src="Crown.svg" alt="Advanced" className="w-8 h-8" />
               </div>
               <h4 className="text-[#A7F288] text-2xl font-bold mb-4">
@@ -115,21 +115,21 @@ const HomePage = () => {
                 </div>
               </div>
               <div className="flex items-center gap-4">
-                <img src="courses.svg" alt="" className="w-8 h-8" />
+                <img src="CoursesGreen.svg" alt="" className="w-8 h-8" />
                 <div>
                   <p className="text-2xl font-bold text-white">46</p>
                   <p className="text-gray-300">Modules</p>
                 </div>
               </div>
               <div className="flex items-center gap-4">
-                <img src="Exam.svg" alt="" className="w-8 h-8" />
+                <img src="ExamGreen.svg" alt="" className="w-8 h-8" />
                 <div>
                   <p className="text-2xl font-bold text-white">5</p>
                   <p className="text-gray-300">Question Types</p>
                 </div>
               </div>
               <div className="flex items-center gap-4">
-                <img src="Award.svg" alt="" className="w-8 h-8" />
+                <img src="AwardGreen.svg" alt="" className="w-8 h-8" />
                 <div>
                   <p className="text-2xl font-bold text-white">46</p>
                   <p className="text-gray-300">Achievements</p>
