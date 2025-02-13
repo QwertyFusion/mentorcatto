@@ -4,6 +4,7 @@ import { useAuthStore } from "../store/authStore";
 import Input from "../components/Input";
 import { ArrowLeft, Loader, Mail } from "lucide-react";
 import { Link } from "react-router-dom";
+import Navbar from "../components/NavBar";
 
 const ForgotPasswordPage = () => {
   const [email, setEmail] = useState("");
@@ -18,6 +19,8 @@ const ForgotPasswordPage = () => {
   };
 
   return (
+    <>
+    <Navbar />
     <motion.div
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
@@ -83,6 +86,7 @@ const ForgotPasswordPage = () => {
         </Link>
       </div>
     </motion.div>
+    </>
   );
 };
 export default ForgotPasswordPage;
