@@ -6,12 +6,13 @@ const HomePage = () => {
   return (
     <div className="min-h-screen bg-accent-3">
       <Navbar />
-
-      {/* Hero Section */}
-      <div className="bg-blue-900 max-w-5xl w-full mx-auto pt-32 px-4">
-        <div className="bg-pink-300 flex flex-col gap-5 md:flex-row justify-between items-center md:h-fit">
+      
+      {/* Main Content */}
+      <div className="max-w-7xl w-full mx-auto pt-32 px-4">
+        {/* Hero Section */}
+        <div className="mt-10 flex flex-col gap-5 md:flex-row justify-between items-center md:h-fit">
           {/* Left Content */}
-          <div className="bg-yellow-300 md:mb-0">
+          <div className="md:mb-0">
             <h1 className="text-6xl md:text-7xl leading-tight font-bold text-white">
               Lessons and
               <br />
@@ -30,7 +31,7 @@ const HomePage = () => {
           </div>
 
           {/* Right Image */}
-          <div className="bg-yellow-300 md:w-[450px]">
+          <div className="md:w-[450px]">
             <img
               src="Illustration.svg"
               alt="DSA Learning"
@@ -40,30 +41,30 @@ const HomePage = () => {
         </div>
 
         {/* Features Section */}
-        <div className="bg-pink-300 mt-40 text-center">
-          <div className="bg-yellow-300 ">
-            <h2 className="text-[#A7F288] text-[32px] md:text-[40px] font-bold leading-tight">
+        <div className="mt-40 text-center">
+          <div>
+            <h2 className="text-primary text-[32px] md:text-[40px] font-bold leading-tight">
               Learn entire DSA till placements
             </h2>
-            <h3 className="text-white text-[32px] md:text-[40px] font-bold mt-2">
+            <h3 className="text-white text-[32px] md:text-[40px] font-bold mt-[-10px]">
               in a single system
             </h3>
-            <p className="text-gray-300 mt-6 text-lg">
+            <p className="text-gray-300 mt-2 text-lg">
               Who is MentorCatto suitable for?
             </p>
           </div>
 
           {/* Cards */}
-          <div className="bg-yellow-300 flex justify-evenly flex-col md:flex-row mx-7 md:mx-0 gap-6 mt-16">
+          <div className="flex justify-evenly flex-col md:flex-row mx-7 md:mx-0 gap-6 mt-6">
             {/* Beginner Card */}
             <div className="bg-accent-1 rounded-ten p-8">
               <div className="w-14 h-14 bg-secondary rounded-seven mb-6 mx-auto flex items-center justify-center">
                 <img src="Lollipop.svg" alt="Beginners" className="w-8 h-8" />
               </div>
-              <h4 className="bg-red-600 text-primary text-2xl font-bold mb-4">
+              <h4 className="text-primary text-2xl font-bold mb-4">
                 Beginner
               </h4>
-              <p className="bg-red-600 text-accent-5 text-base leading-relaxed">
+              <p className="text-accent-5 text-base leading-relaxed">
                 Lorem ipsum dolor sit amet consectetur. Tellus nulla diam
                 adipiscing donec. Sed at et consectetur venenatis.
               </p>
@@ -74,10 +75,10 @@ const HomePage = () => {
               <div className="w-14 h-14 bg-secondary rounded-seven mb-6 mx-auto flex items-center justify-center">
                 <img src="Star.svg" alt="Intermediates" className="w-8 h-8" />
               </div>
-              <h4 className="bg-red-600 text-primary text-2xl font-bold mb-4">
+              <h4 className="text-primary text-2xl font-bold mb-4">
                 Intermediate
               </h4>
-              <p className="bg-red-600 text-accent-5 text-base leading-relaxed">
+              <p className="text-accent-5 text-base leading-relaxed">
                 Lorem ipsum dolor sit amet consectetur. Tellus nulla diam
                 adipiscing donec. Sed at et consectetur venenatis.
               </p>
@@ -88,10 +89,10 @@ const HomePage = () => {
               <div className="w-14 h-14 bg-secondary rounded-seven mb-6 mx-auto flex items-center justify-center">
                 <img src="Crown.svg" alt="Advanced" className="w-8 h-8" />
               </div>
-              <h4 className="bg-red-600 text-primary text-2xl font-bold mb-4">
+              <h4 className=" text-primary text-2xl font-bold mb-4">
                 Advanced
               </h4>
-              <p className="bg-red-600 text-accent-5 text-base leading-relaxed">
+              <p className="text-accent-5 text-base leading-relaxed">
                 Lorem ipsum dolor sit amet consectetur. Tellus nulla diam
                 adipiscing donec. Sed at et consectetur venenatis.
               </p>
@@ -100,16 +101,16 @@ const HomePage = () => {
         </div>
 
         {/* Stats Section */}
-        <div className="bg-pink-300 mt-40 flex flex-col md:flex-row justify-between items-start">
-          <div className="bg-yellow-300">
-            <h2 className="text-[32px] md:text-[40px] font-bold text-white leading-tight">
+        <div className="my-20 flex flex-col md:flex-row justify-between items-center md:h-fit">
+          <div className="">
+            <h2 className="text-5xl md:text-4xl font-bold text-white leading-tight">
               Our platform offers
               <br />
-              <span className="text-[#A7F288]">a lot of nice stuff</span>
+              <span className="text-primary">a lot of nice stuff</span>
             </h2>
           </div>
 
-          <div className="bg-yellow-300 grid grid-cols-2 gap-8 mt-4 md:mt-0">
+          <div className="grid grid-cols-2 gap-x-20 gap-y-8 mt-4 md:mt-0">
             <div className="flex items-center gap-4">
               <img src="Members.svg" alt="" className="w-8 h-8" />
               <div>
@@ -140,9 +141,10 @@ const HomePage = () => {
             </div>
           </div>
         </div>
+      </div>
 
-        {/* Footer */}
-        <footer className="bg-yellow-300 border-t border-gray-800 py-8 flex flex-col md:flex-row justify-between items-center">
+      {/* Footer */}
+      <footer className="h-fit bg-accent-4  border-t border-gray-800 py-5 flex flex-col md:flex-row justify-between items-center">
           <div className="flex items-center gap-2">
             <img className="w-[40px] h-[40px]" alt="Cat" src="Cat.png" />
             <span className="text-xl font-semibold text-white">
@@ -155,7 +157,6 @@ const HomePage = () => {
             GitHub
           </button>
         </footer>
-      </div>
     </div>
   );
 };
