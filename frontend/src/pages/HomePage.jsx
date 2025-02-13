@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 
 const HomePage = () => {
   return (
-    <div className="min-h-screen bg-accent-3">
+    <div className="min-h-screen w-full bg-accent-3">
       <Navbar />
       
       {/* Main Content */}
@@ -144,18 +144,26 @@ const HomePage = () => {
       </div>
 
       {/* Footer */}
-      <footer className="h-fit bg-accent-4  border-t border-gray-800 py-5 flex flex-col md:flex-row justify-between items-center">
-          <div className="flex items-center gap-2">
-            <img className="w-[40px] h-[40px]" alt="Cat" src="Cat.png" />
-            <span className="text-xl font-semibold text-white">
-              MENTORCATTO
-            </span>
+      <footer className="h-fit bg-accent-4 py-5">
+          <div className="max-w-7xl mx-auto h-full grid grid-cols-3 justify-between items-center">
+            <div className="flex items-center gap-2">
+              <img className="w-10 h-10" alt="MentorCatto Logo" src="Cat.png" />
+              <span className="text-3xl font-semibold text-white">MentorCatto</span>
+            </div>
+          
+          <p className="text-accent-5 mt-2 md:mt-0 text-center">Copyright © 2025 MentorCatto</p>
+          <div className="flex flex-row justify-end items-end">
+            <a href="https://github.com/QwertyFusion/mentorcatto" target="_blank">
+              <motion.button 
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                className="ml-2 py-2 px-3 bg-accent-1 text-white drop-shadow-custom rounded-seven focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 focus:ring-offset-gray-900 transition duration-200 cursor-pointer flex flex-row items-center gap-3">
+                <img src="Github.svg" alt="" className="w-5 h-5"/>
+                GitHub Repository
+              </motion.button>
+            </a>
           </div>
-          <p className="text-gray-400 mt-2 md:mt-0">Copyright © 2025 MentorCatto</p>
-          <button className="px-4 py-2 bg-accent-2 rounded-lg text-white text-sm flex items-center gap-2 mt-2 md:mt-0">
-            <img src="/github-icon.png" alt="" className="w-4 h-4" />
-            GitHub
-          </button>
+          </div>
         </footer>
     </div>
   );
