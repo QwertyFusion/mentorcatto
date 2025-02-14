@@ -2,8 +2,10 @@ import { Link } from "react-router-dom";
 import Navbar from "../components/NavBar";
 import { motion } from "framer-motion";
 import IconStore from "../components/IconStore";
+import { useAuthStore } from "../store/authStore";
 
 const HomePage = () => {
+    const { isAuthenticated } = useAuthStore();
     return (
         <div className="min-h-screen w-full bg-accent-3 overflow-y-auto">
             <Navbar />
@@ -23,13 +25,13 @@ const HomePage = () => {
                         <p className="text-white text-lg mt-6">
                             Where to grow your DSA skills? MentorCatto!
                         </p>
-                        <Link to="/signup">
+                        <Link to={!isAuthenticated ? "/signup" : "/dashboard"}>
                             <motion.button
                                 whileHover={{ scale: 1.05 }}
                                 whileTap={{ scale: 0.95 }}
                                 className="mt-8 px-8 py-3 bg-primary text-black font-medium drop-shadow-custom rounded-seven focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 focus:ring-offset-gray-900 transition duration-200 cursor-pointer"
                             >
-                                Register
+                                {!isAuthenticated ? "Register" : "Dashboard"}
                             </motion.button>
                         </Link>
                     </div>
