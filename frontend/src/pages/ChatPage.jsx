@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import { useAuthStore } from "../store/authStore";
 import { useAiAgentStore } from "../store/aiAgentStore"; // Import the store
 import IconStore from "../components/IconStore";
+import { Loader } from "lucide-react"; // Import the Loader icon from lucide-react
 
 const ChatPage = () => {
     const { user } = useAuthStore();
@@ -136,22 +137,32 @@ const ChatPage = () => {
                             value={input}
                             onChange={(e) => setInput(e.target.value)}
                             onKeyDown={(e) =>
-                                e.key === "Enter" && handleSendMessage()
+                                e.key === "Enter" &&
+                                !isLoading &&
+                                handleSendMessage()
                             }
                             className="flex-1 bg-transparent outline-none p-2 text-white placeholder-gray-400"
                             placeholder="Type a message..."
+                            disabled={isLoading} // Disable input when loading
                         />
                         <motion.button
                             whileHover={{ scale: 1.05 }}
                             whileTap={{ scale: 0.95 }}
                             onClick={handleSendMessage}
-                            className="ml-2 p-3 bg-primary text-white drop-shadow-custom rounded-seven focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 focus:ring-offset-gray-900 transition duration-200"
+                            className={`ml-2 p-3 bg-primary text-white drop-shadow-custom rounded-seven focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 focus:ring-offset-gray-900 transition duration-200 ${
+                                isLoading ? "opacity-50 cursor-not-allowed" : ""
+                            }`}
+                            disabled={isLoading} // Disable button when loading
                         >
-                            <IconStore
-                                name="send"
-                                className="w-5 h-5"
-                                color="accent-3"
-                            />
+                            {isLoading ? (
+                                <Loader className="animate-spin w-5 h-5 text-accent-3" />
+                            ) : (
+                                <IconStore
+                                    name="send"
+                                    className="w-5 h-5"
+                                    color="accent-3"
+                                />
+                            )}
                         </motion.button>
                     </div>
                 </motion.div>
