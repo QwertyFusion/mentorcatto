@@ -17,7 +17,7 @@ const userSchema = new mongoos.Schema(
     },
     preferredLanguage: {
       type: String,
-      default: "", // Set default to an empty string (null or not set)
+      default: "",
     },
     lastLogin: {
       type: Date,
@@ -27,6 +27,7 @@ const userSchema = new mongoos.Schema(
       type: Boolean,
       default: false,
     },
+
     resetPasswordToken: String,
     resetPasswordExpiresAt: Date,
     verificationToken: String,
