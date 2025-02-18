@@ -66,7 +66,7 @@ async function llmCall(state) {
     const result = await llmWithTools.invoke([
         {
             role: "system",
-            content: `You are a helpful assistant tasked with performing arithmetic on a set of inputs. Give the answer in details.`,
+            content: `You are a helpful assistant tasked with performing arithmetic on a set of inputs. When you provide an answer, format it as a complete sentence. You are using the tools that are available to generate the answer.`,
         },
         ...state.messages,
     ]);
@@ -133,6 +133,7 @@ export async function invokeAgent(userMessage) {
         },
     ];
     const result = await agentBuilder.invoke({ messages });
-    console.log(result.messages);
-    return result.messages;
+
+    // Convert the response into JSON format
+    return JSON.stringify({ response: result.messages }, null, 2);
 }
