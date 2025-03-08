@@ -1,20 +1,23 @@
-const axios = require("axios");
+import axios from "axios";
 
-const GEMINI_API_KEY = "YOUR_API_KEY";
+const GEMINI_API_KEY = process.env.GEMINI_API_KEY;
 
 // Mock Data
 const userPerformance = {
-    userId: "123",
-    quizScores: [
-        { topic: "Recursion", score: 40 },
-        { topic: "Sorting Algorithms", score: 75 },
-        { topic: "Dynamic Programming", score: 30 },
-    ],
-    codeReviews: [
-        { topic: "Sorting", complexity: "O(n^2)", feedback: "Consider using Merge Sort instead of Bubble Sort." },
-        { topic: "Recursion", error: "Off-by-one mistake in base case." },
-    ],
-    
+  userId: "123",
+  quizScores: [
+    { topic: "Recursion", score: 40 },
+    { topic: "Sorting Algorithms", score: 75 },
+    { topic: "Dynamic Programming", score: 30 },
+  ],
+  codeReviews: [
+    {
+      topic: "Sorting",
+      complexity: "O(n^2)",
+      feedback: "Consider using Merge Sort instead of Bubble Sort.",
+    },
+    { topic: "Recursion", error: "Off-by-one mistake in base case." },
+  ],
 };
 
 // System Prompt
@@ -31,21 +34,36 @@ Keep the tone positive and encouraging.
 
 // Feedback Tool function
 async function feedbacktool(userPerformance) {
-    try {
-        const response = await axios.post(
-            `https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key=${GEMINI_API_KEY}`,
-            {
-                contents: [
-                    { role: "user", parts: [{ text: system_prompt }] },
-                    { role: "user", parts: [{ text: `Here is the user performance data: ${JSON.stringify(userPerformance)}` }] }
-                ]
-            }
-        );
+  try {
+    const response = await axios.post(
+      `https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key=${GEMINI_API_KEY}`,
+      {
+        contents: [
+          { role: "user", parts: [{ text: system_prompt }] },
+          {
+            role: "user",
+            parts: [
+              {
+                text: `Here is the user performance data: ${JSON.stringify(
+                  userPerformance
+                )}`,
+              },
+            ],
+          },
+        ],
+      }
+    );
 
-        console.log("AI Feedback: ", response.data.candidates[0].content.parts[0].text);
-    } catch (error) {
-        console.error("Error generating feedback: ", error.response ? error.response.data : error.message);
-    }
+    console.log(
+      "AI Feedback: ",
+      response.data.candidates[0].content.parts[0].text
+    );
+  } catch (error) {
+    console.error(
+      "Error generating feedback: ",
+      error.response ? error.response.data : error.message
+    );
+  }
 }
 
 feedbacktool(userPerformance);
