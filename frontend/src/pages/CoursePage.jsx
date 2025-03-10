@@ -1,5 +1,6 @@
 import LeftNavbar from "../components/LeftNavbar";
 import { motion } from "framer-motion";
+import CoursesRightSideBar from "../components/CoursesRightSideBar";
 
 const CoursePage = () => {
   return (
@@ -8,7 +9,7 @@ const CoursePage = () => {
         <LeftNavbar />
       </div>
 
-      <div className="flex-1 bg-accent-2">
+      <div className="flex-1 font-inter bg-accent-2 p-4 flex flex-col inner-shadow-custome">
         <motion.div
           initial={{ opacity: 0, scale: 0.9 }}
           animate={{ opacity: 1, scale: 1 }}
@@ -19,19 +20,10 @@ const CoursePage = () => {
           <h2 className="text-3xl font-bold mb-6 text-center bg-primary text-transparent bg-clip-text">
             Courses
           </h2>
-          <div className="space-y-6">
-            <motion.div
-              className="p-4 bg-accent-3 bg-opacity-50 rounded-seven border-2 border-tertiary drop-shadow-custom"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.2 }}
-            >
-              <p className="text-white text-center">
-                Implement needed logic in this page
-              </p>
-            </motion.div>
-          </div>
         </motion.div>
+      </div>
+      <div className="min-w-[300px]">
+        <CoursesRightSideBar />
       </div>
     </div>
   );

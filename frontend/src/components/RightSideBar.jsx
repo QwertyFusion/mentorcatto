@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 const RightSideBar = () => {
   const { user } = useAuthStore();
   return (
-    <div className="bg-accent-1 p-6 text-white h-screen flex flex-col justify-between">
+    <div className="bg-accent-1 p-6 text-white h-screen flex flex-col justify-between ">
       <div className="flex flex-col">
         <em>
           <h2 className="text-2xl font-inter">

@@ -23,7 +23,6 @@
         "jsonwebtoken": "^9.0.2",
         "mailtrap": "^3.4.0",
         "mongoose": "^8.10.0",
-        "picomatch": "^2.3.1",
         "zod": "^3.24.2",
         "zustand": "^5.0.3"
       },
@@ -1328,9 +1327,9 @@
       }
     },
     "node_modules/langsmith": {
-      "version": "0.3.13",
-      "resolved": "https://registry.npmjs.org/langsmith/-/langsmith-0.3.13.tgz",
-      "integrity": "sha512-iI5MO5FP1EFxU1jyQvB2cM4qKqXXwnsd124MKWWhBuV2O/EjdwzsyKPBVlBPFjAQbgCGtzqdJWbv9xld60hb+Q==",
+      "version": "0.3.12",
+      "resolved": "https://registry.npmjs.org/langsmith/-/langsmith-0.3.12.tgz",
+      "integrity": "sha512-e4qWM27hxEr8GfO6dgXrc3W8La+wxkX1zEtMhxhqS/Th2ujTt5OH7x0uXfXFDqCv9WaC3nquo1Y2s4vpYmLLtg==",
       "license": "MIT",
       "dependencies": {
         "@types/uuid": "^10.0.0",
@@ -1907,6 +1906,7 @@
       "version": "2.3.1",
       "resolved": "https://registry.npmjs.org/picomatch/-/picomatch-2.3.1.tgz",
       "integrity": "sha512-JU3teHTNjmE2VCGFzuY8EXzCDVwEqB2a8fsIvwaStHhAWJEeVd1o1QD80CU6+ZdEXXSLbSsuLwJjkCBWqRQUVA==",
+      "dev": true,
       "license": "MIT",
       "engines": {
         "node": ">=8.6"
