@@ -12,13 +12,13 @@ const AchievementsPage = () => {
             <div className="w-full h-full flex-1 bg-accent-2">
                 <div className="mt-10 mx-32">
                     <div>
-                        <h2 className="text-3xl font-bold text-primary">
+                        <h2 className="text-3xl font-bold text-primary no-select">
                             Achievements
                         </h2>
-                        <p className="text-secondary font-bold">Can you get them all?</p>
+                        <p className="text-secondary font-bold no-select">
+                            Can you get them all?
+                        </p>
                     </div>
-                    
-                
                 </div>
                 <motion.div
                     initial={{ opacity: 0, scale: 0.9 }}
@@ -28,12 +28,10 @@ const AchievementsPage = () => {
                     className="mx-32 mt-4 p-8 bg-accent-4 bg-opacity-80 rounded-ten"
                 >
                     <div className="space-y-6">
-                        <Badge   
-                            
+                        <Badge
                             text="Medieval Knight"
                             subText="Complete five assessments"
                         />
-                        
                     </div>
                 </motion.div>
             </div>

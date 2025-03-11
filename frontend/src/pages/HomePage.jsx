@@ -195,19 +195,19 @@ const HomePage = () => {
                 <div className="max-w-7xl mx-auto h-full grid grid-cols-2 md:grid-cols-3 justify-between items-center">
                     <div className="flex items-center gap-2">
                         <img
-                            className="w-10 h-10"
+                            className="w-10 h-10 no-select"
                             alt="MentorCatto Logo"
                             src="Cat.png"
                         />
-                        <span className="text-3xl font-semibold text-white">
+                        <span className="text-3xl font-semibold text-white no-select">
                             MentorCatto
                         </span>
                     </div>
 
-                    <p className="text-accent-5 mt-2 md:mt-0 text-center hidden md:block">
+                    <p className="text-accent-5 mt-2 md:mt-0 text-center hidden md:block no-select">
                         Copyright © 2025 MentorCatto
                     </p>
-                    <div className="flex flex-row justify-end items-end">
+                    <div className="flex flex-row justify-end items-end no-select">
                         <a
                             href="https://github.com/QwertyFusion/mentorcatto"
                             target="_blank"
