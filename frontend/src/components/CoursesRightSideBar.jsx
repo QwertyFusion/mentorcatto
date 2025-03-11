@@ -1,6 +1,7 @@
 import IconStore from "./IconStore";
+import AccordionDemo from "./Accordion";
 
-const CoursesRightSideBar = () => {
+const CoursesRightSideBar = ({ onAccordionClick }) => {
   return (
     <div className="bg-accent-1 text-white h-screen flex flex-col justify-between">
       <div className="bg-accent-4 h-23 inner-shadow">
@@ -14,22 +15,13 @@ const CoursesRightSideBar = () => {
             Course Overview
           </h1>
         </div>
+
         <div className="bg-accent-1 p-3">
-          <div className="bg-accent-1 p-4 border-1 border-tertiary rounded-seven">
-            <p className="text-white text-sm font-thin">Module 1</p>
-            <p className="text-white text-1xl font-bold">Lorem Ipsum</p>
+          <div onClick={onAccordionClick} className="cursor-pointer">
+            <AccordionDemo />
           </div>
-          <div className="bg-accent-1 p-4 border-1 border-tertiary rounded-seven mt-4">
-            <p className="text-white text-sm font-thin">Module 2</p>
-            <p className="text-white text-1xl font-bold">Lorem Ipsum</p>
-          </div>
-          <div className="bg-accent-1 p-4 border-1 border-tertiary rounded-seven mt-4">
-            <p className="text-white text-sm font-thin">Module 3</p>
-            <p className="text-white text-1xl font-bold">Lorem Ipsum</p>
-          </div>
-          <div className="bg-accent-1 p-4 border-1 border-tertiary rounded-seven mt-4">
-            <p className="text-white text-sm font-thin">Module 4</p>
-            <p className="text-white text-1xl font-bold">Lorem Ipsum</p>
+          <div onClick={onAccordionClick} className="cursor-pointer mt-4">
+            <AccordionDemo />
           </div>
         </div>
       </div>
