@@ -11,9 +11,9 @@ import courseData from "../store/CourseDataStore";
 const CoursesRightSideBar = ({ onLessonSelect }) => {
     const location = useLocation();
 
-    const moduleCompleted = 2;
+    const moduleCompleted = 2; // Fetch it from the Database
     const moduleOngoing = moduleCompleted++; // Numeric value for ongoing module
-    const lessonCompleted = 3; // Last completed lesson in module 3
+    const lessonCompleted = 3; // Fetch it from the Database
 
     return (
         <div className="bg-accent-1 text-white h-screen flex flex-col justify-between">

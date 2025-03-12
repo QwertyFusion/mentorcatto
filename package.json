@@ -31,7 +31,6 @@
     "dotenv": "^16.4.7",
     "express": "^4.21.2",
     "jsonwebtoken": "^9.0.2",
-    "lucide-react": "^0.479.0",
     "mailtrap": "^3.4.0",
     "mongoose": "^8.10.0",
     "picomatch": "^2.3.1",
