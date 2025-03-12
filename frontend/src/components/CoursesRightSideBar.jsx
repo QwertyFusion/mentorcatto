@@ -11,13 +11,11 @@ import courseData from "../store/CourseDataStore";
 const CoursesRightSideBar = ({ onAccordionClick }) => {
     const location = useLocation();
 
-    const handleLessonClick = (lesson) => {
-        // Handle lesson click (e.g., navigate to lesson details, show modal, etc.)
+    const handleLessonClick = (lesson, isLocked) => {
+        if (isLocked) return;
         console.log(`Clicked on: ${lesson}`);
-        // You can call a prop function or navigate to a different route here
     };
 
-    const moduleCompleted = 2; // Numeric value for module completion
     const moduleOngoing = 3; // Numeric value for ongoing module
     const lessonCompleted = 3; // Last completed lesson in module 3
 
@@ -41,32 +39,64 @@ const CoursesRightSideBar = ({ onAccordionClick }) => {
             </div>
             <div className="bg-accent-1 px-3 pb-3 h-full overflow-auto">
                 <Accordion type="single" collapsible>
-                    {courseData.map((module, index) => (
-                        <AccordionItem key={index} value={`module-${index}`}>
-                            <AccordionTrigger
-                                iconState={""} // Pass the icon state
-                                moduleNumber={module.moduleNumber} // Pass the module number
-                                moduleDescription={module.moduleName} // Pass the module name
-                            ></AccordionTrigger>
-                            <AccordionContent>
-                                <ul className=" pl-5">
-                                    {module.lessons.map(
-                                        (lesson, lessonIndex) => (
-                                            <li
-                                                key={lessonIndex}
-                                                onClick={() =>
-                                                    handleLessonClick(lesson)
-                                                }
-                                                className="cursor-pointer hover:underline mt-4"
-                                            >
-                                                {lesson}
-                                            </li>
-                                        )
-                                    )}
-                                </ul>
-                            </AccordionContent>
-                        </AccordionItem>
-                    ))}
+                    {courseData.map((module, index) => {
+                        const moduleNum = parseInt(
+                            module.moduleNumber.replace("Module ", "")
+                        );
+                        let iconState;
+                        if (moduleNum < moduleOngoing) {
+                            iconState = "completed";
+                        } else if (moduleNum === moduleOngoing) {
+                            iconState = "unlocked";
+                        } else {
+                            iconState = "locked";
+                        }
+
+                        return (
+                            <AccordionItem
+                                key={index}
+                                value={`module-${index}`}
+                            >
+                                <AccordionTrigger
+                                    iconState={iconState} // Dynamic icon state
+                                    moduleNumber={module.moduleNumber}
+                                    moduleDescription={module.moduleName}
+                                ></AccordionTrigger>
+                                <AccordionContent>
+                                    <ul className="pl-5">
+                                        {module.lessons.map(
+                                            (lesson, lessonIndex) => {
+                                                const isLocked =
+                                                    moduleNum > moduleOngoing ||
+                                                    (moduleNum ===
+                                                        moduleOngoing &&
+                                                        lessonIndex >=
+                                                            lessonCompleted);
+                                                return (
+                                                    <li
+                                                        key={lessonIndex}
+                                                        onClick={() =>
+                                                            handleLessonClick(
+                                                                lesson,
+                                                                isLocked
+                                                            )
+                                                        }
+                                                        className={`cursor-pointer hover:underline mt-4 ${
+                                                            isLocked
+                                                                ? "text-gray-500 cursor-not-allowed"
+                                                                : ""
+                                                        }`}
+                                                    >
+                                                        {lesson}
+                                                    </li>
+                                                );
+                                            }
+                                        )}
+                                    </ul>
+                                </AccordionContent>
+                            </AccordionItem>
+                        );
+                    })}
                 </Accordion>
             </div>
         </div>

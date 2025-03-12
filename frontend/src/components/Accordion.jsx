@@ -33,7 +33,8 @@ const AccordionTrigger = React.forwardRef(
         switch (iconState) {
             case "locked":
                 Icon = Lock;
-                cardBorderClass = "border-tertiary cursor-not-allowed";
+                cardBorderClass =
+                    "border-tertiary cursor-not-allowed opacity-50";
                 borderClass = "border-white"; // White border for locked
                 bgClass = ""; // Accent background for locked
                 iconColorClass = "text-white"; // White icon color for locked
