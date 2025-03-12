@@ -8,13 +8,8 @@ import {
 import { useLocation } from "react-router-dom";
 import courseData from "../store/CourseDataStore";
 
-const CoursesRightSideBar = ({ onAccordionClick }) => {
+const CoursesRightSideBar = ({ onLessonSelect }) => {
     const location = useLocation();
-
-    const handleLessonClick = (lesson, isLocked) => {
-        if (isLocked) return;
-        console.log(`Clicked on: ${lesson}`);
-    };
 
     const moduleOngoing = 3; // Numeric value for ongoing module
     const lessonCompleted = 3; // Last completed lesson in module 3
@@ -43,14 +38,12 @@ const CoursesRightSideBar = ({ onAccordionClick }) => {
                         const moduleNum = parseInt(
                             module.moduleNumber.replace("Module ", "")
                         );
-                        let iconState;
-                        if (moduleNum < moduleOngoing) {
-                            iconState = "completed";
-                        } else if (moduleNum === moduleOngoing) {
-                            iconState = "unlocked";
-                        } else {
-                            iconState = "locked";
-                        }
+                        let iconState =
+                            moduleNum < moduleOngoing
+                                ? "completed"
+                                : moduleNum === moduleOngoing
+                                ? "unlocked"
+                                : "locked";
 
                         return (
                             <AccordionItem
@@ -58,47 +51,48 @@ const CoursesRightSideBar = ({ onAccordionClick }) => {
                                 value={`module-${index}`}
                             >
                                 <AccordionTrigger
-                                    iconState={iconState} // Dynamic icon state
+                                    iconState={iconState}
                                     moduleNumber={module.moduleNumber}
                                     moduleDescription={module.moduleName}
-                                ></AccordionTrigger>
+                                />
                                 <AccordionContent>
                                     <ul className="pl-5">
                                         {module.lessons.map(
                                             (lesson, lessonIndex) => {
-                                                const isLocked =
+                                                const isNotComplete =
                                                     moduleNum > moduleOngoing ||
                                                     (moduleNum ===
                                                         moduleOngoing &&
                                                         lessonIndex >=
-                                                            lessonCompleted);
+                                                            lessonCompleted); // Lesson is not complete
+
                                                 return (
                                                     <li
                                                         key={lessonIndex}
                                                         onClick={() =>
-                                                            handleLessonClick(
-                                                                lesson,
-                                                                isLocked
+                                                            onLessonSelect(
+                                                                module,
+                                                                lesson
                                                             )
                                                         }
                                                         className={`cursor-pointer hover:text-primary mt-4 flex items-center transition-all duration-200 ease-in-out`}
                                                     >
                                                         <div
                                                             className={`h-4.5 w-4.5 rounded-full border-2 me-3 drop-shadow-custom flex items-center justify-center ${
-                                                                isLocked
-                                                                    ? "text-white"
+                                                                isNotComplete
+                                                                    ? "border-white"
                                                                     : "text-primary bg-primary"
                                                             }`}
                                                         >
                                                             <IconStore
                                                                 className={`w-3 h-3 ${
-                                                                    isLocked
+                                                                    isNotComplete
                                                                         ? "hidden"
                                                                         : "block"
                                                                 }`}
                                                                 name="tick"
                                                                 color={`${
-                                                                    isLocked
+                                                                    isNotComplete
                                                                         ? ""
                                                                         : "black"
                                                                 }`}
