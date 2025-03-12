@@ -82,7 +82,7 @@ const AccordionTrigger = React.forwardRef(
                     <div className="flex items-center">
                         <div
                             className={cn(
-                                `border-2 rounded-full mr-2 flex justify-center items-center h-10 w-10 ${borderClass} ${bgClass} drop-shadow-custom`
+                                `border-2 rounded-full mr-2 flex justify-center items-center h-10 w-10 aspect-square ${borderClass} ${bgClass} drop-shadow-custom`
                             )}
                         >
                             {Icon && (
