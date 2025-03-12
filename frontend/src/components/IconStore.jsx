@@ -8,6 +8,8 @@ const IconStore = ({ className, color, name }) => {
         fillColor = "#FFFFFF";
     } else if (color === "accent-3") {
         fillColor = "#33333E";
+    } else if (color === "black") {
+        fillColor = "#000000";
     }
 
     const renderIcon = () => {
@@ -175,130 +177,22 @@ const IconStore = ({ className, color, name }) => {
                         ></path>{" "}
                     </svg>
                 );
-
-            case "flag":
+            case "tick":
                 return (
                     <svg
-                        width="16"
-                        height="20"
-                        viewBox="0 0 18 22"
-                        fill="none"
+                        className={className}
                         xmlns="http://www.w3.org/2000/svg"
-                    >
-                        <path
-                            d="M1 14C1 14 2 13 5 13C8 13 10 15 13 15C16 15 17 14 17 14V2C17 2 16 3 13 3C10 3 8 1 5 1C2 1 1 2 1 2V14Z"
-                            stroke="#ABF07C"
-                            stroke-width="2"
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                        />
-                        <path
-                            d="M1 21V14"
-                            stroke="#ABF07C"
-                            stroke-width="2"
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                        />
-                    </svg>
-                );
-            case "checkmark":
-                return (
-                    <svg
-                        width="26"
-                        height="19"
-                        viewBox="0 0 26 19"
+                        width="24"
+                        height="24"
+                        viewBox="0 0 24 24"
                         fill="none"
-                        xmlns="http://www.w3.org/2000/svg"
+                        stroke={fillColor}
+                        stroke-width="4"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        class="lucide lucide-check"
                     >
-                        <path
-                            d="M23.8182 2L8.81818 17L2 10.1818"
-                            stroke="black"
-                            stroke-width="3.5"
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                        />
-                    </svg>
-                );
-            case "lock":
-                return (
-                    <svg
-                        width="20"
-                        height="22"
-                        viewBox="0 0 20 22"
-                        fill="none"
-                        xmlns="http://www.w3.org/2000/svg"
-                    >
-                        <path
-                            d="M17 10H3C1.89543 10 1 10.8954 1 12V19C1 20.1046 1.89543 21 3 21H17C18.1046 21 19 20.1046 19 19V12C19 10.8954 18.1046 10 17 10Z"
-                            stroke="white"
-                            stroke-width="2"
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                        />
-                        <path
-                            d="M5 10V6C5 4.67392 5.52678 3.40215 6.46447 2.46447C7.40215 1.52678 8.67392 1 10 1C11.3261 1 12.5979 1.52678 13.5355 2.46447C14.4732 3.40215 15 4.67392 15 6V10"
-                            stroke="white"
-                            stroke-width="2"
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                        />
-                    </svg>
-                );
-            case "exam2":
-                return (
-                    <svg
-                        width="20"
-                        height="20"
-                        viewBox="0 0 20 20"
-                        fill="none"
-                        xmlns="http://www.w3.org/2000/svg"
-                        xmlns:xlink="http://www.w3.org/1999/xlink"
-                    >
-                        <mask
-                            id="mask0_11_447"
-                            style="mask-type:alpha"
-                            maskUnits="userSpaceOnUse"
-                            x="0"
-                            y="0"
-                            width="20"
-                            height="20"
-                        >
-                            <rect
-                                width="20"
-                                height="20"
-                                fill="url(#pattern0_11_447)"
-                            />
-                        </mask>
-                        <g mask="url(#mask0_11_447)">
-                            <rect
-                                x="0.5"
-                                y="0.5"
-                                width="19"
-                                height="19"
-                                fill="#D5EEE1"
-                                stroke="white"
-                            />
-                        </g>
-                        <defs>
-                            <pattern
-                                id="pattern0_11_447"
-                                patternContentUnits="objectBoundingBox"
-                                width="1"
-                                height="1"
-                            >
-                                <use
-                                    xlink:href="#image0_11_447"
-                                    transform="scale(0.0078125)"
-                                />
-                            </pattern>
-                            <image
-                                id="image0_11_447"
-                                width="128"
-                                height="128"
-                                preserveAspectRatio="none"
-                                xlink:href="data:image/png;base64,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"
-                            />
-                        </defs>
+                        <path d="M20 6 9 17l-5-5" />
                     </svg>
                 );
             // Add more cases for other icons if needed

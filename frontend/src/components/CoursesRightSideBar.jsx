@@ -81,12 +81,25 @@ const CoursesRightSideBar = ({ onAccordionClick }) => {
                                                                 isLocked
                                                             )
                                                         }
-                                                        className={`cursor-pointer hover:underline mt-4 ${
-                                                            isLocked
-                                                                ? "text-gray-500 cursor-not-allowed"
-                                                                : ""
-                                                        }`}
+                                                        className={`cursor-pointer hover:underline underline-offset-2 mt-4 flex items-center`}
                                                     >
+                                                        <div
+                                                            className={`h-4.5 w-4.5 rounded-full border-2 me-3 drop-shadow-custom flex items-end justify-center ${
+                                                                isLocked
+                                                                    ? "text-white"
+                                                                    : "text-primary bg-primary"
+                                                            }`}
+                                                        >
+                                                            <IconStore
+                                                                className={`w-3 h-3 ${
+                                                                    isLocked
+                                                                        ? "hidden"
+                                                                        : "block"
+                                                                }`}
+                                                                name="tick"
+                                                                color="black"
+                                                            />
+                                                        </div>
                                                         {lesson}
                                                     </li>
                                                 );
