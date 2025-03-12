@@ -12,7 +12,7 @@ const CoursesRightSideBar = ({ onLessonSelect }) => {
     const location = useLocation();
 
     const moduleCompleted = 2; // Fetch it from the Database
-    const moduleOngoing = moduleCompleted++; // Numeric value for ongoing module
+    const moduleOngoing = moduleCompleted + 1; // Numeric value for ongoing module
     const lessonCompleted = 3; // Fetch it from the Database
 
     return (
