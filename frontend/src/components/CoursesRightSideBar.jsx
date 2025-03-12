@@ -22,7 +22,7 @@ const CoursesRightSideBar = ({ onAccordionClick }) => {
     return (
         <div className="bg-accent-1 text-white h-screen flex flex-col justify-between">
             <div className="bg-accent-4 h-23 inner-shadow">
-                <div className="flex items-center justify-center px-8 pt-8 mb-6">
+                <div className="flex items-center justify-center px-8 pt-6 mb-6">
                     <IconStore
                         name="courses"
                         className="w-10 h-10 drop-shadow-custom"
@@ -81,7 +81,7 @@ const CoursesRightSideBar = ({ onAccordionClick }) => {
                                                                 isLocked
                                                             )
                                                         }
-                                                        className={`cursor-pointer hover:underline underline-offset-2 mt-4 flex items-center`}
+                                                        className={`cursor-pointer hover:text-primary mt-4 flex items-center transition-all duration-200 ease-in-out`}
                                                     >
                                                         <div
                                                             className={`h-4.5 w-4.5 rounded-full border-2 me-3 drop-shadow-custom flex items-center justify-center ${
