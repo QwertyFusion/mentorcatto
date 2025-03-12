@@ -84,7 +84,7 @@ const CoursesRightSideBar = ({ onAccordionClick }) => {
                                                         className={`cursor-pointer hover:underline underline-offset-2 mt-4 flex items-center`}
                                                     >
                                                         <div
-                                                            className={`h-4.5 w-4.5 rounded-full border-2 me-3 drop-shadow-custom flex items-end justify-center ${
+                                                            className={`h-4.5 w-4.5 rounded-full border-2 me-3 drop-shadow-custom flex items-center justify-center ${
                                                                 isLocked
                                                                     ? "text-white"
                                                                     : "text-primary bg-primary"
@@ -97,7 +97,11 @@ const CoursesRightSideBar = ({ onAccordionClick }) => {
                                                                         : "block"
                                                                 }`}
                                                                 name="tick"
-                                                                color="black"
+                                                                color={`${
+                                                                    isLocked
+                                                                        ? ""
+                                                                        : "black"
+                                                                }`}
                                                             />
                                                         </div>
                                                         {lesson}
