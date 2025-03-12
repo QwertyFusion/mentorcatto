@@ -1,63 +1,120 @@
-import { useState, useRef } from "react";
-import { ChevronDown, ChevronUp } from "lucide-react";
+import React from "react";
+import * as AccordionPrimitive from "@radix-ui/react-accordion";
+import { ChevronDown, Lock, Check, Flag } from "lucide-react";
 
-export default function AccordionDemo() {
-  const [openItems, setOpenItems] = useState([]);
+const cn = (...classes) => classes.filter(Boolean).join(" ");
 
-  const toggleItem = (item) => {
-    setOpenItems((prevOpenItems) =>
-      prevOpenItems.includes(item)
-        ? prevOpenItems.filter((i) => i !== item)
-        : [...prevOpenItems, item]
-    );
-  };
+const Accordion = AccordionPrimitive.Root;
 
-  return (
-    <div className="w-full max-w-md mx-auto border-1 border-tertiary rounded-seven">
-      <AccordionItem
-        module="Module 1"
-        title="Lorem Ipsum"
-        isOpen={openItems.includes("item-1")}
-        onClick={() => toggleItem("item-1")}
-      >
-        <p>Yes. It adheres </p>
-        <p className="mt-4">Yes. It adheres </p>
-      </AccordionItem>
-    </div>
-  );
-}
+const AccordionItem = React.forwardRef(({ className, ...props }, ref) => (
+    <AccordionPrimitive.Item ref={ref} className={cn(className)} {...props} />
+));
+AccordionItem.displayName = "AccordionItem";
 
-function AccordionItem({ module, title, isOpen, onClick, children }) {
-  const contentRef = useRef(null);
+const AccordionTrigger = React.forwardRef(
+    (
+        {
+            className,
+            children,
+            iconState,
+            moduleNumber,
+            moduleDescription,
+            ...props
+        },
+        ref
+    ) => {
+        // Determine the icon based on the iconState prop
+        let Icon;
+        let cardBorderClass;
+        let borderClass;
+        let bgClass;
+        let iconColorClass;
 
-  return (
-    <div className="rounded-seven">
-      <button
-        className="w-full text-left p-4 rounded-seven focus:outline-none drop-shadow-custom hover:bg-accent-4 flex justify-between items-center transition duration-200"
-        onClick={onClick}
-        aria-expanded={isOpen}
-      >
-        <div className="flex items-center justify-between">
-          <div>
-            <p className="text-xs text-white font-thin">{module}</p>
-            <h2 className="text-base font-bold text-white">{title}</h2>
-          </div>
-          <span className="ml-50 text-white text-xl">
-            {isOpen ? <ChevronUp /> : <ChevronDown />}
-          </span>
-        </div>
-      </button>
+        switch (iconState) {
+            case "locked":
+                Icon = Lock;
+                cardBorderClass = "border-tertiary cursor-not-allowed";
+                borderClass = "border-white"; // White border for locked
+                bgClass = ""; // Accent background for locked
+                iconColorClass = "text-white"; // White icon color for locked
+                break;
+            case "unlocked":
+                Icon = Flag;
+                cardBorderClass = "border-tertiary cursor-pointer";
+                borderClass = "border-white"; // White border for unlocked
+                bgClass = ""; // Accent background for unlocked
+                iconColorClass = "text-white"; // White icon color for unlocked
+                break;
+            case "completed":
+                Icon = Check;
+                cardBorderClass = "border-primary cursor-pointer";
+                borderClass = "border-primary"; // Primary border for completed
+                bgClass = "bg-primary"; // Primary background for completed
+                iconColorClass = "text-black h-8 w-8 pt-0.5"; // Black icon color for completed
+                break;
+            default:
+                Icon = null;
+                cardBorderClass = "";
+                borderClass = ""; // No border class for default
+                bgClass = ""; // No background class for default
+                iconColorClass = ""; // No icon color class for default
+        }
 
-      <div
-        ref={contentRef}
-        className={`overflow-hidden transition-all duration-200 ${
-          isOpen ? "max-h-60" : "max-h-0"
-        }`}
-      >
-        <div className="p-4 bg-accent-1 text-white overflow-hidden rounded-seven">
-          {children}
-        </div>
-      </div>
-    </div>
-  );
-}
+        // Prevent opening if the iconState is "locked"
+        const handleClick = (event) => {
+            if (iconState === "locked") {
+                event.preventDefault();
+                event.stopPropagation();
+            }
+        };
+
+        return (
+            <AccordionPrimitive.Header className="flex pt-4">
+                <AccordionPrimitive.Trigger
+                    ref={ref}
+                    className={cn(
+                        `flex flex-1 items-center justify-between p-4 font-medium transition-all hover:bg-accent-3 rounded-ten [&[data-state=open]>svg]:rotate-180 border-1 [&[data-state=open]]:bg-accent-3 no-select z-10 ${cardBorderClass} transition-all ease-in-out duration-300 bg-accent-1 drop-shadow-custom`,
+                        className
+                    )}
+                    onClick={handleClick} // Add the click handler here
+                    {...props}
+                >
+                    <div className="flex items-center">
+                        <div
+                            className={cn(
+                                `border-2 rounded-full mr-2 flex justify-center items-center h-12 w-12 ${borderClass} ${bgClass} drop-shadow-custom`
+                            )}
+                        >
+                            {Icon && (
+                                <Icon className={`h-6 w-6 ${iconColorClass}`} />
+                            )}
+                        </div>
+
+                        <div className="flex flex-col items-start justify-center ml-2">
+                            <div className="text-[12px]">{moduleNumber}</div>
+                            <div className="text-[16px] font-bold text-white">
+                                {moduleDescription}
+                            </div>
+                        </div>
+                    </div>
+                    <ChevronDown className="h-6 w-6 shrink-0 transition-transform ease-in-out duration-300" />
+                </AccordionPrimitive.Trigger>
+            </AccordionPrimitive.Header>
+        );
+    }
+);
+
+const AccordionContent = React.forwardRef(
+    ({ className, children, ...props }, ref) => (
+        <AccordionPrimitive.Content
+            ref={ref}
+            className="mt-[-32px] overflow-hidden bg-accent-1 border-1 border-tertiary rounded-ten text-sm transition-all ease-in-out duration-300 data-[state=closed]:animate-accordion-up data-[state=open]:animate-accordion-down"
+            {...props}
+        >
+            <div className={cn("pb-4 pt-8", className)}>{children}</div>
+        </AccordionPrimitive.Content>
+    )
+);
+AccordionContent.displayName = AccordionPrimitive.Content.displayName;
+
+export { Accordion, AccordionItem, AccordionTrigger, AccordionContent };
