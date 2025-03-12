@@ -11,7 +11,8 @@ import courseData from "../store/CourseDataStore";
 const CoursesRightSideBar = ({ onLessonSelect }) => {
     const location = useLocation();
 
-    const moduleOngoing = 3; // Numeric value for ongoing module
+    const moduleCompleted = 2;
+    const moduleOngoing = moduleCompleted++; // Numeric value for ongoing module
     const lessonCompleted = 3; // Last completed lesson in module 3
 
     return (

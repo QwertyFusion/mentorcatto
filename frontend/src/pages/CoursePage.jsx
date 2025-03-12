@@ -11,6 +11,11 @@ const CoursePage = () => {
     const handleLessonSelect = (module, lesson) => {
         setSelectedModule(module);
         setSelectedLesson(lesson);
+        // Fetch database to check if content is present
+        // If yes then content = db.content
+        // If not present, then call genAI to generate the content
+        // then content = AI.content, and store it in DB
+        // setSelectedContent(content);
     };
 
     return (
@@ -24,6 +29,7 @@ const CoursePage = () => {
                     <CourseContent
                         module={selectedModule}
                         lesson={selectedLesson}
+                        // content={content}
                     />
                 ) : (
                     <StarterPage />
