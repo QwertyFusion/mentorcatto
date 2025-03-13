@@ -96,10 +96,10 @@ const AchievementsPage = () => {
       <div className="w-full h-full flex-1 bg-accent-2 overflow-auto">
         <div className="mt-10 mx-32 flex justify-between items-center">
           <div>
-            <h2 className="text-3xl font-bold text-primary">
+            <h2 className="text-3xl font-bold text-primary no-select">
               Achievements
             </h2>
-            <p className="text-secondary font-bold">Can you get them all?</p>
+            <p className="text-secondary font-bold no-select">Can you get them all?</p>
           </div>
           
           <div className="relative">

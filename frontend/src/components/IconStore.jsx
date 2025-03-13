@@ -8,6 +8,8 @@ const IconStore = ({ className, color, name }) => {
         fillColor = "#FFFFFF";
     } else if (color === "accent-3") {
         fillColor = "#33333E";
+    } else if (color === "black") {
+        fillColor = "#000000";
     }
 
     const renderIcon = () => {
@@ -173,6 +175,24 @@ const IconStore = ({ className, color, name }) => {
                             stroke={fillColor}
                             stroke-width="2"
                         ></path>{" "}
+                    </svg>
+                );
+            case "tick":
+                return (
+                    <svg
+                        className={className}
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="24"
+                        height="24"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke={fillColor}
+                        stroke-width="4"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        class="lucide lucide-check"
+                    >
+                        <path d="M20 6 9 17l-5-5" />
                     </svg>
                 );
             // Add more cases for other icons if needed

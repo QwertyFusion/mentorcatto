@@ -9,7 +9,7 @@ const Navbar = () => {
             <div className="max-w-7xl mx-auto h-full flex justify-between items-center">
                 {/* Left side - Logo and Brand */}
                 <Link to="/">
-                    <div className="flex items-center gap-2">
+                    <div className="flex items-center gap-2 no-select">
                         <img
                             className="w-10 h-10"
                             alt="MentorCatto Logo"
@@ -26,31 +26,31 @@ const Navbar = () => {
                     <div className="flex gap-5">
                         <Link
                             to="/dashboard"
-                            className="text-white hover:text-primary hover:bg-accent-1 p-2 rounded-seven drop-shadow-custom"
+                            className="text-white hover:text-primary hover:bg-accent-1 p-2 rounded-seven drop-shadow-custom no-select"
                         >
                             Dashboard
                         </Link>
                         <Link
                             to="/chat"
-                            className="text-white hover:text-primary hover:bg-accent-1 p-2 rounded-seven drop-shadow-custom"
+                            className="text-white hover:text-primary hover:bg-accent-1 p-2 rounded-seven drop-shadow-custom no-select"
                         >
                             Mentor Chat
                         </Link>
                         <Link
                             to="/courses"
-                            className="text-white hover:text-primary hover:bg-accent-1 p-2 rounded-seven drop-shadow-custom"
+                            className="text-white hover:text-primary hover:bg-accent-1 p-2 rounded-seven drop-shadow-custom no-select"
                         >
                             Courses
                         </Link>
                         <Link
                             to="/achievements"
-                            className="text-white hover:text-primary hover:bg-accent-1 p-2 rounded-seven drop-shadow-custom"
+                            className="text-white hover:text-primary hover:bg-accent-1 p-2 rounded-seven drop-shadow-custom no-select"
                         >
                             Achievements
                         </Link>
                         <Link
                             to="/assessments"
-                            className="text-white hover:text-primary hover:bg-accent-1 p-2 rounded-seven drop-shadow-custom"
+                            className="text-white hover:text-primary hover:bg-accent-1 p-2 rounded-seven drop-shadow-custom no-select"
                         >
                             Assessments
                         </Link>
@@ -67,7 +67,7 @@ const Navbar = () => {
                                 className="flex items-center w-full p-2 bg-accent-1 text-white hover:text-primary drop-shadow-custom rounded-seven focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 focus:ring-offset-gray-900 transition duration-200 cursor-pointer"
                             >
                                 <img
-                                    className="w-6 h-6 rounded-full drop-shadow-custom"
+                                    className="w-6 h-6 rounded-full drop-shadow-custom no-select"
                                     alt="Profile"
                                     src="/profile.png"
                                 />

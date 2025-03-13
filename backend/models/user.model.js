@@ -27,7 +27,16 @@ const userSchema = new mongoos.Schema(
       type: Boolean,
       default: false,
     },
-
+    // Lesson Completed (no default value, type Integer)
+    lessionCompleted: {
+      type: Number,
+      default: "",
+    },
+    // Module Completed (default -1)
+    moduleCompleted: {
+      type: Number,
+      default: "-1",
+    },
     resetPasswordToken: String,
     resetPasswordExpiresAt: Date,
     verificationToken: String,

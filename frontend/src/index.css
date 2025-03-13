@@ -45,7 +45,7 @@
   }
 
   ::-webkit-scrollbar-thumb {
-    background-color: theme("colors.accent-1");
+    background-color: theme("colors.accent-5");
     border-radius: 10px;
     border: none;
   }
@@ -53,4 +53,11 @@
   ::-webkit-scrollbar-thumb:hover {
     background-color: theme("colors.primary");
   }
+}
+
+.no-select {
+  user-select: none; /* Non-standard syntax */
+  -webkit-user-select: none; /* Safari */
+  -moz-user-select: none; /* Firefox */
+  -ms-user-select: none; /* Internet Explorer/Edge */
 }
