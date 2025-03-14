@@ -9,7 +9,8 @@ import {
 } from "./Accordion";
 import { useLocation } from "react-router-dom";
 import { motion } from "framer-motion";
-import PropTypes from 'prop-types';
+import PropTypes from "prop-types";
+import { Loader2, OctagonAlert } from "lucide-react";
 
 const CoursesRightSideBar = ({ onLessonSelect }) => {
     const { user } = useAuthStore();
@@ -25,9 +26,13 @@ const CoursesRightSideBar = ({ onLessonSelect }) => {
     useEffect(() => {
         const fetchModules = async () => {
             try {
-                const response = await fetch('http://localhost:3000/api/modules');
+                const API_URL =
+                    import.meta.env.MODE === "development"
+                        ? "http://localhost:3000/api/modules"
+                        : "/api/modules";
+                const response = await fetch(API_URL);
                 if (!response.ok) {
-                    throw new Error('Failed to fetch modules');
+                    throw new Error("Failed to fetch modules");
                 }
                 const data = await response.json();
                 setModules(data);
@@ -41,8 +46,19 @@ const CoursesRightSideBar = ({ onLessonSelect }) => {
         fetchModules();
     }, []);
 
-    if (loading) return <div className="p-4 text-white">Loading courses...</div>;
-    if (error) return <div className="p-4 text-red-500">Error: {error}</div>;
+    if (loading)
+        return (
+            <div className="p-4 text-white h-screen flex items-center justify-center animate-spin">
+                <Loader2 />
+            </div>
+        );
+    if (error)
+        return (
+            <div className="p-4 text-red-500 h-screen flex flex-col items-center justify-center">
+                <OctagonAlert className="h-10 w-10 mb-2" />
+                <strong>Error:</strong> {error}
+            </div>
+        );
 
     return (
         <motion.div
@@ -56,7 +72,11 @@ const CoursesRightSideBar = ({ onLessonSelect }) => {
                     <IconStore
                         name="courses"
                         className="w-10 h-10 drop-shadow-custom"
-                        color={location.pathname === "/courses" ? "primary" : "white"}
+                        color={
+                            location.pathname === "/courses"
+                                ? "primary"
+                                : "white"
+                        }
                     />
                     <h1 className="ml-3 text-white text-2xl drop-shadow-custom no-select">
                         Course Overview
@@ -90,12 +110,18 @@ const CoursesRightSideBar = ({ onLessonSelect }) => {
                                             const isNotComplete =
                                                 moduleNum > moduleOngoing ||
                                                 (moduleNum === moduleOngoing &&
-                                                    lesson.number > lessonCompleted);
+                                                    lesson.number >
+                                                        lessonCompleted);
 
                                             return (
                                                 <li
                                                     key={lesson._id}
-                                                    onClick={() => onLessonSelect(module, lesson)}
+                                                    onClick={() =>
+                                                        onLessonSelect(
+                                                            module,
+                                                            lesson
+                                                        )
+                                                    }
                                                     className={`cursor-pointer hover:text-primary mt-4 flex items-center transition-all duration-200 ease-in-out`}
                                                 >
                                                     <div
@@ -107,10 +133,16 @@ const CoursesRightSideBar = ({ onLessonSelect }) => {
                                                     >
                                                         <IconStore
                                                             className={`w-3 h-3 ${
-                                                                isNotComplete ? "hidden" : "block"
+                                                                isNotComplete
+                                                                    ? "hidden"
+                                                                    : "block"
                                                             }`}
                                                             name="tick"
-                                                            color={`${isNotComplete ? "" : "black"}`}
+                                                            color={`${
+                                                                isNotComplete
+                                                                    ? ""
+                                                                    : "black"
+                                                            }`}
                                                         />
                                                     </div>
                                                     {lesson.name}
@@ -129,7 +161,7 @@ const CoursesRightSideBar = ({ onLessonSelect }) => {
 };
 
 CoursesRightSideBar.propTypes = {
-    onLessonSelect: PropTypes.func.isRequired
+    onLessonSelect: PropTypes.func.isRequired,
 };
 
 export default CoursesRightSideBar;
