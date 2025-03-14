@@ -13,7 +13,7 @@ const port = process.env.PORT;
 
 app.use(cors({ origin: "http://localhost:5173", credentials: true }));
 
-app.use(express.json()); // allows us to pass jason payloades os incomming requests
+app.use(express.json()); // allows us to pass JSON payloads in incoming requests
 app.use(cookieParser());
 
 app.listen(port, () => {
@@ -27,6 +27,6 @@ app.get("/", (req, res) => {
     res.send("MentorCatto is here!");
 });
 
+// Use the imported routes
 app.use("/api/auth", authRoutes);
-
 app.use("/api/ai", aiRoutes);

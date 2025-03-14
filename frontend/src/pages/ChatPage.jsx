@@ -149,7 +149,7 @@ const ChatPage = () => {
                             whileHover={{ scale: 1.05 }}
                             whileTap={{ scale: 0.95 }}
                             onClick={handleSendMessage}
-                            className={`ml-2 p-3 bg-primary text-white drop-shadow-custom rounded-seven focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 focus:ring-offset-gray-900 transition duration-200 ${
+                            className={`ml-2 p-3 bg-primary cursor-pointer text-white drop-shadow-custom rounded-seven focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 focus:ring-offset-gray-900 transition duration-200 ${
                                 isLoading ? "opacity-50 cursor-not-allowed" : ""
                             }`}
                             disabled={isLoading} // Disable button when loading

@@ -161,7 +161,7 @@ const LeftNavbar = () => {
                                 location.pathname === "/profile"
                                     ? "border-primary bg-accent-4"
                                     : "border-tertiary"
-                            } drop-shadow-custom hover:bg-tertiary rounded-seven focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 focus:ring-offset-gray-900 transition duration-200`}
+                            } drop-shadow-custom cursor-pointer hover:bg-tertiary rounded-seven focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 focus:ring-offset-gray-900 transition duration-200`}
                         >
                             <img
                                 className="w-10 h-10 ml-[10px] rounded-full drop-shadow-custom no-select"
@@ -184,7 +184,7 @@ const LeftNavbar = () => {
                             <motion.button
                                 whileHover={{ scale: 1.05 }}
                                 whileTap={{ scale: 0.95 }}
-                                className={`flex items-center justify-center h-[55px] w-[55px] p-2 border-2 bg-accent-3 ${
+                                className={`flex items-center cursor-pointer justify-center h-[55px] w-[55px] p-2 border-2 bg-accent-3 ${
                                     location.pathname === "/settings"
                                         ? "border-primary bg-accent-4"
                                         : "border-tertiary"
@@ -204,7 +204,7 @@ const LeftNavbar = () => {
                         <motion.button
                             whileHover={{ scale: 1.05 }}
                             whileTap={{ scale: 0.95 }}
-                            className="flex items-center justify-center flex-grow p-2 border-2 text-white bg-accent-3 border-tertiary hover:border-red-950 drop-shadow-custom hover:bg-red-950 rounded-seven focus:outline-none focus:ring-2 focus:ring-red-950 focus:ring-offset-2 focus:ring-offset-gray-900 transition duration-200"
+                            className="flex items-center cursor-pointer justify-center flex-grow p-2 border-2 text-white bg-accent-3 border-tertiary hover:border-red-950 drop-shadow-custom hover:bg-red-950 rounded-seven focus:outline-none focus:ring-2 focus:ring-red-950 focus:ring-offset-2 focus:ring-offset-gray-900 transition duration-200"
                             onClick={handleLogout}
                         >
                             <IconStore
