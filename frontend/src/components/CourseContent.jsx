@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
-import PropTypes from 'prop-types';
+import PropTypes from "prop-types";
 
-const CourseContent = ({ module, lesson, content }) => {
+const CourseContent = ({ index, module, lesson, content }) => {
     return (
         <motion.div
             initial={{ opacity: 0, scale: 0.9 }}
@@ -12,11 +12,15 @@ const CourseContent = ({ module, lesson, content }) => {
         >
             <div className="w-[80%] flex flex-col items-center">
                 <h2 className="text-2xl text-center text-white">
-                    <span className="text-primary">Module {module.name}</span>
+                    <span className="text-primary">
+                        Module {index}: {module.name}
+                    </span>
                 </h2>
-                <h3 className="text-xl text-white mt-2">{lesson.name}</h3>
+                <h3 className="text-xl text-white mt-2">
+                    Lesson: {lesson.name}
+                </h3>
                 <hr className="border-1 border-accent-5 w-full mb-6 mt-2" />
-                
+
                 {/* Introduction */}
                 {content?.introduction && (
                     <div className="text-white mb-6">
@@ -64,9 +68,9 @@ CourseContent.propTypes = {
 // Add default props
 CourseContent.defaultProps = {
     content: {
-        introduction: '',
-        content: '',
-        summary: '',
+        introduction: "",
+        content: "",
+        summary: "",
     },
 };
 
