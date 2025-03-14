@@ -23,7 +23,7 @@ const RightSideBar = () => {
                     animate={{ opacity: 1, scale: 1 }}
                     exit={{ opacity: 0, scale: 0.9 }}
                     transition={{ duration: 0.5 }}
-                    className="bg-accent-1 font-inter p-4 border-1 border-tertiary mt-4 group hover:bg-accent-2"
+                    className="bg-accent-1 font-inter p-4 border-1 border-tertiary mt-4 group hover:bg-accent-2 transition-all ease-in-out duration-200"
                 >
                     <p className="text-primary text-4xl font-thin">
                         {user.preferredLanguage || "Not Set"}
@@ -47,7 +47,7 @@ const RightSideBar = () => {
                         animate={{ opacity: 1, scale: 1 }}
                         exit={{ opacity: 0, scale: 0.9 }}
                         transition={{ duration: 0.5 }}
-                        className="bg-accent-1 p-4 border-1 border-tertiary hover:bg-accent-2"
+                        className="bg-accent-1 p-4 border-1 border-tertiary hover:bg-accent-2 transition-all ease-in-out duration-200"
                     >
                         <p className="text-primary text-4xl font-thin">
                             {user.modulesLearnt || "None"}
@@ -61,7 +61,7 @@ const RightSideBar = () => {
                         animate={{ opacity: 1, scale: 1 }}
                         exit={{ opacity: 0, scale: 0.9 }}
                         transition={{ duration: 0.5 }}
-                        className="bg-accent-1 p-4 border-1 border-tertiary hover:bg-accent-2"
+                        className="bg-accent-1 p-4 border-1 border-tertiary hover:bg-accent-2 transition-all ease-in-out duration-200"
                     >
                         <p className="text-primary text-4xl font-thin">
                             {user.averageScore || "None"}
@@ -75,7 +75,7 @@ const RightSideBar = () => {
                         animate={{ opacity: 1, scale: 1 }}
                         exit={{ opacity: 0, scale: 0.9 }}
                         transition={{ duration: 0.5 }}
-                        className="bg-accent-1 p-4 border-1 border-tertiary hover:bg-accent-2"
+                        className="bg-accent-1 p-4 border-1 border-tertiary hover:bg-accent-2 transition-all ease-in-out duration-200"
                     >
                         <p className="text-primary text-4xl font-thin">
                             {user.highestScore || "None"}
@@ -89,7 +89,7 @@ const RightSideBar = () => {
                         animate={{ opacity: 1, scale: 1 }}
                         exit={{ opacity: 0, scale: 0.9 }}
                         transition={{ duration: 0.5 }}
-                        className="bg-accent-1 p-4 border-1 border-tertiary hover:bg-accent-2"
+                        className="bg-accent-1 p-4 border-1 border-tertiary hover:bg-accent-2 transition-all ease-in-out duration-200"
                     >
                         <p className="text-primary text-4xl font-thin">
                             {user.badgesEarned || "None"}

@@ -61,3 +61,27 @@
   -moz-user-select: none; /* Firefox */
   -ms-user-select: none; /* Internet Explorer/Edge */
 }
+
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-2px); }
+  50% { transform: translateX(2px); }
+  75% { transform: translateX(-2px); }
+}
+
+.animate-shake:hover {
+  animation: shake 0.3s ease-in-out;
+}
+
+@keyframes bounce-slow {
+0%, 100% {
+    transform: translateY(2px);
+}
+50% {
+    transform: translateY(-2px);
+}
+}
+
+.animate-bounce-slow {
+animation: bounce-slow 1.5s ease-in-out infinite;
+}

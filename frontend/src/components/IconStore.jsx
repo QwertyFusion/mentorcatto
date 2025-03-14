@@ -12,6 +12,8 @@ const IconStore = ({ className, color, name }) => {
         fillColor = "#000000";
     } else if (color === "gray") {
         fillColor = "#99a1af";
+    } else if (color === "tertiary") {
+        fillColor = "#6a7592";
     }
 
     const renderIcon = () => {

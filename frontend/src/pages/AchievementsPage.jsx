@@ -62,7 +62,7 @@ const AchievementsPage = () => {
                     className="mx-32 mt-4 p-8 bg-accent-4 rounded-ten inner-shadow max-h-[calc(100vh-160px)] overflow-y-auto"
                 >
                     {filteredAchievements.length > 0 ? (
-                        <div className="grid md:grid-cols-2 gap-x-5">
+                        <div className="grid md:grid-cols-2 gap-5 gap-x-20">
                             {filteredAchievements.map((achievement, index) => (
                                 <motion.div
                                     key={index}
@@ -74,6 +74,7 @@ const AchievementsPage = () => {
                                     }}
                                 >
                                     <Badge
+                                        icon={achievement.icon}
                                         title={achievement.title}
                                         description={achievement.description}
                                         locked={!achievement.unlocked}

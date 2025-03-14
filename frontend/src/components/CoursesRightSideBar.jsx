@@ -8,6 +8,7 @@ import {
 } from "./Accordion";
 import { useLocation } from "react-router-dom";
 import courseData from "../store/CourseDataStore";
+import { motion } from "framer-motion";
 
 const CoursesRightSideBar = ({ onLessonSelect }) => {
     const { user } = useAuthStore();
@@ -18,7 +19,12 @@ const CoursesRightSideBar = ({ onLessonSelect }) => {
     const lessonCompleted = user.lessonCompleted ? user.lessonCompleted : 0; // Fetch it from the Database
 
     return (
-        <div className="bg-accent-1 text-white h-screen flex flex-col justify-between">
+        <motion.div
+            initial={{ opacity: 0, x: 30 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.4, ease: "easeOut" }}
+            className="bg-accent-1 text-white h-screen flex flex-col justify-between"
+        >
             <div className="bg-accent-4 h-23 inner-shadow">
                 <div className="flex items-center justify-center px-8 pt-6 mb-6">
                     <IconStore
@@ -113,7 +119,7 @@ const CoursesRightSideBar = ({ onLessonSelect }) => {
                     })}
                 </Accordion>
             </div>
-        </div>
+        </motion.div>
     );
 };
 
