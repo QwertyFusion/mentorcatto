@@ -6,6 +6,7 @@ import authRoutes from "./routes/auth.route.js";
 import aiRoutes from "./routes/ai_agent.route.js";
 import cookieParser from "cookie-parser";
 import moduleRoutes from "./routes/module.route.js";
+import lessonRoutes from './routes/lesson.route.js';
 
 dotenv.config();
 
@@ -32,3 +33,4 @@ app.get("/", (req, res) => {
 app.use("/api/auth", authRoutes);
 app.use("/api/ai", aiRoutes);
 app.use("/api/modules", moduleRoutes);
+app.use('/api/lessons', lessonRoutes);

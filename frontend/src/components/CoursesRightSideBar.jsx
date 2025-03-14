@@ -18,6 +18,7 @@ const CoursesRightSideBar = ({ onLessonSelect }) => {
     const [modules, setModules] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
+    const [completedLessons, setCompletedLessons] = useState([]);
 
     const moduleCompleted = user.moduleCompleted ? user.moduleCompleted : 0;
     const moduleOngoing = moduleCompleted + 1;
@@ -45,6 +46,29 @@ const CoursesRightSideBar = ({ onLessonSelect }) => {
 
         fetchModules();
     }, []);
+
+    useEffect(() => {
+        const fetchCompletedLessons = async () => {
+            try {
+                const response = await fetch(`http://localhost:3000/api/lessons/completed/${user._id}`);
+                if (!response.ok) {
+                    throw new Error('Failed to fetch completed lessons');
+                }
+                const data = await response.json();
+                setCompletedLessons(data);
+            } catch (err) {
+                console.error('Error fetching completed lessons:', err);
+            }
+        };
+
+        if (user._id) {
+            fetchCompletedLessons();
+        }
+    }, [user._id]);
+
+    const isLessonCompleted = (lessonId) => {
+        return completedLessons.some(cl => cl.lesson._id === lessonId);
+    };
 
     if (loading)
         return (
@@ -107,11 +131,7 @@ const CoursesRightSideBar = ({ onLessonSelect }) => {
                                 <AccordionContent>
                                     <ul className="pl-5">
                                         {module.lessons.map((lesson) => {
-                                            const isNotComplete =
-                                                moduleNum > moduleOngoing ||
-                                                (moduleNum === moduleOngoing &&
-                                                    lesson.number >
-                                                        lessonCompleted);
+                                            const isNotComplete = !isLessonCompleted(lesson._id);
 
                                             return (
                                                 <li

@@ -1,7 +1,40 @@
 import { motion } from "framer-motion";
 import PropTypes from "prop-types";
+import { useState } from "react";
+import { useAuthStore } from "../store/authStore";
 
 const CourseContent = ({ index, module, lesson, content }) => {
+    const [isMarking, setIsMarking] = useState(false);
+    const { user } = useAuthStore();
+
+    const handleMarkAsDone = async () => {
+        try {
+            setIsMarking(true);
+            const response = await fetch('http://localhost:3000/api/lessons/complete', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    userId: user._id,
+                    lessonId: lesson._id
+                }),
+                credentials: 'include'
+            });
+
+            if (!response.ok) {
+                throw new Error('Failed to mark lesson as complete');
+            }
+
+            // You might want to show a success message or update UI
+            console.log('Lesson marked as complete!');
+        } catch (error) {
+            console.error('Error marking lesson:', error);
+        } finally {
+            setIsMarking(false);
+        }
+    };
+
     return (
         <motion.div
             initial={{ opacity: 0, scale: 0.9 }}
@@ -42,6 +75,15 @@ const CourseContent = ({ index, module, lesson, content }) => {
                         {content.summary}
                     </div>
                 )}
+
+                {/* Add Mark as Done button */}
+                <button
+                    onClick={handleMarkAsDone}
+                    disabled={isMarking}
+                    className="mt-8 px-6 py-2 bg-primary text-black rounded-lg hover:bg-primary/90 transition-colors disabled:opacity-50"
+                >
+                    {isMarking ? 'Marking...' : 'Mark as Done'}
+                </button>
             </div>
         </motion.div>
     );
@@ -49,6 +91,7 @@ const CourseContent = ({ index, module, lesson, content }) => {
 
 // Add PropTypes validation
 CourseContent.propTypes = {
+    index: PropTypes.number.isRequired,
     module: PropTypes.shape({
         name: PropTypes.string.isRequired,
         _id: PropTypes.string,
