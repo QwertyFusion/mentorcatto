@@ -131,7 +131,7 @@ const ChatPage = () => {
                     </div>
 
                     {/* Chat input bar */}
-                    <div className="flex items-center mt-4 p-1 w-5xl bg-accent-1 rounded-ten border-2 border-tertiary drop-shadow-custom">
+                    <div className="flex items-center mt-4 p-1 w-5xl bg-accent-1 rounded-ten border-2 border-tertiary drop-shadow-custom focus-within:border-primary transition duration-200">
                         <input
                             type="text"
                             value={input}

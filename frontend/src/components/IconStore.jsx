@@ -10,6 +10,8 @@ const IconStore = ({ className, color, name }) => {
         fillColor = "#33333E";
     } else if (color === "black") {
         fillColor = "#000000";
+    } else if (color === "gray") {
+        fillColor = "#99a1af";
     }
 
     const renderIcon = () => {
@@ -193,6 +195,23 @@ const IconStore = ({ className, color, name }) => {
                         class="lucide lucide-check"
                     >
                         <path d="M20 6 9 17l-5-5" />
+                    </svg>
+                );
+            case "search":
+                return (
+                    <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        className={className}
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke={fillColor}
+                    >
+                        <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth={3}
+                            d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+                        />
                     </svg>
                 );
             // Add more cases for other icons if needed
