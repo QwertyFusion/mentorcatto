@@ -6,6 +6,7 @@ import { useAiAgentStore } from "../store/aiAgentStore"; // Import the store
 import IconStore from "../components/IconStore";
 import { Loader2 } from "lucide-react"; // Import the Loader icon from lucide-react
 import MarkdownRenderer from "../components/MarkdownRenderer";
+import funnyLoadingTexts from "../store/funnyLoadingTexts";
 
 const ChatPage = () => {
     const { user } = useAuthStore();
@@ -19,10 +20,18 @@ const ChatPage = () => {
         },
     ]);
     const [input, setInput] = useState("");
+    const [loadingText, setLoadingText] = useState(
+        funnyLoadingTexts[Math.floor(Math.random() * funnyLoadingTexts.length)]
+    );
 
     const chatContainerRef = useRef(null); // Reference for the chat container
 
     const handleSendMessage = async () => {
+        setLoadingText(
+            funnyLoadingTexts[
+                Math.floor(Math.random() * funnyLoadingTexts.length)
+            ]
+        );
         if (input.trim() === "") return;
 
         // Prepare the message to send
@@ -140,6 +149,22 @@ const ChatPage = () => {
                             </motion.div>
                         ))}
                     </div>
+
+                    {/* AI thinking indicator */}
+                    {isLoading && (
+                        <motion.div
+                            initial={{ opacity: 0, scale: 0.9 }}
+                            animate={{ opacity: 1, scale: 1 }}
+                            exit={{ opacity: 0, scale: 0.9 }}
+                            transition={{ duration: 0.5 }}
+                            className="absolute bottom-25 left-1/2 bg-accent-3 w-fit p-2 rounded-ten flex flex-row items-center justify-center drop-shadow-custom"
+                        >
+                            <Loader2 className="animate-spin w-4 h-4 text-primary mr-2" />
+                            <p className="text-sm text-gray-400">
+                                {loadingText}
+                            </p>
+                        </motion.div>
+                    )}
 
                     {/* Chat input bar */}
                     <div className="flex items-center mt-4 p-1 w-5xl bg-accent-1 rounded-ten border-2 border-tertiary drop-shadow-custom focus-within:border-primary transition duration-200">
