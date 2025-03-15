@@ -87,24 +87,8 @@ const CourseContent = ({
                         Lesson: {lesson.name}
                     </h3>
                     <hr className="border-1 border-accent-5 w-full mb-6 mt-2" />
-
-                    {content?.introduction && (
-                        <div className="text-white mb-6">
-                            {content.introduction}
-                        </div>
-                    )}
-                    {content?.content && (
-                        <div className="text-white mb-6 w-full">
-                            {content.content}
-                        </div>
-                    )}
-                    {content?.summary && (
-                        <div className="text-white mt-4">
-                            <h4 className="text-lg font-semibold mb-2">
-                                Summary
-                            </h4>
-                            {content.summary}
-                        </div>
+                    {content && (
+                        <div className="text-white mb-6 w-full">{content}</div>
                     )}
 
                     <motion.button

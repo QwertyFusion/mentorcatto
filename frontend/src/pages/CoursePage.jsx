@@ -4,8 +4,10 @@ import CoursesRightSideBar from "../components/CoursesRightSideBar";
 import StarterPage from "../components/StarterPage";
 import CourseContent from "../components/CourseContent";
 import { Loader2 } from "lucide-react";
+import { useAuthStore } from "../store/authStore";
 
 const CoursePage = () => {
+    const { user } = useAuthStore();
     const [selectedModule, setSelectedModule] = useState(null);
     const [selectedLesson, setSelectedLesson] = useState(null);
     const [selectedContent, setSelectedContent] = useState(null);
@@ -27,9 +29,45 @@ const CoursePage = () => {
             setSelectedLesson(lesson);
             setSelectedIndex(index + 1);
 
-            await new Promise((resolve) => setTimeout(resolve, 1000));
+            // Fetch the content from the database
+            const response = await fetch(
+                `http://localhost:3000/api/lessons/content/${user._id}/${lesson._id}`
+            );
 
-            setSelectedContent(dummyContent);
+            if (!response.ok) {
+                throw new Error("Failed to fetch lesson content");
+            }
+
+            const data = await response.json();
+            // Check if content is blank or null
+            if (!data.content) {
+                // Send a request to create content
+                const createContentResponse = await fetch(
+                    `http://localhost:3000/api/lessons/create-content`,
+                    {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json",
+                        },
+                        body: JSON.stringify({
+                            userId: user._id,
+                            lessonId: lesson._id,
+                            preferredLanguage: user.preferredLanguage, // Assuming you have this in your user store
+                            additionalInstructions:
+                                "Please provide detailed content.", // You can customize this
+                        }),
+                    }
+                );
+
+                if (!createContentResponse.ok) {
+                    throw new Error("Failed to create lesson content");
+                }
+
+                const generatedData = await createContentResponse.json();
+                setSelectedContent(generatedData.content); // Set the generated content
+            } else {
+                setSelectedContent(data.content); // Set the fetched content
+            }
         } catch (error) {
             setError(error.message);
         } finally {
