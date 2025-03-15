@@ -12,6 +12,7 @@ const CoursePage = () => {
     const [selectedLesson, setSelectedLesson] = useState(null);
     const [selectedContent, setSelectedContent] = useState(null);
     const [selectedIndex, setSelectedIndex] = useState(null);
+    const [isCompleted, setIsCompleted] = useState(null);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
     const [refreshSidebar, setRefreshSidebar] = useState(false);
@@ -22,12 +23,13 @@ const CoursePage = () => {
         summary: "Today we learned about DSA concepts...",
     };
 
-    const handleLessonSelect = async (module, lesson, index) => {
+    const handleLessonSelect = async (module, lesson, index, isCompleted) => {
         try {
             setLoading(true);
             setSelectedModule(module);
             setSelectedLesson(lesson);
             setSelectedIndex(index + 1);
+            setIsCompleted(isCompleted);
 
             // Fetch the content from the database
             const response = await fetch(
@@ -100,6 +102,7 @@ const CoursePage = () => {
                         module={selectedModule}
                         lesson={selectedLesson}
                         content={selectedContent}
+                        completed={isCompleted}
                         onLessonComplete={handleLessonComplete}
                     />
                 ) : (

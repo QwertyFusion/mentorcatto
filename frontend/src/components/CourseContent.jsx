@@ -11,10 +11,12 @@ const CourseContent = ({
     module,
     lesson,
     content,
+    completed,
     onLessonComplete,
 }) => {
     const [isMarking, setIsMarking] = useState(false);
     const [showConfetti, setShowConfetti] = useState(false);
+    const [lessonCompleted, setLessonCompleted] = useState(completed);
     const { user } = useAuthStore();
 
     const handleMarkAsDone = async () => {
@@ -39,8 +41,6 @@ const CourseContent = ({
                 throw new Error("Failed to mark lesson as complete");
             }
 
-            console.log("Lesson marked as complete!");
-
             // Trigger confetti
             setShowConfetti(true);
             setTimeout(() => {
@@ -48,6 +48,7 @@ const CourseContent = ({
             }, 4000); // 4s before stopping confetti
 
             // Trigger sidebar update
+            setLessonCompleted(true);
             onLessonComplete();
         } catch (error) {
             console.error("Error marking lesson:", error);
@@ -79,7 +80,7 @@ const CourseContent = ({
                 className="w-full bg-accent-4 inner-shadow rounded-ten p-4 flex flex-col items-center relative"
             >
                 <div className="w-[80%] flex flex-col items-center">
-                    <h2 className="text-2xl text-center text-white">
+                    <h2 className="mt-8 text-2xl text-center text-white">
                         <span className="text-primary">
                             Module {index}: {module.name}
                         </span>
@@ -94,25 +95,33 @@ const CourseContent = ({
                         </div>
                     )}
 
-                    <motion.button
-                        whileHover={{ scale: 1.05 }}
-                        whileTap={{ scale: 0.95 }}
-                        onClick={handleMarkAsDone}
-                        disabled={isMarking}
-                        className="mt-8 px-6 py-2 cursor-pointer bg-primary text-black hover:bg-primary/90 drop-shadow-custom rounded-ten focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 focus:ring-offset-gray-900 transition duration-200 disabled:opacity-50"
-                    >
-                        {isMarking ? (
-                            <div className="flex items-center justify-center cursor-not-allowed">
-                                <Loader2 className="animate-spin w-5 h-5 mr-2" />
-                                Marking...
-                            </div>
-                        ) : (
+                    <div className="flex items-center justify-end w-full">
+                        <motion.button
+                            whileHover={{ scale: 1.05 }}
+                            whileTap={{ scale: 0.95 }}
+                            onClick={handleMarkAsDone}
+                            disabled={lessonCompleted || isMarking} // Disable if completed or marking
+                            className={`mb-8 px-6 py-2 bg-primary text-black hover:bg-primary/90 drop-shadow-custom rounded-ten focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 focus:ring-offset-gray-900 transition duration-200 disabled:opacity-50 ${
+                                lessonCompleted
+                                    ? "cursor-not-allowed"
+                                    : "cursor-pointer"
+                            }`}
+                        >
                             <div className="flex items-center justify-center">
-                                <CheckCheck className="w-5 h-5 mr-2" />
-                                Mark as Done
+                                {lessonCompleted ? (
+                                    <>
+                                        <CheckCheck className="w-5 h-5 mr-2" />
+                                        Marked as Done
+                                    </>
+                                ) : (
+                                    <>
+                                        <CheckCheck className="w-5 h-5 mr-2" />
+                                        Mark as Done
+                                    </>
+                                )}
                             </div>
-                        )}
-                    </motion.button>
+                        </motion.button>
+                    </div>
                 </div>
             </motion.div>
         </div>

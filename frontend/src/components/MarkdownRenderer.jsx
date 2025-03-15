@@ -2,10 +2,12 @@ import React from "react";
 import ReactMarkdown from "react-markdown";
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 import { coldarkDark } from "react-syntax-highlighter/dist/esm/styles/prism";
+import remarkGfm from "remark-gfm";
 
 const MarkdownRenderer = ({ content }) => {
     return (
         <ReactMarkdown
+            remarkPlugins={[remarkGfm]}
             components={{
                 strong: ({ children }) => (
                     <span className="font-bold">{children}</span>
@@ -62,6 +64,22 @@ const MarkdownRenderer = ({ content }) => {
                         </SyntaxHighlighter>
                     );
                 },
+                table: ({ children }) => (
+                    <table className="min-w-full border-collapse border-2 border-accent-1">
+                        {children}
+                    </table>
+                ),
+                tr: ({ children }) => (
+                    <tr className="border-b-2 border-accent-1">{children}</tr>
+                ),
+                th: ({ children }) => (
+                    <th className="border-accent-1 border-2 p-2 text-left bg-primary text-accent-4">
+                        {children}
+                    </th>
+                ),
+                td: ({ children }) => (
+                    <td className="border-2 border-accent-1 p-2">{children}</td>
+                ),
             }}
         >
             {content}

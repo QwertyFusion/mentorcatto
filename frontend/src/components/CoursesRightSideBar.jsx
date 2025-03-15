@@ -155,7 +155,8 @@ const CoursesRightSideBar = ({ onLessonSelect, refreshSidebar }) => {
                                                         onLessonSelect(
                                                             module,
                                                             lesson,
-                                                            index
+                                                            index,
+                                                            !isNotComplete
                                                         );
                                                     }}
                                                     className="cursor-pointer text-white hover:text-primary mt-4 flex items-center transition-all duration-200 ease-in-out"
