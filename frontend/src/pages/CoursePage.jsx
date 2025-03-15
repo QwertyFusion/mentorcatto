@@ -52,9 +52,9 @@ const CoursePage = () => {
                         body: JSON.stringify({
                             userId: user._id,
                             lessonId: lesson._id,
-                            preferredLanguage: user.preferredLanguage, // Assuming you have this in your user store
+                            preferredLanguage: user.preferredLanguage,
                             additionalInstructions:
-                                "Please provide detailed content.", // You can customize this
+                                "Please provide detailed content.",
                         }),
                     }
                 );

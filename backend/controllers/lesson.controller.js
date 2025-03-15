@@ -51,16 +51,23 @@ export const getUserLessonContent = async (req, res) => {
     try {
         const { userId, lessonId } = req.params;
 
-        const userLesson = await UserLesson.findOne({
+        let userLesson = await UserLesson.findOne({
             user: userId,
             lesson: lessonId,
         });
 
+        // If no user lesson is found, create one with empty content
         if (!userLesson) {
-            return res.status(404).json({ message: "Lesson not found" });
+            userLesson = new UserLesson({
+                user: userId,
+                lesson: lessonId,
+                content: "",
+                isCompleted: false, // Default to not completed
+            });
+            await userLesson.save();
         }
 
-        res.status(200).json(userLesson);
+        res.status(200).json(userLesson); // Return the user lesson (either found or newly created)
     } catch (error) {
         res.status(500).json({ error: error.message });
     }
@@ -87,6 +94,8 @@ Generate a **high-quality lesson** on the topic **"${lesson.name}"** in **${pref
   - Start with a real-world scenario, a question, an interesting fact, or a common misconception.  
 - Ensure the lesson **varies its structure** depending on the topic.  
 - Do not say stuff like normal conversation, just create couse content as if it is in a book. Also no need to mention the title of the lesson at the top.
+- Do not forget to use markdown effectively to make sure that the content is very readable. Do not feel restricted to use #, ## or ###. Everything is allowed for markdown format.
+- Additional Instructions from user side: **${additionalInstructions}**.
 
 ### Content Structure (Flexible Based on the Topic, No need to go with the exact headings/paragraphs)
 1. **Introduction**  
