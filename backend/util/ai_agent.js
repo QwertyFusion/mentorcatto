@@ -5,6 +5,7 @@ import { MessagesAnnotation, StateGraph } from "@langchain/langgraph";
 import { SystemMessage, ToolMessage } from "@langchain/core/messages";
 import { config } from "dotenv";
 import { User } from "../models/user.model.js";
+import { UserLesson } from "../models/user_lesson.model.js";
 
 config();
 
@@ -17,9 +18,16 @@ const llm = new ChatGoogleGenerativeAI({
 const savePreferredLanguage = tool(
     async ({ email, language }) => {
         const user = await User.findOne({ email });
+
+        if (user.preferredLanguage === language) {
+            return `User's preferred programming language was already set as "${language}". Nothing has been changed`;
+        }
+        // Delete all user lessons
+        await UserLesson.deleteMany({ user: user._id });
+
         user.preferredLanguage = language;
         await user.save();
-        return `Your preferred programming language has been saved as "${language}". And linked to your email "${email}"`;
+        return `User's preferred programming language has been saved as "${language}". And linked to your email "${email}"`;
     },
     {
         name: "save_preferred_language",
