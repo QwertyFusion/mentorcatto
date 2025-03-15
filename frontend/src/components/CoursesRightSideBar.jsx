@@ -158,13 +158,13 @@ const CoursesRightSideBar = ({ onLessonSelect, refreshSidebar }) => {
                                                             index
                                                         );
                                                     }}
-                                                    className={`cursor-pointer hover:text-primary mt-4 flex items-center transition-all duration-200 ease-in-out`}
+                                                    className="cursor-pointer text-white hover:text-primary mt-4 flex items-center transition-all duration-200 ease-in-out"
                                                 >
                                                     <div
                                                         className={`h-4.5 w-4.5 rounded-full border-2 me-3 drop-shadow-custom flex items-center justify-center ${
                                                             isNotComplete
                                                                 ? "border-white"
-                                                                : "text-primary bg-primary"
+                                                                : "text-primary bg-primary animate-pulse"
                                                         }`}
                                                     >
                                                         <IconStore
