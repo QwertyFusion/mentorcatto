@@ -7,6 +7,11 @@ const moduleSchema = new mongoose.Schema(
             required: true,
             unique: true,
         },
+        moduleNumber: {
+            type: Number, // or Number, depending on your preference
+            required: true,
+            unique: true,
+        },
         lessons: [
             {
                 type: mongoose.Schema.Types.ObjectId,

@@ -34,6 +34,7 @@ const uploadData = async () => {
         for (const moduleItem of courseData) {
             const newModule = new Module({
                 name: moduleItem.moduleName,
+                moduleNumber: moduleItem.moduleNumber,
             });
 
             const savedModule = await newModule.save();

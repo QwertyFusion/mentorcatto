@@ -1,6 +1,6 @@
 const courseData = [
     {
-        moduleNumber: "Module 1",
+        moduleNumber: 1,
         moduleName: "Core Programming Concepts",
         lessons: [
             "Variables, Data Types, Operators",
@@ -11,7 +11,7 @@ const courseData = [
         ],
     },
     {
-        moduleNumber: "Module 2",
+        moduleNumber: 2,
         moduleName: "Problem-Solving Fundamentals",
         lessons: [
             "Breaking Down Problems",
@@ -22,7 +22,7 @@ const courseData = [
         ],
     },
     {
-        moduleNumber: "Module 3",
+        moduleNumber: 3,
         moduleName: "Mathematics for DSA",
         lessons: [
             "Basic Number Theory",
@@ -33,7 +33,7 @@ const courseData = [
         ],
     },
     {
-        moduleNumber: "Module 4",
+        moduleNumber: 4,
         moduleName: "Complexity Analysis",
         lessons: [
             "Big O Notation",
@@ -44,7 +44,7 @@ const courseData = [
         ],
     },
     {
-        moduleNumber: "Module 5",
+        moduleNumber: 5,
         moduleName: "Arrays",
         lessons: [
             "Static vs Dynamic Arrays",
@@ -55,7 +55,7 @@ const courseData = [
         ],
     },
     {
-        moduleNumber: "Module 6",
+        moduleNumber: 6,
         moduleName: "Strings",
         lessons: [
             "String Operations",
@@ -66,7 +66,7 @@ const courseData = [
         ],
     },
     {
-        moduleNumber: "Module 7",
+        moduleNumber: 7,
         moduleName: "Linked Lists",
         lessons: [
             "Singly Linked Lists",
@@ -77,7 +77,7 @@ const courseData = [
         ],
     },
     {
-        moduleNumber: "Module 8",
+        moduleNumber: 8,
         moduleName: "Stacks & Queues",
         lessons: [
             "Stack Operations",
@@ -88,7 +88,7 @@ const courseData = [
         ],
     },
     {
-        moduleNumber: "Module 9",
+        moduleNumber: 9,
         moduleName: "Binary Trees",
         lessons: [
             "Tree Terminology",
@@ -99,7 +99,7 @@ const courseData = [
         ],
     },
     {
-        moduleNumber: "Module 10",
+        moduleNumber: 10,
         moduleName: "Binary Search Trees",
         lessons: [
             "BST Properties",
@@ -110,7 +110,7 @@ const courseData = [
         ],
     },
     {
-        moduleNumber: "Module 11",
+        moduleNumber: 11,
         moduleName: "Advanced Tree Structures",
         lessons: [
             "B-Trees Concept",
@@ -121,7 +121,7 @@ const courseData = [
         ],
     },
     {
-        moduleNumber: "Module 12",
+        moduleNumber: 12,
         moduleName: "Heaps",
         lessons: [
             "Heap Properties",
@@ -132,7 +132,7 @@ const courseData = [
         ],
     },
     {
-        moduleNumber: "Module 13",
+        moduleNumber: 13,
         moduleName: "Graphs",
         lessons: [
             "Graph Terminology",
@@ -143,7 +143,7 @@ const courseData = [
         ],
     },
     {
-        moduleNumber: "Module 14",
+        moduleNumber: 14,
         moduleName: "Graph Traversals",
         lessons: [
             "Depth-First Search",
@@ -154,7 +154,7 @@ const courseData = [
         ],
     },
     {
-        moduleNumber: "Module 15",
+        moduleNumber: 15,
         moduleName: "Searching Algorithms",
         lessons: [
             "Linear Search",
@@ -165,17 +165,17 @@ const courseData = [
         ],
     },
     {
-        moduleNumber: "Module 16",
+        moduleNumber: 16,
         moduleName: "Basic Sorting",
         lessons: [
-            -"Bubble Sort",
-            -"Selection Sort",
-            -"Insertion Sort",
-            -"Analysis & Comparison",
+            "Bubble Sort",
+            "Selection Sort",
+            "Insertion Sort",
+            "Analysis & Comparison",
         ],
     },
     {
-        moduleNumber: "Module 17",
+        moduleNumber: 17,
         moduleName: "Advanced Sorting",
         lessons: [
             "Merge Sort",
@@ -186,7 +186,7 @@ const courseData = [
         ],
     },
     {
-        moduleNumber: "Module 18",
+        moduleNumber: 18,
         moduleName: "Recursion & Backtracking",
         lessons: [
             "Recursion Fundamentals",
@@ -197,7 +197,7 @@ const courseData = [
         ],
     },
     {
-        moduleNumber: "Module 19",
+        moduleNumber: 19,
         moduleName: "Dynamic Programming",
         lessons: [
             "Optimal Substructure",
@@ -208,7 +208,7 @@ const courseData = [
         ],
     },
     {
-        moduleNumber: "Module 20",
+        moduleNumber: 20,
         moduleName: "Greedy Algorithms",
         lessons: [
             "Greedy Choice Property",
@@ -219,7 +219,7 @@ const courseData = [
         ],
     },
     {
-        moduleNumber: "Module 21",
+        moduleNumber: 21,
         moduleName: "Advanced Data Structures",
         lessons: [
             "Skip Lists",
@@ -230,7 +230,7 @@ const courseData = [
         ],
     },
     {
-        moduleNumber: "Module 22",
+        moduleNumber: 22,
         moduleName: "String Algorithms",
         lessons: [
             "KMP Algorithm",
@@ -241,7 +241,7 @@ const courseData = [
         ],
     },
     {
-        moduleNumber: "Module 23",
+        moduleNumber: 23,
         moduleName: "Bit Manipulation",
         lessons: [
             "Bitwise Operators",
@@ -252,7 +252,7 @@ const courseData = [
         ],
     },
     {
-        moduleNumber: "Module 24",
+        moduleNumber: 24,
         moduleName: "Design Fundamentals",
         lessons: [
             "SOLID Principles",
@@ -263,7 +263,7 @@ const courseData = [
         ],
     },
     {
-        moduleNumber: "Module 25",
+        moduleNumber: 25,
         moduleName: "Problem-Solving Patterns",
         lessons: [
             "Sliding Window",
