@@ -1,3 +1,4 @@
+import { useState, useEffect } from "react";
 import { useAuthStore } from "../store/authStore";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
@@ -6,6 +7,31 @@ import IconStore from "./IconStore";
 
 const RightSideBar = () => {
     const { user } = useAuthStore();
+    const [completedLessons, setCompletedLessons] = useState(0);
+
+    useEffect(() => {
+        const fetchCompletedLessons = async () => {
+            if (!user?._id) return;
+
+            try {
+                const response = await fetch(
+                    `http://localhost:3000/api/lessons/completed/${user._id}`
+                );
+
+                if (!response.ok) {
+                    throw new Error("Failed to fetch completed lessons");
+                }
+
+                const data = await response.json();
+                setCompletedLessons(data.length); // Count completed lessons
+            } catch (error) {
+                console.error("Error fetching completed lessons:", error);
+            }
+        };
+
+        fetchCompletedLessons();
+    }, [user?._id]);
+
     return (
         <div className="bg-accent-1 p-6 text-white h-screen flex flex-col justify-between">
             <div className="flex flex-col">
@@ -50,10 +76,10 @@ const RightSideBar = () => {
                         className="bg-accent-1 p-4 border-1 border-tertiary hover:bg-accent-2 transition-all ease-in-out duration-200"
                     >
                         <p className="text-primary text-4xl font-thin">
-                            {user.modulesLearnt || "None"}
+                            {completedLessons || "None"}
                         </p>
                         <p className="text-white text-md font-light">
-                            Modules Learnt
+                            Lessons Completed
                         </p>
                     </motion.div>
                     <motion.div
