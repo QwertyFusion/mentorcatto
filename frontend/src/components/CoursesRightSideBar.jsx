@@ -12,17 +12,13 @@ import { motion } from "framer-motion";
 import PropTypes from "prop-types";
 import { Loader2, OctagonAlert } from "lucide-react";
 
-const CoursesRightSideBar = ({ onLessonSelect }) => {
+const CoursesRightSideBar = ({ onLessonSelect, refreshSidebar }) => {
     const { user } = useAuthStore();
     const location = useLocation();
     const [modules, setModules] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
     const [completedLessons, setCompletedLessons] = useState([]);
-
-    const moduleCompleted = user.moduleCompleted ? user.moduleCompleted : 0;
-    const moduleOngoing = moduleCompleted + 1;
-    const lessonCompleted = user.lessonCompleted ? user.lessonCompleted : 0;
 
     useEffect(() => {
         const fetchModules = async () => {
@@ -50,24 +46,30 @@ const CoursesRightSideBar = ({ onLessonSelect }) => {
     useEffect(() => {
         const fetchCompletedLessons = async () => {
             try {
-                const response = await fetch(`http://localhost:3000/api/lessons/completed/${user._id}`);
+                const response = await fetch(
+                    `http://localhost:3000/api/lessons/completed/${user._id}`
+                );
                 if (!response.ok) {
-                    throw new Error('Failed to fetch completed lessons');
+                    throw new Error("Failed to fetch completed lessons");
                 }
                 const data = await response.json();
                 setCompletedLessons(data);
             } catch (err) {
-                console.error('Error fetching completed lessons:', err);
+                console.error("Error fetching completed lessons:", err);
             }
         };
 
         if (user._id) {
             fetchCompletedLessons();
         }
-    }, [user._id]);
+    }, [user._id, refreshSidebar]); // Re-fetch when refreshSidebar changes
 
     const isLessonCompleted = (lessonId) => {
-        return completedLessons.some(cl => cl.lesson._id === lessonId);
+        return completedLessons.some((cl) => cl.lesson._id === lessonId);
+    };
+
+    const isModuleCompleted = (module) => {
+        return module.lessons.every((lesson) => isLessonCompleted(lesson._id));
     };
 
     if (loading)
@@ -83,6 +85,14 @@ const CoursesRightSideBar = ({ onLessonSelect }) => {
                 <strong>Error:</strong> {error}
             </div>
         );
+
+    // 🔹 Find the last completed module index
+    let lastCompletedIndex = -1;
+    modules.forEach((mod, idx) => {
+        if (isModuleCompleted(mod)) {
+            lastCompletedIndex = idx;
+        }
+    });
 
     return (
         <motion.div
@@ -110,13 +120,15 @@ const CoursesRightSideBar = ({ onLessonSelect }) => {
             <div className="bg-accent-1 px-3 pb-3 h-full overflow-auto">
                 <Accordion type="single" collapsible>
                     {modules.map((module, index) => {
-                        const moduleNum = index + 1;
-                        let iconState =
-                            moduleNum < moduleOngoing
-                                ? "completed"
-                                : moduleNum === moduleOngoing
-                                ? "unlocked"
-                                : "locked";
+                        let iconState;
+
+                        if (isModuleCompleted(module)) {
+                            iconState = "completed";
+                        } else if (index === lastCompletedIndex + 1) {
+                            iconState = "unlocked";
+                        } else {
+                            iconState = "locked";
+                        }
 
                         return (
                             <AccordionItem
@@ -125,13 +137,14 @@ const CoursesRightSideBar = ({ onLessonSelect }) => {
                             >
                                 <AccordionTrigger
                                     iconState={iconState}
-                                    moduleNumber={`Module ${moduleNum}`}
+                                    moduleNumber={`Module ${index + 1}`}
                                     moduleDescription={module.name}
                                 />
                                 <AccordionContent>
                                     <ul className="pl-5">
                                         {module.lessons.map((lesson) => {
-                                            const isNotComplete = !isLessonCompleted(lesson._id);
+                                            const isNotComplete =
+                                                !isLessonCompleted(lesson._id);
 
                                             return (
                                                 <li
@@ -185,6 +198,7 @@ const CoursesRightSideBar = ({ onLessonSelect }) => {
 
 CoursesRightSideBar.propTypes = {
     onLessonSelect: PropTypes.func.isRequired,
+    refreshSidebar: PropTypes.bool.isRequired,
 };
 
 export default CoursesRightSideBar;

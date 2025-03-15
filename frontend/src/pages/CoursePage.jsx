@@ -12,43 +12,12 @@ const CoursePage = () => {
     const [selectedIndex, setSelectedIndex] = useState(null);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
+    const [refreshSidebar, setRefreshSidebar] = useState(false);
 
-    // Dummy data for testing
     const dummyContent = {
         introduction: "This is an introduction to DSA concepts...",
-        content: `# Data Structures and Algorithms
-
-## Introduction
-In this lesson, we'll learn about fundamental DSA concepts.
-
-### Key Points:
-1. Time Complexity
-2. Space Complexity
-3. Basic Data Structures
-
-### Example Code:
-\`\`\`python
-def binary_search(arr, target):
-    left = 0
-    right = len(arr) - 1
-    while left <= right:
-        mid = (left + right) // 2
-        if arr[mid] == target:
-            return mid
-        elif arr[mid] < target:
-            left = mid + 1
-        else:
-            right = mid - 1
-    return -1
-\`\`\`
-
-### Practice Problems:
-1. Implement bubble sort
-2. Create a linked list
-3. Solve array rotation
-`,
-        summary:
-            "Today we learned about basic DSA concepts and implementation...",
+        content: "Basic Data Structures and Algorithms...",
+        summary: "Today we learned about DSA concepts...",
     };
 
     const handleLessonSelect = async (module, lesson, index) => {
@@ -58,22 +27,18 @@ def binary_search(arr, target):
             setSelectedLesson(lesson);
             setSelectedIndex(index + 1);
 
-            // Add console logs to debug
-            console.log("Selected Module:", module);
-            console.log("Selected Lesson:", lesson);
-
-            // Simulate API call delay
             await new Promise((resolve) => setTimeout(resolve, 1000));
 
-            // Use dummy data instead of API call
             setSelectedContent(dummyContent);
-            console.log("Content set:", dummyContent); // Debug log
         } catch (error) {
             setError(error.message);
-            console.error("Error fetching lesson content:", error);
         } finally {
             setLoading(false);
         }
+    };
+
+    const handleLessonComplete = () => {
+        setRefreshSidebar((prev) => !prev);
     };
 
     return (
@@ -92,26 +57,23 @@ def binary_search(arr, target):
                         {error}
                     </div>
                 ) : selectedModule && selectedLesson ? (
-                    <div className="text-white">
-                        <CourseContent
-                            index={selectedIndex}
-                            module={selectedModule}
-                            lesson={selectedLesson}
-                            content={selectedContent}
-                        />
-                        {!selectedContent && (
-                            <div className="text-center mt-20">
-                                No content available for this lesson
-                            </div>
-                        )}
-                    </div>
+                    <CourseContent
+                        index={selectedIndex}
+                        module={selectedModule}
+                        lesson={selectedLesson}
+                        content={selectedContent}
+                        onLessonComplete={handleLessonComplete}
+                    />
                 ) : (
                     <StarterPage />
                 )}
             </div>
 
             <div className="w-[350px]">
-                <CoursesRightSideBar onLessonSelect={handleLessonSelect} />
+                <CoursesRightSideBar
+                    onLessonSelect={handleLessonSelect}
+                    refreshSidebar={refreshSidebar}
+                />
             </div>
         </div>
     );
