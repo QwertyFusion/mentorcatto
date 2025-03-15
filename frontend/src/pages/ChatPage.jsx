@@ -14,11 +14,14 @@ const ChatPage = () => {
     const [messages, setMessages] = useState([
         {
             text: user.preferredLanguage
-                ? `Hello ${user.name}! How can I help you today?`
-                : `Welcome to our platform, ${user.name}! Please set your preferred language. Once done, then you can access the platform.`,
+                ? `Hello **${user.name}**! How can I help you today?`
+                : `Welcome to our platform, **${user.name}**! 
+
+Please set your \`preferred language\`. Once done, then you can access the platform!`,
             sender: "agent",
         },
     ]);
+
     const [input, setInput] = useState("");
     const [loadingText, setLoadingText] = useState(
         funnyLoadingTexts[Math.floor(Math.random() * funnyLoadingTexts.length)]
