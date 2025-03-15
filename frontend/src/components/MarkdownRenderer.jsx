@@ -6,17 +6,6 @@ import { coldarkDark } from "react-syntax-highlighter/dist/esm/styles/prism";
 import remarkGfm from "remark-gfm";
 
 const MarkdownRenderer = ({ content }) => {
-    const [copyDoneMarker, setCopyDoneMarker] = useState(false);
-
-    const copyToClipboard = (code) => {
-        navigator.clipboard.writeText(code).then(() => {
-            setCopyDoneMarker(true);
-            setTimeout(() => {
-                setCopyDoneMarker(false);
-            }, 2500);
-        });
-    };
-
     return (
         <div className="relative">
             <ReactMarkdown
@@ -56,6 +45,7 @@ const MarkdownRenderer = ({ content }) => {
                         const language = className
                             ? className.replace("language-", "")
                             : null;
+                        const [isCopied, setIsCopied] = useState(false);
 
                         // Inline Code (small code snippets inside text)
                         if (!language) {
@@ -69,6 +59,15 @@ const MarkdownRenderer = ({ content }) => {
                         // Block Code (Big Code Blocks)
                         const codeString = String(children).trim();
 
+                        const copyToClipboard = () => {
+                            navigator.clipboard
+                                .writeText(codeString)
+                                .then(() => {
+                                    setIsCopied(true);
+                                    setTimeout(() => setIsCopied(false), 1500);
+                                });
+                        };
+
                         return (
                             <div className="relative my-4">
                                 <div className="flex justify-between items-center bg-accent-3 p-2 px-4 -mb-2 rounded-t-ten">
@@ -76,12 +75,10 @@ const MarkdownRenderer = ({ content }) => {
                                         {language}
                                     </span>
                                     <button
-                                        onClick={() =>
-                                            copyToClipboard(codeString)
-                                        }
+                                        onClick={copyToClipboard}
                                         className="text-primary p-2 rounded hover:bg-accent-1 cursor-pointer"
                                     >
-                                        {!copyDoneMarker ? (
+                                        {!isCopied ? (
                                             <Copy className="h-4 w-4" />
                                         ) : (
                                             <CheckCheck className="h-4 w-4" />
@@ -98,6 +95,7 @@ const MarkdownRenderer = ({ content }) => {
                             </div>
                         );
                     },
+
                     table: ({ children }) => (
                         <table className="min-w-full border-collapse border-2 border-[#1D1F21]">
                             {children}
@@ -114,7 +112,7 @@ const MarkdownRenderer = ({ content }) => {
                         </th>
                     ),
                     td: ({ children }) => (
-                        <td className="border-2 border-[#1D1F21] p-2">
+                        <td className="border-2 border-[#1D1F21] bg-accent-3 p-2">
                             {children}
                         </td>
                     ),
