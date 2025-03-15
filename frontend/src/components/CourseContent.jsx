@@ -90,7 +90,7 @@ const CourseContent = ({
                     <hr className="border-1 border-accent-5 w-full mb-6 mt-2" />
                     {content && (
                         <div className="text-white mb-6 w-full">
-                            <MarkdownRenderer>{content}</MarkdownRenderer>
+                            <MarkdownRenderer content={content} />
                         </div>
                     )}
 
