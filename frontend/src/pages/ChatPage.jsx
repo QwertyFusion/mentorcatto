@@ -30,7 +30,7 @@ const ChatPage = () => {
 
         // Check if the user's preferred language is not set
         if (!user.preferredLanguage) {
-            messageToSend = `I want you to set my preferred language. If the following text does not contain my preferred language, then please reply with an accurate reply. Only allow replies like setting preferred language. If I write one word with language name, set it, if I write incorrect, then don't and say it. However, I can ask stuff like what is a good preferred language and all. Below is my reply: ${input}`;
+            messageToSend = `I want you to set my preferred language. If the following text does not contain my preferred language, then please reply with an accurate reply. Only allow replies like setting preferred language. If I write one word with language name, set it, if I write incorrect, then don't and say it. However, I can ask stuff like what is a good preferred language and all. Tell me to reload the window after the language is set. Below is my reply: ${input}`;
         }
 
         // Add user message to chat

@@ -27,7 +27,7 @@ const savePreferredLanguage = tool(
 
         user.preferredLanguage = language;
         await user.save();
-        return `User's preferred programming language has been saved as "${language}". And linked to your email "${email}"`;
+        return `User's preferred programming language has been saved as "${language}". And linked to your email "${email}". Please tell the user to reload the window to see the changes.`;
     },
     {
         name: "save_preferred_language",
@@ -52,7 +52,6 @@ const getPlatformDetails = tool(
                 "Shreeya Das",
                 "Stitipragyan Behera",
             ],
-            tech_stack: ["React.js", "Node.js", "LangChain", "MongoDB"],
         });
     },
     {
@@ -73,15 +72,16 @@ const toolsByName = Object.fromEntries(tools.map((tool) => [tool.name, tool]));
 const llmWithTools = llm.bindTools(tools);
 
 // System Prompt
-const SYSTEM_PROMPT = `You are the AI assistant for a Data Structures and Algorithms (DSA) learning platform. Your role is to assist users with their programming and algorithm-related queries.
+const SYSTEM_PROMPT = `You are the AI assistant for a Data Structures and Algorithms (DSA) learning platform named MentorCatto. Your role is to assist users with their programming and algorithm-related queries.
 
 - If the user wants to save their preferred programming language, use the tool "save_preferred_language" with the user's email and the language they want to save.
-- If the user asks about the platform's name, developers, or tech stack, use the tool "get_platform_details" and reply the question with the needed answer.
+- If the user asks about the platform's name, or developers, use the tool "get_platform_details" and reply the question with the needed answer.
 - If the question does not require a tool, respond naturally with useful information.
 - Keep responses clear, concise, and informative.
 - Do not give extra unnecessary information.
 - Do not disclose the user ID even if the user asks for it.
 - Do not reply so concise that the user will not know that changes are done or you have updated something, so do not reply in small terms.
+- You can use markdown to reply.
 `;
 
 async function llmCall(state) {

@@ -1,7 +1,7 @@
 import { useAuthStore } from "../store/authStore";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, TriangleAlert } from "lucide-react";
 import IconStore from "./IconStore";
 
 const RightSideBar = () => {
@@ -23,8 +23,21 @@ const RightSideBar = () => {
                     animate={{ opacity: 1, scale: 1 }}
                     exit={{ opacity: 0, scale: 0.9 }}
                     transition={{ duration: 0.5 }}
-                    className="bg-accent-1 font-inter p-4 border-1 border-tertiary mt-4 group hover:bg-accent-2 transition-all ease-in-out duration-200"
+                    className="bg-accent-1 font-inter p-4 border-1 border-tertiary mt-4 group hover:bg-accent-2 transition-all ease-in-out duration-200 relative"
                 >
+                    {/* Tooltip */}
+                    <div className="absolute left-1/2 -top-18 w-64 bg-accent-4 p-2 rounded-t-seven rounded-br-seven drop-shadow-custom opacity-0 group-hover:opacity-100 transition-opacity duration-300 -translate-x-1/2 flex flex-col items-center justify-center">
+                        <TriangleAlert className="h-5 w-5 text-yellow-400 animate-pulse" />
+                        <p className="text-white text-sm">
+                            If you change your preferred language, your course
+                            contents and progress will be{" "}
+                            <span className="text-yellow-400 text-sm">
+                                reset forever
+                            </span>
+                            .
+                        </p>
+                    </div>
+
                     <p className="text-primary text-4xl font-thin">
                         {user.preferredLanguage || "Not Set"}
                     </p>
