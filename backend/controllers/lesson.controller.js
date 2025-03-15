@@ -95,6 +95,8 @@ Generate a **high-quality lesson** on the topic **"${lesson.name}"** in **${pref
 - Ensure the lesson **varies its structure** depending on the topic.  
 - Do not say stuff like normal conversation, just create couse content as if it is in a book. Also no need to mention the title of the lesson at the top.
 - Do not forget to use markdown effectively to make sure that the content is very readable. Do not feel restricted to use #, ## or ###. Everything is allowed for markdown format.
+- You can also use tables to display content.
+- Put visual representations in pre code block if any.
 - Additional Instructions from user side: **${additionalInstructions}**.
 
 ### Content Structure (Flexible Based on the Topic, No need to go with the exact headings/paragraphs)

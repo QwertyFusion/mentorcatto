@@ -5,13 +5,16 @@ import { useAuthStore } from "../store/authStore";
 import { useAiAgentStore } from "../store/aiAgentStore"; // Import the store
 import IconStore from "../components/IconStore";
 import { Loader } from "lucide-react"; // Import the Loader icon from lucide-react
+import MarkdownRenderer from "../components/MarkdownRenderer";
 
 const ChatPage = () => {
     const { user } = useAuthStore();
     const { sendMessage, response, isLoading } = useAiAgentStore(); // Destructure the store
     const [messages, setMessages] = useState([
         {
-            text: `Hello ${user.name}! How can I help you today?`,
+            text: user.preferredLanguage
+                ? `Hello ${user.name}! How can I help you today?`
+                : `Welcome to our platform, ${user.name}! Please set your preferred language.`,
             sender: "agent",
         },
     ]);
@@ -22,6 +25,14 @@ const ChatPage = () => {
     const handleSendMessage = async () => {
         if (input.trim() === "") return;
 
+        // Prepare the message to send
+        let messageToSend = input;
+
+        // Check if the user's preferred language is not set
+        if (!user.preferredLanguage) {
+            messageToSend = `I want you to set my preferred language. If the following text does not contain my preferred language, then please reply with an accurate reply. Only allow replies like setting preferred language. If I write one word with language name, set it, if I write incorrect, then don't and say it. However, I can ask stuff like what is a good preferred language and all. Below is my reply: ${input}`;
+        }
+
         // Add user message to chat
         setMessages((prevMessages) => [
             ...prevMessages,
@@ -31,7 +42,7 @@ const ChatPage = () => {
         try {
             // Send message to the backend
             setInput(""); // Clear input after sending
-            await sendMessage(input);
+            await sendMessage(messageToSend);
         } catch (error) {
             console.error("Error in handleSendMessage:", error);
         }
@@ -125,7 +136,7 @@ const ChatPage = () => {
                                         : "bg-accent-1 text-white self-start rounded-bl-none"
                                 }`}
                             >
-                                {msg.text}
+                                <MarkdownRenderer content={msg.text} />
                             </motion.div>
                         ))}
                     </div>

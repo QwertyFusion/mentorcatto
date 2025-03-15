@@ -27,9 +27,7 @@ const MarkdownRenderer = ({ content }) => {
                         {children}
                     </h3>
                 ),
-                p: ({ children }) => (
-                    <p className="my-4 font-inter">{children}</p>
-                ),
+                p: ({ children }) => <p className="font-inter">{children}</p>,
                 ul: ({ children }) => (
                     <ul className="list-disc pl-5  my-4">{children}</ul>
                 ),
@@ -47,7 +45,7 @@ const MarkdownRenderer = ({ content }) => {
                     // Inline Code (small code snippets inside text)
                     if (!language) {
                         return (
-                            <code className="bg-[#1D1F21] text-[#91d076] italic px-1 rounded">
+                            <code className="bg-[#1D1F21] text-[#91d076] px-1 rounded">
                                 {children}
                             </code>
                         );

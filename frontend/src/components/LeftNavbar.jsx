@@ -22,6 +22,11 @@ const LeftNavbar = () => {
                 relative
                 font-inter
                 z-40
+                ${
+                    !user.preferredLanguage
+                        ? "pointer-events-none opacity-50"
+                        : ""
+                }
             `}
             >
                 {/* Logo Section */}
