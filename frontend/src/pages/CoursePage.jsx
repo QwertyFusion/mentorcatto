@@ -85,7 +85,7 @@ const CoursePage = () => {
                 <LeftNavbar />
             </div>
 
-            <div className="flex-1 font-inter bg-accent-2 p-4 flex flex-col">
+            <div className="flex-1 font-inter bg-accent-2 p-4 flex flex-col overflow-auto">
                 {loading ? (
                     <div className="text-primary text-center mt-20 h-screen flex items-center justify-center">
                         <Loader2 className="animate-spin h-10 w-10" />

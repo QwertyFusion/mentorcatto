@@ -4,6 +4,7 @@ import { useState } from "react";
 import { useAuthStore } from "../store/authStore";
 import { CheckCheck, Loader2 } from "lucide-react";
 import Confetti from "react-confetti";
+import ReactMarkdown from "react-markdown";
 
 const CourseContent = ({
     index,
@@ -88,7 +89,9 @@ const CourseContent = ({
                     </h3>
                     <hr className="border-1 border-accent-5 w-full mb-6 mt-2" />
                     {content && (
-                        <div className="text-white mb-6 w-full">{content}</div>
+                        <div className="text-white mb-6 w-full">
+                            <ReactMarkdown>{content}</ReactMarkdown>
+                        </div>
                     )}
 
                     <motion.button
