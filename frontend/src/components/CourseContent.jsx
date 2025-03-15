@@ -2,6 +2,7 @@ import { motion } from "framer-motion";
 import PropTypes from "prop-types";
 import { useState } from "react";
 import { useAuthStore } from "../store/authStore";
+import { CheckCheck, Loader2 } from "lucide-react";
 
 const CourseContent = ({
     index,
@@ -84,13 +85,25 @@ const CourseContent = ({
                     </div>
                 )}
 
-                <button
+                <motion.button
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
                     onClick={handleMarkAsDone}
                     disabled={isMarking}
-                    className="mt-8 px-6 py-2 bg-primary text-black rounded-lg hover:bg-primary/90 transition-colors disabled:opacity-50"
+                    className="mt-8 px-6 py-2 cursor-pointer bg-primary text-black hover:bg-primary/90 drop-shadow-custom rounded-ten focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 focus:ring-offset-gray-900 transition duration-200 disabled:opacity-50"
                 >
-                    {isMarking ? "Marking..." : "Mark as Done"}
-                </button>
+                    {isMarking ? (
+                        <div className="flex items-center justify-center cursor-not-allowed">
+                            <Loader2 className="animate-spin w-5 h-5 mr-2" />
+                            Marking...
+                        </div>
+                    ) : (
+                        <div className="flex items-center justify-center">
+                            <CheckCheck className="w-5 h-5 mr-2" />
+                            Mark as Done
+                        </div>
+                    )}
+                </motion.button>
             </div>
         </motion.div>
     );
