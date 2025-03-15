@@ -30,6 +30,13 @@ const ProtectedRoute = ({ children }) => {
         return <Navigate to="/verify-email" replace />;
     }
 
+    if (!user.preferredLanguage) {
+        const allowedPaths = ["/", "/chat", "/settings"];
+        if (!allowedPaths.includes(window.location.pathname)) {
+            return <Navigate to="/chat" replace />;
+        }
+    }
+
     return children;
 };
 

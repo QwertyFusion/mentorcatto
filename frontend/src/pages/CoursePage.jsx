@@ -1,10 +1,11 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import LeftNavbar from "../components/LeftNavbar";
 import CoursesRightSideBar from "../components/CoursesRightSideBar";
 import StarterPage from "../components/StarterPage";
 import CourseContent from "../components/CourseContent";
 import { Loader2 } from "lucide-react";
 import { useAuthStore } from "../store/authStore";
+import funnyLoadingTexts from "../store/funnyLoadingTexts";
 
 const CoursePage = () => {
     const { user } = useAuthStore();
@@ -16,12 +17,8 @@ const CoursePage = () => {
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
     const [refreshSidebar, setRefreshSidebar] = useState(false);
-
-    const dummyContent = {
-        introduction: "This is an introduction to DSA concepts...",
-        content: "Basic Data Structures and Algorithms...",
-        summary: "Today we learned about DSA concepts...",
-    };
+    const loadingText =
+        funnyLoadingTexts[Math.floor(Math.random() * funnyLoadingTexts.length)];
 
     const handleLessonSelect = async (module, lesson, index, isCompleted) => {
         try {
@@ -89,12 +86,13 @@ const CoursePage = () => {
 
             <div className="flex-1 font-inter bg-accent-2 p-4 flex flex-col overflow-auto">
                 {loading ? (
-                    <div className="text-primary text-center mt-20 h-screen flex items-center justify-center">
+                    <div className="text-primary text-center mt-20 h-screen flex flex-col items-center justify-center gap-3">
                         <Loader2 className="animate-spin h-10 w-10" />
+                        <p className="text-sm text-gray-400">{loadingText}</p>
                     </div>
                 ) : error ? (
                     <div className="text-red-500 text-center mt-20">
-                        {error}
+                        {error}. Please reload the window and try again.
                     </div>
                 ) : selectedModule && selectedLesson ? (
                     <CourseContent

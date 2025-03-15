@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 import { useAuthStore } from "../store/authStore";
 import { useAiAgentStore } from "../store/aiAgentStore"; // Import the store
 import IconStore from "../components/IconStore";
-import { Loader } from "lucide-react"; // Import the Loader icon from lucide-react
+import { Loader2 } from "lucide-react"; // Import the Loader icon from lucide-react
 import MarkdownRenderer from "../components/MarkdownRenderer";
 
 const ChatPage = () => {
@@ -14,7 +14,7 @@ const ChatPage = () => {
         {
             text: user.preferredLanguage
                 ? `Hello ${user.name}! How can I help you today?`
-                : `Welcome to our platform, ${user.name}! Please set your preferred language.`,
+                : `Welcome to our platform, ${user.name}! Please set your preferred language. Once done, then you can access the platform.`,
             sender: "agent",
         },
     ]);
@@ -30,7 +30,7 @@ const ChatPage = () => {
 
         // Check if the user's preferred language is not set
         if (!user.preferredLanguage) {
-            messageToSend = `I want you to set my preferred language. If the following text does not contain my preferred language, then please reply with an accurate reply. Only allow replies like setting preferred language. If I write one word with language name, set it, if I write incorrect, then don't and say it. However, I can ask stuff like what is a good preferred language and all. Tell me to reload the window after the language is set. Below is my reply: ${input}`;
+            messageToSend = `I want you to set my preferred language. If the following text does not contain my preferred language, then please reply with an accurate reply. Only allow replies like setting preferred language. If I write one word with language name, set it, if I write incorrect, then don't and say it. However, I can ask stuff like what is a good preferred language and all. Tell me to reload the window after the language is set. The user cannot go to any other window before setting preferred language. If they have set preferred language and still they cannot go, then they should reload the window. Below is my reply: ${input}`;
         }
 
         // Add user message to chat
@@ -166,7 +166,7 @@ const ChatPage = () => {
                             disabled={isLoading} // Disable button when loading
                         >
                             {isLoading ? (
-                                <Loader className="animate-spin w-5 h-5 text-accent-3" />
+                                <Loader2 className="animate-spin w-5 h-5 text-accent-3" />
                             ) : (
                                 <IconStore
                                     name="send"

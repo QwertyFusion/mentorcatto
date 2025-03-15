@@ -66,8 +66,38 @@ const getPlatformDetails = tool(
     }
 );
 
+const getUserDetails = tool(
+    async ({ email }) => {
+        const user = await User.findOne({ email });
+        if (!user) return "User not found.";
+
+        // Fetch completed lessons
+        const lessonsCompleted = await UserLesson.find({
+            user: user._id,
+        }).select("lessonTitle -_id");
+
+        return JSON.stringify({
+            user_name: user.name,
+            user_email: user.email,
+            user_preferredLanguage: user.preferredLanguage,
+            user_lastLogin: user.lastLogin,
+            user_lessonsCompleted: lessonsCompleted.map(
+                (lesson) => lesson.lessonTitle
+            ), // Return as an array
+        });
+    },
+    {
+        name: "get_user_details",
+        description:
+            "Fetch details about a user, including name, email, preferred programming language, last login, and completed lessons.",
+        schema: z.object({
+            email: z.string().describe("The email of the user"),
+        }),
+    }
+);
+
 // Register tools
-const tools = [savePreferredLanguage, getPlatformDetails];
+const tools = [savePreferredLanguage, getPlatformDetails, getUserDetails];
 const toolsByName = Object.fromEntries(tools.map((tool) => [tool.name, tool]));
 const llmWithTools = llm.bindTools(tools);
 
@@ -75,13 +105,15 @@ const llmWithTools = llm.bindTools(tools);
 const SYSTEM_PROMPT = `You are the AI assistant for a Data Structures and Algorithms (DSA) learning platform named MentorCatto. Your role is to assist users with their programming and algorithm-related queries.
 
 - If the user wants to save their preferred programming language, use the tool "save_preferred_language" with the user's email and the language they want to save.
-- If the user asks about the platform's name, or developers, use the tool "get_platform_details" and reply the question with the needed answer.
+- If the user asks about the platform's name, or developers, use the tool "get_platform_details" and reply with the needed answer.
+- If the user asks about their details (name, email, preferred language, last login, or completed lessons), use the tool "get_user_details".
+- **If the user asks for code, generate it in their preferred programming language. Fetch this from "get_user_details".**
+- **Do NOT ask the user which language to use for the code. Only if they explicitly mention another language, use that instead.**
 - If the question does not require a tool, respond naturally with useful information.
 - Keep responses clear, concise, and informative.
-- Do not give extra unnecessary information.
 - Do not disclose the user ID even if the user asks for it.
-- Do not reply so concise that the user will not know that changes are done or you have updated something, so do not reply in small terms.
-- You can use markdown to reply.
+- Do not reply so concisely that the user will not know that changes are done or updates have been made.
+- You can use markdown to reply. You can create tables, use different markup formats, and also send code using pre and code.
 `;
 
 async function llmCall(state) {

@@ -63,20 +63,22 @@ const MarkdownRenderer = ({ content }) => {
                     );
                 },
                 table: ({ children }) => (
-                    <table className="min-w-full border-collapse border-2 border-accent-1">
+                    <table className="min-w-full border-collapse border-2 border-[#1D1F21]">
                         {children}
                     </table>
                 ),
                 tr: ({ children }) => (
-                    <tr className="border-b-2 border-accent-1">{children}</tr>
+                    <tr className="border-b-2 border-[#1D1F21]">{children}</tr>
                 ),
                 th: ({ children }) => (
-                    <th className="border-accent-1 border-2 p-2 text-left bg-primary text-accent-4">
+                    <th className="border-[#1D1F21] border-2 p-2 text-left bg-primary text-accent-4">
                         {children}
                     </th>
                 ),
                 td: ({ children }) => (
-                    <td className="border-2 border-accent-1 p-2">{children}</td>
+                    <td className="border-2 border-[#1D1F21] p-2">
+                        {children}
+                    </td>
                 ),
             }}
         >
