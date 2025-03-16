@@ -53,6 +53,13 @@ export const generateLessonContent = async (
     - You can also use tables to display content.
     - Put visual representations in pre code block if any.
     - Additional Instructions from user side: **${additionalInstructions}**.
+
+    ### **Important Guidelines:**
+    - Use markdown **normally** for headings (#, ##, ###, etc.), bullet points, and formatting.
+    - **Do not wrap the entire response in a single preformatted code block (\`\`\`).**
+    - Use code blocks **only** when writing actual code (\`\`\`language) or ASCII diagrams.
+    - Structure the content as if it were **a book chapter** rather than a casual conversation.
+    - Keep the content **unique, engaging, and structured naturally.**
     
     ### Content Structure (Flexible Based on the Topic, No need to go with the exact headings/paragraphs)
     1. **Introduction**  
