@@ -6,6 +6,9 @@ import { SystemMessage, ToolMessage } from "@langchain/core/messages";
 import { config } from "dotenv";
 import { User } from "../models/user.model.js";
 import { UserLesson } from "../models/user_lesson.model.js";
+import { generateLessonContent } from "./lessonContentGenerator.js";
+import { Module } from "../models/module.model.js";
+import { Lesson } from "../models/lesson.model.js";
 
 config();
 
@@ -66,6 +69,7 @@ const getPlatformDetails = tool(
     }
 );
 
+// Tool to fetch user details
 const getUserDetails = tool(
     async ({ email }) => {
         const user = await User.findOne({ email });
@@ -96,8 +100,69 @@ const getUserDetails = tool(
     }
 );
 
+// Tool to recreate content
+const recreateLessonContent = tool(
+    async ({ email, moduleNumber, lessonNumber, additionalInstructions }) => {
+        // Fetch user using email
+        const user = await User.findOne({ email });
+        if (!user) return "User  not found.";
+
+        // Fetch module using moduleNumber
+        const module = await Module.findOne({ moduleNumber });
+        if (!module) {
+            return "Cannot find a module with the given module number. Please provide a valid module number.";
+        }
+
+        // Fetch the lesson using lessonNumber from the fetched module
+        const lesson = await Lesson.findOne({
+            module: module._id,
+            number: lessonNumber,
+        });
+        if (!lesson) {
+            return "Cannot find a lesson with the given lesson number in the specified module. Please provide valid lesson details.";
+        }
+
+        const lessonId = lesson._id;
+
+        const userId = user._id;
+        const preferredLanguage = user.preferredLanguage;
+        if (!preferredLanguage) {
+            return "User needs to set a preferred language before generating content.";
+        }
+
+        const generatedContent = await generateLessonContent(
+            userId,
+            lessonId,
+            preferredLanguage,
+            additionalInstructions
+        );
+
+        return `Let the User know that the lesson content has been successfully updated. Verify the content and tell the user if their needs are met in the new content, if not, then rerun this tool (do not tell user to rerun this tool). Here is the new content: ${generatedContent}`;
+    },
+    {
+        name: "recreate_lesson_content",
+        description:
+            "Recreate lesson content based on user email, module number, lesson number, and additional instructions.",
+        schema: z.object({
+            email: z.string().describe("The email of the user"),
+            moduleNumber: z
+                .number()
+                .describe("The module number to fetch the lesson from"),
+            lessonNumber: z.number().describe("The lesson number to recreate"),
+            additionalInstructions: z
+                .string()
+                .describe("Additional instructions for content generation"),
+        }),
+    }
+);
+
 // Register tools
-const tools = [savePreferredLanguage, getPlatformDetails, getUserDetails];
+const tools = [
+    savePreferredLanguage,
+    getPlatformDetails,
+    getUserDetails,
+    recreateLessonContent,
+];
 const toolsByName = Object.fromEntries(tools.map((tool) => [tool.name, tool]));
 const llmWithTools = llm.bindTools(tools);
 
@@ -107,6 +172,7 @@ const SYSTEM_PROMPT = `You are the AI assistant for a Data Structures and Algori
 - If the user wants to save their preferred programming language, use the tool "save_preferred_language" with the user's email and the language they want to save.
 - If the user asks about the platform's name or developers, use the tool "get_platform_details" and reply with the needed answer.
 - If the user asks about their details (name, email, preferred language, last login, or completed lessons), use the tool "get_user_details".
+- If the user wants to recreate lesson content, use the tool "recreate_lesson_content" with the user's email, module number, lesson number, and any additional instructions provided.
 - **If the user asks for code, generate it in their preferred programming language (fetched from "get_user_details"), unless they explicitly specify another language.**  
 - **If the user requests code in multiple languages (e.g., "HTML, CSS, and JavaScript"), provide the requested languages instead of the preferred language.**  
 - **Always include a short explanation before the code block to help the user understand what the code does.**  
