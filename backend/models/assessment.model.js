@@ -27,4 +27,4 @@ assessmentSchema.index({ user: 1, module: 1 }, { unique: true });
 
 const Assessment = mongoose.model("Assessment", assessmentSchema);
 
-export default Assessment; 
+export default Assessment;

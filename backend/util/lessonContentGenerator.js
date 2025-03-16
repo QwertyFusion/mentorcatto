@@ -100,6 +100,7 @@ export const generateLessonContent = async (
 
     // Save the generated content to the UserLesson model
     userLesson.content = generatedContent;
+    userLesson.isCompleted = false;
     await userLesson.save();
 
     return generatedContent; // Return the generated content
