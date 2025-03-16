@@ -230,6 +230,14 @@ const HomePage = () => {
                 <p className="text-accent-5 mt-5 text-center block md:hidden">
                     Copyright © 2025 MentorCatto
                 </p>
+                <div className="absolute bottom-0 left-0">
+                    <p className="text-[20px] font-bold text-accent-4">
+                        QwertyFusion
+                    </p>
+                    <p className="text-[20px] font-bold text-accent-4">
+                        HoaxBlade
+                    </p>
+                </div>
             </footer>
         </div>
     );
