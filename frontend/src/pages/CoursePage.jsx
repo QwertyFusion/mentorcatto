@@ -1,9 +1,10 @@
 import { useEffect, useState } from "react";
+import { motion } from "framer-motion";
+import { Menu, X, Loader2, ChevronRight, ChevronLeft } from "lucide-react";
 import LeftNavbar from "../components/LeftNavbar";
 import CoursesRightSideBar from "../components/CoursesRightSideBar";
 import StarterPage from "../components/StarterPage";
 import CourseContent from "../components/CourseContent";
-import { Loader2 } from "lucide-react";
 import { useAuthStore } from "../store/authStore";
 import funnyLoadingTexts from "../store/funnyLoadingTexts";
 
@@ -17,6 +18,8 @@ const CoursePage = () => {
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
     const [refreshSidebar, setRefreshSidebar] = useState(false);
+    const [isSidebarOpen, setIsSidebarOpen] = useState(true); // Sidebar state
+
     const loadingText =
         funnyLoadingTexts[Math.floor(Math.random() * funnyLoadingTexts.length)];
 
@@ -63,9 +66,9 @@ const CoursePage = () => {
                 }
 
                 const generatedData = await createContentResponse.json();
-                setSelectedContent(generatedData.content); // Set the generated content
+                setSelectedContent(generatedData.content);
             } else {
-                setSelectedContent(data.content); // Set the fetched content
+                setSelectedContent(data.content);
             }
         } catch (error) {
             setError(error.message);
@@ -80,10 +83,12 @@ const CoursePage = () => {
 
     return (
         <div className="h-screen w-full flex">
+            {/* Left Navbar */}
             <div className="w-fit">
                 <LeftNavbar />
             </div>
 
+            {/* Main Content */}
             <div className="flex-1 font-inter bg-accent-2 p-4 flex flex-col overflow-auto">
                 {loading ? (
                     <div className="text-primary text-center mt-20 h-screen flex flex-col items-center justify-center gap-3">
@@ -108,12 +113,30 @@ const CoursePage = () => {
                 )}
             </div>
 
-            <div className="w-[350px]">
+            {/* Collapsible Right Sidebar */}
+            <motion.div
+                initial={{ width: 0 }}
+                animate={{ width: isSidebarOpen ? 350 : 0 }}
+                transition={{ duration: 0.3, ease: "easeInOut" }}
+                className="relative overflow-hidden"
+            >
                 <CoursesRightSideBar
                     onLessonSelect={handleLessonSelect}
                     refreshSidebar={refreshSidebar}
                 />
-            </div>
+            </motion.div>
+
+            {/* Toggle Button */}
+            <button
+                onClick={() => setIsSidebarOpen(!isSidebarOpen)}
+                className="absolute cursor-pointer top-7 right-0 bg-primary hover:bg-primary/90 p-1 rounded-l-ten text-black drop-shadow-custom group"
+            >
+                {isSidebarOpen ? (
+                    <ChevronRight size={24} className="animate-pulse" />
+                ) : (
+                    <ChevronLeft size={24} className="animate-pulse" />
+                )}
+            </button>
         </div>
     );
 };
