@@ -22,7 +22,6 @@ export const useAiAgentStore = create((set) => ({
                 message: userMessage,
                 userEmail: user?.email, // Assuming user has an id property
             });
-            console.log(`AI Agent Store: ${res.data}`);
             set({ response: res.data, isLoading: false });
         } catch (error) {
             set({ error: error.message, isLoading: false });

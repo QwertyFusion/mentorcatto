@@ -73,22 +73,3 @@ export const getUserLessonContent = async (req, res) => {
         res.status(500).json({ error: error.message });
     }
 };
-
-export const createLessonContent = async (req, res) => {
-    try {
-        const { userId, lessonId, preferredLanguage, additionalInstructions } =
-            req.body;
-
-        const generatedContent = await generateLessonContent(
-            userId,
-            lessonId,
-            preferredLanguage,
-            additionalInstructions
-        );
-
-        res.status(200).json({ content: generatedContent });
-    } catch (error) {
-        console.log(error.message);
-        res.status(500).json({ error: error.message });
-    }
-};
