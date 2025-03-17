@@ -2,112 +2,118 @@ import LeftNavbar from "../components/LeftNavbar";
 import { useState, useEffect, useRef } from "react";
 import { motion } from "framer-motion";
 import { useAuthStore } from "../store/authStore";
-import { useAiAgentStore } from "../store/aiAgentStore"; // Import the store
+import { useAiAgentStore } from "../store/aiAgentStore";
 import IconStore from "../components/IconStore";
-import { Loader2 } from "lucide-react"; // Import the Loader icon from lucide-react
+import { Loader2 } from "lucide-react";
 import MarkdownRenderer from "../components/MarkdownRenderer";
 import funnyLoadingTexts from "../store/funnyLoadingTexts";
 
 const ChatPage = () => {
     const { user } = useAuthStore();
-    const { sendMessage, response, isLoading } = useAiAgentStore(); // Destructure the store
-    const [messages, setMessages] = useState([
-        {
+    const { sendMessage, response, isLoading } = useAiAgentStore();
+    const responseRef = useRef(null);
+    
+    const [messages, setMessages] = useState(() => {
+        const savedMessages = localStorage.getItem('chatMessages');
+        if (savedMessages) {
+            return JSON.parse(savedMessages);
+        }
+        return [{
             text: user.preferredLanguage
                 ? `Hello **${user.name}**! How can I help you today?`
-                : `Welcome to our platform, **${user.name}**! 
-
-Please set your \`preferred language\`. Once done, then you can access the platform!`,
+                : `Welcome to our platform, **${user.name}**! \n\nPlease set your \`preferred language\`. Once done, then you can access the platform!`,
             sender: "agent",
-        },
-    ]);
+        }];
+    });
 
     const [input, setInput] = useState("");
     const [loadingText, setLoadingText] = useState(
         funnyLoadingTexts[Math.floor(Math.random() * funnyLoadingTexts.length)]
     );
 
-    const chatContainerRef = useRef(null); // Reference for the chat container
+    const chatContainerRef = useRef(null);
+
+    // Handle AI responses
+    useEffect(() => {
+        if (response && response !== responseRef.current) {
+            responseRef.current = response;
+            try {
+                const data = JSON.parse(response.response);
+                const aiMessages = data.response.filter(item => 
+                    item.id[item.id.length - 1] === "AIMessage"
+                );
+                
+                if (aiMessages.length > 0) {
+                    const lastMessage = aiMessages[aiMessages.length - 1];
+                    if (lastMessage.kwargs.content && !Array.isArray(lastMessage.kwargs.content)) {
+                        const newMessage = {
+                            text: lastMessage.kwargs.content,
+                            sender: "agent"
+                        };
+                        
+                        setMessages(prev => {
+                            // Check if this exact message already exists
+                            const isDuplicate = prev.some(msg => 
+                                msg.text === newMessage.text && msg.sender === newMessage.sender
+                            );
+                            return isDuplicate ? prev : [...prev, newMessage];
+                        });
+                    }
+                }
+            } catch (error) {
+                console.error("Error processing AI response:", error);
+            }
+        }
+    }, [response]);
 
     const handleSendMessage = async () => {
-        setLoadingText(
-            funnyLoadingTexts[
-                Math.floor(Math.random() * funnyLoadingTexts.length)
-            ]
-        );
         if (input.trim() === "") return;
+        
+        setLoadingText(
+            funnyLoadingTexts[Math.floor(Math.random() * funnyLoadingTexts.length)]
+        );
 
-        // Prepare the message to send
+        const userMessage = {
+            text: input,
+            sender: "user"
+        };
+
+        setMessages(prev => [...prev, userMessage]);
+        
         let messageToSend = input;
-
-        // Check if the user's preferred language is not set
         if (!user.preferredLanguage) {
-            messageToSend = `I want you to set my preferred language. If the following text does not contain my preferred language, then please reply with an accurate reply. Only allow replies like setting preferred language. If I write one word with language name, set it, if I write incorrect, then don't and say it. However, I can ask stuff like what is a good preferred language and all. Tell me to reload the window after the language is set. The user cannot go to any other window before setting preferred language. If they have set preferred language and still they cannot go, then they should reload the window. Below is my reply: ${input}`;
+            messageToSend = `I want you to set my preferred language... ${input}`;
         }
 
-        // Add user message to chat
-        setMessages((prevMessages) => [
-            ...prevMessages,
-            { text: input, sender: "user" },
-        ]);
-
+        setInput("");
         try {
-            // Send message to the backend
-            setInput(""); // Clear input after sending
             await sendMessage(messageToSend);
         } catch (error) {
-            console.error("Error in handleSendMessage:", error);
+            console.error("Error sending message:", error);
         }
     };
 
-    // Scroll to bottom whenever messages change
+    // Save messages to localStorage
     useEffect(() => {
-        if (chatContainerRef.current) {
-            chatContainerRef.current.scrollTop =
-                chatContainerRef.current.scrollHeight;
-        }
+        localStorage.setItem('chatMessages', JSON.stringify(messages));
     }, [messages]);
 
-    // Use useEffect to handle response changes
+    // Clear messages on refresh
     useEffect(() => {
-        if (response != null) {
-            console.log(typeof response.response);
+        const handleBeforeUnload = () => {
+            localStorage.removeItem('chatMessages');
+        };
 
-            // Extract content properly
-            let content = response.response;
+        window.addEventListener('beforeunload', handleBeforeUnload);
+        return () => window.removeEventListener('beforeunload', handleBeforeUnload);
+    }, []);
 
-            const data = JSON.parse(content);
-
-            // Extract AI message contents
-            const aiContents = [];
-            data.response.forEach((item) => {
-                if (item.id[item.id.length - 1] === "AIMessage") {
-                    aiContents.push(item.kwargs.content);
-                }
-            });
-
-            // Display the AI contents
-            aiContents.forEach((content) => {
-                if (Array.isArray(content)) {
-                    // If the content is an array, extract the function call name
-                    content.forEach((entry) => {
-                        if (entry.functionCall) {
-                            console.log(
-                                `Function Call: ${entry.functionCall.name} with args:`,
-                                entry.functionCall.args
-                            );
-                        }
-                    });
-                } else {
-                    console.log(`AI Content: ${content}`);
-                    setMessages((prevMessages) => [
-                        ...prevMessages,
-                        { text: content, sender: "agent" },
-                    ]);
-                }
-            });
+    // Scroll to bottom when messages change
+    useEffect(() => {
+        if (chatContainerRef.current) {
+            chatContainerRef.current.scrollTop = chatContainerRef.current.scrollHeight;
         }
-    }, [response]);
+    }, [messages]);
 
     return (
         <div className="h-screen w-full flex">
