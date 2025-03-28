@@ -16,6 +16,7 @@ import AchievementsPage from "./pages/AchievementsPage";
 import AssessmentsPage from "./pages/AssessmentsPage";
 import SettingsPage from "./pages/SettingsPage";
 import ProfilePage from "./pages/ProfilePage";
+import NotesPage from "./pages/NotesPage";
 
 // protect routes that require authentication
 // eslint-disable-next-line react/prop-types
@@ -145,6 +146,14 @@ function App() {
                     element={
                         <ProtectedRoute>
                             <AssessmentsPage />
+                        </ProtectedRoute>
+                    }
+                />
+                <Route
+                    path="/notes"
+                    element={
+                        <ProtectedRoute>
+                            <NotesPage />
                         </ProtectedRoute>
                     }
                 />

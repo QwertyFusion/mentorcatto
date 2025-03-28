@@ -149,6 +149,27 @@ const LeftNavbar = () => {
                             Assessments
                         </span>
                     </Link>
+                    <Link
+                        to="/notes"
+                        className={`flex items-center p-4 ${
+                            location.pathname === "/notes"
+                                ? "bg-accent-4 text-primary"
+                                : "hover:bg-accent-4 text-white"
+                        } drop-shadow-custom rounded-seven focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 focus:ring-offset-gray-900 transition duration-200`}
+                    >
+                        <IconStore
+                            name="notes"
+                            className="w-6 h-6 -ml-0.5"
+                            color={`${
+                                location.pathname === "/notes"
+                                    ? "primary"
+                                    : "white"
+                            }`}
+                        />
+                        <span className="ml-3 font-medium no-select">
+                            My Notes
+                        </span>
+                    </Link>
                 </nav>
 
                 {/* User Profile Section */}
