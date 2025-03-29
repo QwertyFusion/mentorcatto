@@ -4,15 +4,20 @@
 
 <p align="center"><strong>Agentic AI based personalized DSA Learning Platform — Learn, Practice, and Achieve!</strong></p>
 
-**MentorCatto** is an AI-powered learning platform designed to help students master Data Structures and Algorithms (DSA). With an interactive AI mentor, structured courses, real-time coding practice _[Coming soon]_, and gamified achievements, MentorCatto makes DSA learning efficient and fun!  
+**MentorCatto** is an AI-powered learning platform designed to help students master Data Structures and Algorithms (DSA). With an interactive AI mentor, structured courses, real-time coding practice _[Coming soon]_, and gamified achievements, MentorCatto makes DSA learning efficient and fun!
 
 ---
 
 ## ✨ Preview
 
 <div style="display: flex; justify-content: space-between;">
+  <img src="./sample_preview/home_preview.png" alt="Home Page" width="45%" />
+  <img src="./sample_preview/dashboard_preview.png" alt="Dashboard Page" width="45%" />
+</div>
+
+<div style="display: flex; justify-content: space-between;">
   <img src="./sample_preview/chat_preview.png" alt="AI Mentor Chat" width="45%" />
-  <img src="./sample_preview/course_preview.png" alt="Course Page" width="45%" />
+  <img src="./sample_preview/courses_preview.png" alt="Course Page" width="45%" />
 </div>
 
 <div style="display: flex; justify-content: space-between;">
@@ -22,48 +27,55 @@
 
 ---
 
-## ✨ Features  
+## ✨ Features
 
-### 🤖 AI Mentor Chat  
-- Chat with an MentorCatto's Agentic AI mentor for instant guidance on DSA topics.  
-- Ask for explanations, problem hints, request changes to course settings, or even ask for creating personalized notes.  
-- Start practice sessions or assessments directly from the chat! _[Coming soon]_
+### 🤖 AI Mentor Chat
 
-### 📚 Structured DSA Courses  
-- Learn DSA, in your preferred language, in a module-based system with clear progression.  
-- Each module unlocks only after completing the previous one (customizable in settings).  
-- Course content is AI-generated but optimized based on user feedback and user preferences.  
+-   Chat with an MentorCatto's Agentic AI mentor for instant guidance on DSA topics.
+-   Ask for explanations, problem hints, request changes to course settings, or even ask for creating personalized notes.
+-   Start practice sessions or assessments directly from the chat! _[Coming soon]_
 
-### 📝 Assessments & Quizzes  
-- Take **module-wise tests** featuring MCQs, MSQs, short/long answer questions, and coding problems. _[Coming soon]_ 
-- **Full-screen test mode** ensures focus and prevents distractions (leaving cancels the test). _[Coming soon]_ 
-- Option to create **custom assessments** by selecting specific modules. _[Coming soon]_ 
+### 📚 Structured DSA Courses
 
-### 💻 AI-Powered Coding Practice  
-- Solve coding problems in an **interactive code editor** with real-time AI feedback. _[Coming soon]_ 
-- AI provides **error explanations, hints, and code improvements** as you write. _[Coming soon]_ 
-- Practice problems are structured by difficulty and topic. _[Coming soon]_ 
+-   Learn DSA, in your preferred language, in a module-based system with clear progression.
+-   Each module unlocks only after completing the previous one (customizable in settings).
+-   Course content is AI-generated but optimized based on user feedback and user preferences.
 
-### 📒 My Notes – Smart AI-Powered Notes  
-- Organize notes into **sections** for easy access.  
-- Use **markup support** for clean and structured notes.  
-- Ask the AI mentor to **auto-generate notes** based on a lesson or topic.  
+### 📝 Assessments & Quizzes
 
-### 🏆 Achievements & Badges  
-- Earn badges by completing courses, assessments, and challenges. _[Coming soon]_ 
-- View progress milestones and unlock special achievements. _[Coming soon]_ 
-- A gamified approach to keep learning **fun and engaging**! _[Coming soon]_ 
+-   Take **module-wise tests** featuring MCQs, MSQs, short/long answer questions, and coding problems. _[Coming soon]_
+-   **Full-screen test mode** ensures focus and prevents distractions (leaving cancels the test). _[Coming soon]_
+-   Option to create **custom assessments** by selecting specific modules. _[Coming soon]_
 
-### 🔧 Customizable Learning  
-- Choose your **preferred language** for DSA learning.  
-- Customize the **course unlock system** to learn at your own pace.  
-- Modify settings directly via the AI Mentor.  
+<!-- ### 💻 AI-Powered Coding Practice
+
+-   Solve coding problems in an **interactive code editor** with real-time AI feedback. _[Coming soon]_
+-   AI provides **error explanations, hints, and code improvements** as you write. _[Coming soon]_
+-   Practice problems are structured by difficulty and topic. _[Coming soon]_ -->
+
+### 📒 My Notes – Smart AI-Powered Notes
+
+-   Organize notes into **sections** for easy access.
+-   Use **markup support** for clean and structured notes.
+-   Ask the AI mentor to **auto-generate notes** based on a lesson or topic.
+
+### 🏆 Achievements & Badges
+
+-   Earn badges by completing courses, assessments, and challenges. _[Coming soon]_
+-   View progress milestones and unlock special achievements. _[Coming soon]_
+-   A gamified approach to keep learning **fun and engaging**! _[Coming soon]_
+
+### 🔧 Customizable Learning
+
+-   Choose your **preferred language** for DSA learning.
+-   Customize the **course unlock system** to learn at your own pace.
+-   Modify settings directly via the AI Mentor.
 
 ✅ **... and plenty more!**
 
 ---
 
-## ✨ Demo Website _[Coming soon]_ 
+## ✨ Demo Website _[Coming soon]_
 
 We **will host** the demo website at [https://mentorcatto-qwertyfusion.vercel.app](https://mmentorcatto-qwertyfusion.vercel.app) in future. Stay tuned!
 
