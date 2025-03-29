@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
-import { PlusCircle, Folder, Trash2, Search, MoveVertical } from "lucide-react";
+import { PlusCircle, Folder, Trash2, MoveVertical } from "lucide-react";
 import LeftNavbar from "../components/LeftNavbar";
 import axios from "axios";
 import MarkdownRenderer from "../components/MarkdownRenderer";

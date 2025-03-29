@@ -6,9 +6,11 @@ import { SystemMessage, ToolMessage } from "@langchain/core/messages";
 import { config } from "dotenv";
 import { User } from "../models/user.model.js";
 import { UserLesson } from "../models/user_lesson.model.js";
+import { SectionNotes } from "../models/section_notes.model.js";
 import { generateLessonContent } from "./lessonContentGenerator.js";
 import { Module } from "../models/module.model.js";
 import { Lesson } from "../models/lesson.model.js";
+import { generateSectionNotes } from "./sectionNotesGenerator.js";
 
 config();
 
@@ -156,12 +158,131 @@ const recreateLessonContent = tool(
     }
 );
 
+// Tool to generate section notes
+const sectionNoteGenerator = tool(
+    async ({
+        email,
+        moduleNumber,
+        lessonNumber,
+        topic,
+        sectionName,
+        additionalInstructions,
+    }) => {
+        // Fetch user
+        const user = await User.findOne({ email });
+        if (!user) return "User not found.";
+
+        let referenceNote = null;
+
+        // Check if moduleNumber and lessonNumber are provided
+        if (moduleNumber && lessonNumber) {
+            const module = await Module.findOne({ moduleNumber });
+            if (module) {
+                const lesson = await Lesson.findOne({
+                    module: module._id,
+                    number: lessonNumber,
+                });
+                if (lesson) {
+                    const userLesson = await UserLesson.findOne({
+                        user: user._id,
+                        lesson: lesson._id,
+                    });
+
+                    if (userLesson) {
+                        referenceNote = userLesson.content;
+                    }
+                }
+            }
+        }
+
+        // If no topic is provided, set it to null
+        topic = topic || null;
+
+        // Generate the section note
+        const generatedNote = await generateSectionNotes(
+            referenceNote,
+            topic,
+            additionalInstructions
+        );
+
+        // Default section name to "Uncategorized" if none is provided
+        sectionName = sectionName?.trim() || "Uncategorized";
+
+        // Find or create SectionNotes document for the user
+        let userNotes = await SectionNotes.findOne({ userId: user._id });
+
+        if (!userNotes) {
+            userNotes = new SectionNotes({ userId: user._id, sections: [] });
+        }
+
+        // Find the section or create a new one
+        let section = userNotes.sections.find((s) => s.name === sectionName);
+
+        if (section) {
+            // Append to existing section
+            section.texts.push({ content: generatedNote });
+        } else {
+            // Create new section
+            userNotes.sections.push({
+                name: sectionName,
+                texts: [{ content: generatedNote }],
+            });
+        }
+
+        // Save the updated notes
+        await userNotes.save();
+
+        return `The section note has been successfully generated and saved under the section "${sectionName}". Here is the content: ${generatedNote}`;
+    },
+    {
+        name: "section_note_generator",
+        description:
+            "Generate section notes based on user email, module number, lesson number, topic, section name, and additional instructions. " +
+            "Users must provide at least a topic or both module and lesson numbers. " +
+            "If no section name is given, notes are saved under 'Uncategorized'.",
+        schema: z.object({
+            email: z.string().describe("The email of the user"),
+            moduleNumber: z
+                .number()
+                .optional()
+                .describe(
+                    "The module number to fetch the lesson from (optional, but required if lessonNumber is provided)"
+                ),
+            lessonNumber: z
+                .number()
+                .optional()
+                .describe(
+                    "The lesson number to fetch (optional, but required if moduleNumber is provided)"
+                ),
+            topic: z
+                .string()
+                .optional()
+                .describe(
+                    "The topic for generating notes (required if moduleNumber and lessonNumber are not provided)"
+                ),
+            sectionName: z
+                .string()
+                .optional()
+                .describe(
+                    "The name of the section for which notes are generated (defaults to 'Uncategorized' if not provided)"
+                ),
+            additionalInstructions: z
+                .string()
+                .optional()
+                .describe(
+                    "Additional instructions for content generation (optional)"
+                ),
+        }),
+    }
+);
+
 // Register tools
 const tools = [
     savePreferredLanguage,
     getPlatformDetails,
     getUserDetails,
     recreateLessonContent,
+    sectionNoteGenerator,
 ];
 const toolsByName = Object.fromEntries(tools.map((tool) => [tool.name, tool]));
 const llmWithTools = llm.bindTools(tools);
@@ -173,6 +294,11 @@ const SYSTEM_PROMPT = `You are the AI assistant for a Data Structures and Algori
 - If the user asks about the platform's name or developers, use the tool "get_platform_details" and reply with the needed answer.
 - If the user asks about their details (name, email, preferred language, last login, or completed lessons), use the tool "get_user_details".
 - If the user wants to recreate lesson content, use the tool "recreate_lesson_content" with the user's email, module number, lesson number, and any additional instructions provided.
+- If the user wants to generate section notes, they must provide **at least one of the following**:
+  - If module number, lesson number and topic is provided, use them.
+  - If only module number and lesson number is provided, use them, topic will be null.
+  - Topic is basically the context/content that the user wants the note to be on. If the topic is provided, then no need to give module number and lesson number.
+  - **Users cannot request note creation without mentioning at least a topic or both module and lesson numbers.** If they do, ask them to provide one of the valid sets of inputs before proceeding.
 - **If the user asks for code, generate it in their preferred programming language (fetched from "get_user_details"), unless they explicitly specify another language.**  
 - **If the user requests code in multiple languages (e.g., "HTML, CSS, and JavaScript"), provide the requested languages instead of the preferred language.**  
 - **Always include a short explanation before the code block to help the user understand what the code does.**  
