@@ -4,6 +4,7 @@ import LeftNavbar from "../components/LeftNavbar";
 import { motion } from "framer-motion";
 import achievements from "../store/AchievementsDataStore";
 import IconStore from "../components/IconStore";
+import { TriangleAlert } from "lucide-react";
 
 const AchievementsPage = () => {
     const [searchTerm, setSearchTerm] = useState("");
@@ -25,7 +26,7 @@ const AchievementsPage = () => {
                 <LeftNavbar />
             </div>
 
-            <div className="w-full h-full flex-1 bg-accent-2">
+            <div className="w-full h-full flex-1 bg-accent-2 relative">
                 <div className="mt-10 mx-32 flex justify-between items-center">
                     <div>
                         <h2 className="text-3xl font-bold text-primary no-select">
@@ -51,6 +52,18 @@ const AchievementsPage = () => {
                             className="flex-1 bg-transparent outline-none p-2 text-white placeholder-gray-400 no-select"
                         />
                     </div>
+                </div>
+
+                {/* Coming Soon Popup */}
+                <div className="absolute left-1/2 top-1/2 z-40 w-64 border-1 border-yellow-400 bg-accent-4 p-2 rounded-seven drop-shadow-custom opacity-100 hover:opacity-50 transition-opacity duration-300 -translate-x-1/2 flex flex-col items-center justify-center">
+                    <TriangleAlert className="h-5 w-5 text-yellow-400 animate-pulse" />
+                    <p className="text-white text-sm">
+                        Achiements section will be{" "}
+                        <span className="text-yellow-400 text-sm">
+                            coming soon.
+                        </span>{" "}
+                        Stay tuned!
+                    </p>
                 </div>
 
                 {/* Achievements List */}
