@@ -12,18 +12,20 @@ const ChatPage = () => {
     const { user } = useAuthStore();
     const { sendMessage, response, isLoading } = useAiAgentStore();
     const responseRef = useRef(null);
-    
+
     const [messages, setMessages] = useState(() => {
-        const savedMessages = localStorage.getItem('chatMessages');
+        const savedMessages = localStorage.getItem("chatMessages");
         if (savedMessages) {
             return JSON.parse(savedMessages);
         }
-        return [{
-            text: user.preferredLanguage
-                ? `Hello **${user.name}**! How can I help you today?`
-                : `Welcome to our platform, **${user.name}**! \n\nPlease set your \`preferred language\`. Once done, then you can access the platform!`,
-            sender: "agent",
-        }];
+        return [
+            {
+                text: user.preferredLanguage
+                    ? `Hello **${user.name}**! How can I help you today?`
+                    : `Welcome to our platform, **${user.name}**! \n\nPlease set your \`preferred language\`. Once done, then you can access the platform!`,
+                sender: "agent",
+            },
+        ];
     });
 
     const [input, setInput] = useState("");
@@ -39,22 +41,43 @@ const ChatPage = () => {
             responseRef.current = response;
             try {
                 const data = JSON.parse(response.response);
-                const aiMessages = data.response.filter(item => 
-                    item.id[item.id.length - 1] === "AIMessage"
+                const aiMessages = data.response.filter(
+                    (item) => item.id[item.id.length - 1] === "AIMessage"
                 );
-                
+
                 if (aiMessages.length > 0) {
                     const lastMessage = aiMessages[aiMessages.length - 1];
-                    if (lastMessage.kwargs.content && !Array.isArray(lastMessage.kwargs.content)) {
+                    let messageText = "";
+
+                    // Check if the content is an array
+                    if (
+                        lastMessage.kwargs.content &&
+                        Array.isArray(lastMessage.kwargs.content)
+                    ) {
+                        // Extract text from the structured content
+                        messageText = lastMessage.kwargs.content
+                            .map((part) => part.text)
+                            .join("");
+                    } else if (
+                        lastMessage.kwargs.content &&
+                        typeof lastMessage.kwargs.content === "string"
+                    ) {
+                        // If it's a single string, use it directly
+                        messageText = lastMessage.kwargs.content;
+                    }
+
+                    if (messageText) {
                         const newMessage = {
-                            text: lastMessage.kwargs.content,
-                            sender: "agent"
+                            text: messageText,
+                            sender: "agent",
                         };
-                        
-                        setMessages(prev => {
+
+                        setMessages((prev) => {
                             // Check if this exact message already exists
-                            const isDuplicate = prev.some(msg => 
-                                msg.text === newMessage.text && msg.sender === newMessage.sender
+                            const isDuplicate = prev.some(
+                                (msg) =>
+                                    msg.text === newMessage.text &&
+                                    msg.sender === newMessage.sender
                             );
                             return isDuplicate ? prev : [...prev, newMessage];
                         });
@@ -68,21 +91,23 @@ const ChatPage = () => {
 
     const handleSendMessage = async () => {
         if (input.trim() === "") return;
-        
+
         setLoadingText(
-            funnyLoadingTexts[Math.floor(Math.random() * funnyLoadingTexts.length)]
+            funnyLoadingTexts[
+                Math.floor(Math.random() * funnyLoadingTexts.length)
+            ]
         );
 
         const userMessage = {
             text: input,
-            sender: "user"
+            sender: "user",
         };
 
-        setMessages(prev => [...prev, userMessage]);
-        
+        setMessages((prev) => [...prev, userMessage]);
+
         let messageToSend = input;
         if (!user.preferredLanguage) {
-            messageToSend = `I want you to set my preferred language... ${input}`;
+            messageToSend = `I want you to set my preferred language. If the following text does not contain my preferred language, then please reply with an accurate reply. Only allow replies like setting preferred language. If I write one word with language name, set it, if I write incorrect, then don't and say it. However, I can ask stuff like what is a good preferred language and all. Tell me to reload the window after the language is set. The user cannot go to any other window before setting preferred language. If they have set preferred language and still they cannot go, then they should reload the window. Below is my reply: ${input}`;
         }
 
         setInput("");
@@ -95,23 +120,25 @@ const ChatPage = () => {
 
     // Save messages to localStorage
     useEffect(() => {
-        localStorage.setItem('chatMessages', JSON.stringify(messages));
+        localStorage.setItem("chatMessages", JSON.stringify(messages));
     }, [messages]);
 
     // Clear messages on refresh
     useEffect(() => {
         const handleBeforeUnload = () => {
-            localStorage.removeItem('chatMessages');
+            localStorage.removeItem("chatMessages");
         };
 
-        window.addEventListener('beforeunload', handleBeforeUnload);
-        return () => window.removeEventListener('beforeunload', handleBeforeUnload);
+        window.addEventListener("beforeunload", handleBeforeUnload);
+        return () =>
+            window.removeEventListener("beforeunload", handleBeforeUnload);
     }, []);
 
     // Scroll to bottom when messages change
     useEffect(() => {
         if (chatContainerRef.current) {
-            chatContainerRef.current.scrollTop = chatContainerRef.current.scrollHeight;
+            chatContainerRef.current.scrollTop =
+                chatContainerRef.current.scrollHeight;
         }
     }, [messages]);
 
