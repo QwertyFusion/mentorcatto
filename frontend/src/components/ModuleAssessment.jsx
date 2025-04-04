@@ -5,7 +5,7 @@ import PropTypes from "prop-types";
 import { useAuthStore } from "../store/authStore";
 import { useNavigate } from "react-router-dom";
 import IconStore from "./IconStore";
-import AssessmentView from "./AssessmentView"; // New component for assessment view
+import AssessmentView from "./AssessmentView";
 
 const ModuleAssessment = ({ module, onClose }) => {
     const [isSubmitting, setIsSubmitting] = useState(false);
