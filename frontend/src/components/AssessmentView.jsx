@@ -1,10 +1,12 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
 import IconStore from "./IconStore";
+import ConfirmationModal from "./ConfirmationModal"; // Import the modal component
 
 const AssessmentView = ({ questions, onClose }) => {
     const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
     const [answers, setAnswers] = useState({});
+    const [isModalOpen, setIsModalOpen] = useState(false); // State for modal visibility
 
     const handleAnswerChange = (questionIndex, answer) => {
         setAnswers((prevAnswers) => ({
@@ -23,6 +25,15 @@ const AssessmentView = ({ questions, onClose }) => {
         }
     };
 
+    const handleExitTest = () => {
+        setIsModalOpen(true); // Open the confirmation modal
+    };
+
+    const confirmExit = () => {
+        setIsModalOpen(false);
+        onClose(); // Close the assessment view
+    };
+
     const currentQuestion = questions[currentQuestionIndex];
 
     return (
@@ -32,13 +43,13 @@ const AssessmentView = ({ questions, onClose }) => {
                     Assessment
                 </h2>
                 <p className="text-white mb-4">
-                    Question {currentQuestionIndex + 1} of {questions.length}
+                    Question {currentQuestionIndex + 1} ({currentQuestion.type}
+                    ):
                 </p>
             </div>
             <div className="bg-accent-4 p-8 rounded-ten inner-shadow w-5xl max-w-5xl mb-10">
                 <p className="text-2xl font-semibold text-primary">
-                    Question {currentQuestionIndex + 1} ({currentQuestion.type}
-                    ):
+                    Question {currentQuestionIndex + 1}:
                 </p>
                 <p className="text-white pt-2">{currentQuestion.question}</p>
             </div>
@@ -162,7 +173,13 @@ const AssessmentView = ({ questions, onClose }) => {
                     </>
                 )}
             </div>
-            <div className="flex w-5xl justify-end mt-4">
+            <div className="flex w-5xl justify-between mt-4">
+                <button
+                    onClick={handleExitTest}
+                    className="bg-red-950 opacity-50 hover:opacity-100 border-red-500 border-1 text-white mb-[10vh] px-10 py-2 rounded-ten cursor-pointer hover:bg-red-900 transition-all drop-shadow-custom"
+                >
+                    Cancel Test
+                </button>
                 <button
                     onClick={handleNext}
                     className="bg-accent-3 border-1 mb-[10vh] border-primary text-white px-10 py-2 rounded-ten cursor-pointer hover:bg-accent-4 transition-all drop-shadow-custom"
@@ -172,6 +189,11 @@ const AssessmentView = ({ questions, onClose }) => {
                         : "Submit and End Test"}
                 </button>
             </div>
+            <ConfirmationModal
+                isOpen={isModalOpen}
+                onClose={() => setIsModalOpen(false)}
+                onConfirm={confirmExit}
+            />
         </div>
     );
 };
