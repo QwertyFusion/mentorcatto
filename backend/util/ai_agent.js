@@ -375,6 +375,5 @@ export async function invokeAgent(userMessage, userEmail) {
         },
     ];
     const result = await agentBuilder.invoke({ messages });
-
     return JSON.stringify({ response: result.messages }, null, 2);
 }

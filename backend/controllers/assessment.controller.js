@@ -3,10 +3,12 @@ import Assessment from "../models/assessment.model.js";
 // Mark an assessment as complete
 export const markAssessmentComplete = async (req, res) => {
     try {
-        const { userId, moduleId } = req.body;
+        const { userId, moduleId, highestMarks, pass } = req.body; // Include highestMarks and pass
         console.log("Marking assessment as complete for:", {
             userId,
             moduleId,
+            highestMarks,
+            pass,
         });
 
         // Check if assessment already exists
@@ -28,6 +30,8 @@ export const markAssessmentComplete = async (req, res) => {
             user: userId,
             module: moduleId,
             completedAt: new Date(),
+            highestMarks: highestMarks, // Set highestMarks
+            pass: pass, // Set pass
         });
 
         await assessment.save();
@@ -40,6 +44,8 @@ export const markAssessmentComplete = async (req, res) => {
                 user: assessment.user,
                 module: assessment.module,
                 completedAt: assessment.completedAt,
+                highestMarks: assessment.highestMarks, // Include highestMarks in response
+                pass: assessment.pass, // Include pass in response
             },
         });
     } catch (error) {
@@ -55,13 +61,10 @@ export const markAssessmentComplete = async (req, res) => {
 export const getCompletedAssessments = async (req, res) => {
     try {
         const { userId } = req.params;
-        console.log("Fetching completed assessments for user:", userId);
 
         const completedAssessments = await Assessment.find({ user: userId })
             .populate("module", "name moduleNumber")
             .sort({ completedAt: -1 });
-
-        console.log("Found completed assessments:", completedAssessments);
 
         res.status(200).json(
             completedAssessments.map((assessment) => ({
@@ -69,6 +72,8 @@ export const getCompletedAssessments = async (req, res) => {
                 user: assessment.user,
                 module: assessment.module._id, // Send just the module ID
                 completedAt: assessment.completedAt,
+                highestMarks: assessment.highestMarks, // Include highestMarks in response
+                pass: assessment.pass, // Include pass in response
             }))
         );
     } catch (error) {

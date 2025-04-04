@@ -16,6 +16,14 @@ const assessmentSchema = new mongoose.Schema(
             type: Date,
             default: Date.now,
         },
+        highestMarks: {
+            type: Number,
+            required: true, // Assuming you want to make this field required
+        },
+        pass: {
+            type: Boolean,
+            default: false, // Default to false, indicating the user has not passed
+        },
     },
     {
         timestamps: true,

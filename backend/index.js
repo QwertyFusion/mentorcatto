@@ -9,6 +9,7 @@ import moduleRoutes from "./routes/module.route.js";
 import lessonRoutes from "./routes/lesson.route.js";
 import assessmentRoutes from "./routes/assessment.route.js";
 import sectionNotesRoutes from "./routes/secction_notes.route.js";
+import questionRoutes from "./routes/question.route.js";
 
 dotenv.config();
 
@@ -38,3 +39,4 @@ app.use("/api/modules", moduleRoutes);
 app.use("/api/lessons", lessonRoutes);
 app.use("/api/assessments", assessmentRoutes);
 app.use("/api/sectionNotes", sectionNotesRoutes);
+app.use("/api/questions", questionRoutes);
