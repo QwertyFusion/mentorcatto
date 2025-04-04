@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import PropTypes from "prop-types";
 import IconStore from "./IconStore";
 import ConfirmationModal from "./ConfirmationModal"; // Import the modal component
+import MarkdownRenderer from "./MarkdownRenderer";
 
 const AssessmentView = ({ questions, onClose }) => {
     const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
@@ -42,16 +43,16 @@ const AssessmentView = ({ questions, onClose }) => {
                 <h2 className="text-5xl font-bold text-primary mb-4">
                     Assessment
                 </h2>
-                <p className="text-white mb-4">
+                <p className="text-white mb-4 text-lg font-semibold">
+                    Question {currentQuestionIndex + 1} of {questions.length}
+                </p>
+            </div>
+            <div className="bg-accent-4 p-8 rounded-ten inner-shadow w-5xl max-w-5xl mb-10 text-white">
+                <p className="text-2xl pb-2 font-semibold text-primary">
                     Question {currentQuestionIndex + 1} ({currentQuestion.type}
                     ):
                 </p>
-            </div>
-            <div className="bg-accent-4 p-8 rounded-ten inner-shadow w-5xl max-w-5xl mb-10">
-                <p className="text-2xl font-semibold text-primary">
-                    Question {currentQuestionIndex + 1}:
-                </p>
-                <p className="text-white pt-2">{currentQuestion.question}</p>
+                <MarkdownRenderer content={currentQuestion.question} />
             </div>
             <div
                 className={`bg-accent-4 focus-within:border-primary focus-within:border-1 rounded-ten inner-shadow w-5xl max-w-5xl ${
